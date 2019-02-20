@@ -14,7 +14,7 @@
 % Nie twórz nowch stron
 \usepackage{etoolbox}
 \makeatletter
-\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+% \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
 \makeatother
 
 \title{Specyfikacja funkcjonalna - Gra w życie}
@@ -69,8 +69,11 @@ w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według nast
 \subsection{Tryb interaktywny}
 Program prowadzi dialog z użytkownikiem pozwalając na wybór wszystkich niezbędnych ustawień.
 
-\section{Format pliku wejściowego} 
-\label{format}
-Jakiś fajny format
+\section{Format pliku wejściowego}  \label{format}
+Przykład: \\
+5 3 \tab -- rozmiar (x y) \\
+1 0 0 1 1 \tab -- Wartości poszczególnych komórek \\
+0 1 1 0 1 \tab -- 1 - żywa \\
+0 0 0 1 1 \tab -- 0 - martwa \\
 
 \end{document}
