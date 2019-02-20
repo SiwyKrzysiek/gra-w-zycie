@@ -1,0 +1,43 @@
+\documentclass{report}
+
+\usepackage{polski} % Pozwala na użycie polskiego. Stawia między innymi fontenc na T1
+\usepackage[utf8]{inputenc} % Informuje o kodowaniu
+
+\title{Specyfikacja funkcjonalna - Gra w życie}
+\author{Krzysztof Dąbrowski i Jakub Bogusz}
+\date{\today}
+
+% Nie twórz nowch stron
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+
+
+\begin{document}
+\maketitle{}
+
+\tableofcontents{}
+
+\chapter{Cel projektu}
+Celem projektu jest implementacja gry w życie w języku C.
+
+\chapter{Opis ogólny problemu}
+Gra w życie jest automatem komórkowym wymyślonym przez brytyjskiego matematyka John Horton Conway %Sprawdzić
+w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według następujących zasad.
+
+% \subsection{Zasady}
+
+\paragraph{Stany}  Komórka może znajdować się w jednym z dwóch stanów
+\begin{itemize}
+\item żywa
+\item martwa
+\end{itemize}
+
+\paragraph{Reguły} Następne pokolenie generowane jest zgodnie z regułami:
+\begin{itemize}
+\item Jeżeli komóra była martwa i miała dokładnie 3 żywych sąsiadów, w następnym pokoleniu staje się żywa.
+\item Jeżeli komóra była żywa to pozostaje żywa jeśli miała dwóch lub trzech żywych sąsiadów. W przeciwnym razie staje się martwa.
+\end{itemize}
+
+\end{document}
