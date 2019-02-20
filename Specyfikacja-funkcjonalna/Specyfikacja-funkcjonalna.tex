@@ -2,7 +2,12 @@
 
 \usepackage{polski} % Pozwala na użycie polskiego. Stawia między innymi fontenc na T1
 \usepackage[utf8]{inputenc} % Informuje o kodowaniu
-\usepackage{hyperref}
+
+\usepackage{xcolor}% http://ctan.org/pkg/xcolor
+\usepackage{hyperref}% http://ctan.org/pkg/hyperref
+
+\definecolor{LinkColor}{HTML}{1d5cc1}
+
 
 \usepackage{tabto}
 
@@ -50,9 +55,9 @@ w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według nast
 \paragraph{Argumenty}
 \begin{itemize}
 \item -h / --help \\ Wyświetlenie pomocy
-\item -f [nazwa pliku]  / -{}-file plik=[nazwa pliku] \\ Plik z wejściowym stanem planszy zgodny z \hyperref[format]{formatem}. %ToDo: Dać link
+\item -f [nazwa pliku]  / -{}-file plik=[nazwa pliku] \\ Plik z wejściowym stanem planszy zgodny z \hyperref[format]{\textcolor{LinkColor}{formatem}}. %ToDo: Dać link
 % \item -r / -{}-random \\ Jeśli podany, to plansza jest tworzona losowo. Wyklucza się z -f
-\item -o [ścieżka] / -{}-output\textunderscore{}dest=[ścieżka]  \\Ścieżka do folderu, w którym zostaną zapisane wyniki symulacji. Domyślnie brak generacji plików i aktywna \hyperref[delay]{flaga -d 1000}
+\item -o [ścieżka] / -{}-output\textunderscore{}dest=[ścieżka]  \\Ścieżka do folderu, w którym zostaną zapisane wyniki symulacji. Domyślnie brak generacji plików i aktywna \hyperref[delay]{\textcolor{LinkColor}{flaga -d 1000}}
 \item -t (gif | png) / -{}-type (gif | png)) \\Typ generowanych rezultatów. Domyślnie gif.
 \item -n [liczba] / -{}-amount\textunderscore{}of\textunderscore{}generations=[liczba] \\ Ilość pokoleń do wygenerowania. Domyślnie 15
 \item -p [liczba] / -{}-step=[liczba] \\ Wybór co który stan symulacji będzie zapisywany. Domyślnie 1
