@@ -2,10 +2,9 @@
 
 \usepackage{polski} % Pozwala na użycie polskiego. Stawia między innymi fontenc na T1
 \usepackage[utf8]{inputenc} % Informuje o kodowaniu
+\usepackage{hyperref}
 
-\title{Specyfikacja funkcjonalna - Gra w życie}
-\author{Krzysztof Dąbrowski i Jakub Bogusz}
-\date{\today}
+\usepackage{tabto}
 
 % Nie twórz nowch stron
 \usepackage{etoolbox}
@@ -13,6 +12,9 @@
 \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
 \makeatother
 
+\title{Specyfikacja funkcjonalna - Gra w życie}
+\author{Krzysztof Dąbrowski i Jakub Bogusz}
+\date{\today}
 
 \begin{document}
 \maketitle{}
@@ -39,5 +41,31 @@ w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według nast
 \item Jeżeli komóra była martwa i miała dokładnie 3 żywych sąsiadów, w następnym pokoleniu staje się żywa.
 \item Jeżeli komóra była żywa to pozostaje żywa jeśli miała dwóch lub trzech żywych sąsiadów. W przeciwnym razie staje się martwa.
 \end{itemize}
+
+\chapter{Działanie programu}
+
+\section{Komunikacja z użytkownikiem}
+
+\subsection{Tryb z argumentami z wiersza poleceń}
+\paragraph{Argumenty}
+\begin{itemize}
+\item -h / --help \\ Wyświetlenie pomocy
+\item -f [nazwa pliku]  / -{}-file plik=[nazwa pliku] \\ Plik z wejściowym stanem planszy zgodny z \hyperref[format]{formatem}. %ToDo: Dać link
+% \item -r / -{}-random \\ Jeśli podany, to plansza jest tworzona losowo. Wyklucza się z -f
+\item -o [ścieżka] / -{}-output\textunderscore{}dest=[ścieżka]  \\Ścieżka do folderu, w którym zostaną zapisane wyniki symulacji. Domyślnie brak generacji plików i aktywna \hyperref[delay]{flaga -d 1000}
+\item -t (gif | png) / -{}-type (gif | png)) \\Typ generowanych rezultatów. Domyślnie gif.
+\item -n [liczba] / -{}-amount\textunderscore{}of\textunderscore{}generations=[liczba] \\ Ilość pokoleń do wygenerowania. Domyślnie 15
+\item -p [liczba] / -{}-step=[liczba] \\ Wybór co który stan symulacji będzie zapisywany. Domyślnie 1
+\item -s [liczba] / -{}-size=[liczba] \\ Losowe generowanie planszy początkowej o podanym rozmiarze. Wyklucza się z -f
+\item \label{delay} -d [liczba] / -{}-delay=[liczba] \\ Podanie tego argumentu spowoduje wyświetlanie w konsoli kolejnych generacji symulacji. Wartość argumentu [liczba] oznacza czas  w milisekundach między wyświetleniem poszczególnych pokoleń. Domyślnie 1000.
+% \item -v / -{}-verboose
+\end{itemize}
+
+\subsection{Tryb interaktywny}
+Program prowadzi dialog z użytkownikiem pozwalając na wybór wszystkich niezbędnych ustawień.
+
+\section{Format pliku wejściowego} 
+\label{format}
+Jakiś fajny format
 
 \end{document}
