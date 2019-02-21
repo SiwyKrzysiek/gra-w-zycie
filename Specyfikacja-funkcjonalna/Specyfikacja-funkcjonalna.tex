@@ -57,8 +57,8 @@ w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według nast
 \item -h / --help \\ Wyświetlenie pomocy
 \item -f [nazwa pliku]  / -{}-file plik=[nazwa pliku] \\ Plik z wejściowym stanem planszy zgodny z \hyperref[format]{\textcolor{LinkColor}{formatem}}. %ToDo: Dać link
 % \item -r / -{}-random \\ Jeśli podany, to plansza jest tworzona losowo. Wyklucza się z -f
-\item -o [ścieżka] / -{}-output\textunderscore{}dest=[ścieżka]  \\Ścieżka do folderu, w którym zostaną zapisane wyniki symulacji. Domyślnie brak generacji plików i aktywna \hyperref[delay]{\textcolor{LinkColor}{flaga -d 1000}}
-\item -t (gif | png) / -{}-type (gif | png)) \\Typ generowanych rezultatów. Domyślnie gif.
+\item -o [ścieżka] / -{}-output\textunderscore{}dest=[ścieżka]  \\Ścieżka do folderu, w którym zostaną zapisane wyniki \label{output_dest} symulacji. Domyślnie brak generacji plików wynikowych i aktywna \hyperref[delay]{\textcolor{LinkColor}{flaga -d 1000}}
+\item -t (gif | png) / -{}-type (gif | png)) \\Typ generowanych rezultatów. Domyślnie gif. \label{output_args}
 \item -n [liczba] / -{}-amount\textunderscore{}of\textunderscore{}generations=[liczba] \\ Ilość pokoleń do wygenerowania. Domyślnie 15
 \item -p [liczba] / -{}-step=[liczba] \\ Wybór co który stan symulacji będzie zapisywany. Domyślnie 1
 \item -s [liczba] / -{}-size=[liczba] \\ Losowe generowanie planszy początkowej o podanym rozmiarze. Wyklucza się z -f
@@ -66,7 +66,7 @@ w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według nast
 % \item -v / -{}-verboose
 \end{itemize}
 
-\subsection{Tryb interaktywny}
+\subsection{Tryb interaktywny} \label{interaktywny}
 Program prowadzi dialog z użytkownikiem pozwalając na wybór wszystkich niezbędnych ustawień.
 
 \section{Format pliku wejściowego}  \label{format}
@@ -75,5 +75,15 @@ Przykład: \\
 1 0 0 1 1 \tab -- Wartości poszczególnych komórek \\
 0 1 1 0 1 \tab -- 1 - żywa \\
 0 0 0 1 1 \tab -- 0 - martwa \\
+
+\section{Wyniki działania programu}
+Wyniki działania programu będą zależeć od preferencji użytkownika. W trybie \hyperref[interaktywny]{\textcolor{LinkColor}{interaktywnym}} program zapyta o docelowy format wyniku, a w trybie z argumentami wiersza poleceń, wynik zależeć będzie od wartości  \hyperref[output_args]{\textcolor{LinkColor}{argumentu -t}} oraz \hyperref[output_dest]{\textcolor{LinkColor}{argumentu -o}}. W obu przypadkach użytkownik będzie mógł:
+\begin{itemize}
+\item wyświetlić wybraną ilość generacji w konsoli,
+\item wygenerować wybraną ilość plików .png z reprezentacjami graficznymi kolejnych pokoleń
+\item wygenerować plik .gif przedstawiający życie cywilizacji
+\end{itemize}
+
+
 
 \end{document}
