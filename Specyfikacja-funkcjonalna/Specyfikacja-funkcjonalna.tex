@@ -81,4 +81,20 @@ Plik wejściowy pozwala na wczytanie planszy bez konieczności wprowadzania prze
 Jest to jedyna opcja wczytania planszy w trybie z argumentami z wiersza poleceń. \\
 W trybie interaktywnym użytkownik ma możliwość skorzystania z pliku, jako źródła danych o planszy lub może ręcznie wskazać rozmiar i stany poszczególnych komórek.
 
+\subsection*{Fromat pliku}
+\subsubsection*{Kodowanie}
+Ponieważ plik powinien zawierać tylko liczby arabskie i odstępy możliwe jest dowolne kodowanie kompatybilne z ASCII. \\
+\paragraph{Sugerowane kodowania to:}
+\begin{itemize}
+\item ASCII
+\item UTF-8
+\item ISO 8859
+\item Windows-1250
+\end{itemize}
+
+\subsubsection*{Ops formatu}
+Plik w pierwszej linii powinien zawierać 2 liczby. Pierwsza z nich oznacza rozmiar planszy w poziomie, druga w pionie. \\
+Następnie plik powinien zawierać tyle linii jaki został podany rozmiar w pionie. W każdej z tych linii powinno być tyle 0 lub 1 ile wynosi rozmiar w poziomie. \\
+Zero oznacz komórkę martwą, a jeden komórkę żywą.
+
 \end{document}
