@@ -8,7 +8,6 @@
 
 \definecolor{LinkColor}{HTML}{1d5cc1}
 
-
 \usepackage{tabto}
 
 % Nie twórz nowch stron
@@ -17,7 +16,7 @@
 % \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
 \makeatother
 
-\title{Specyfikacja funkcjonalna - Gra w życie}
+\title{Specyfikacja funkcjonalna -- Gra w życie}
 \author{Krzysztof Dąbrowski i Jakub Bogusz}
 \date{\today}
 
@@ -28,6 +27,7 @@
 
 \chapter{Cel projektu}
 Celem projektu jest implementacja gry w życie w języku C. Gotowy program ma przeprowadzać symulację kolejnych pokoleń oraz generować na ich podstawie pliki graficzne przedstawiające etapy symulacji.
+%ToDo: Dopisać więcej
 
 \chapter{Opis ogólny problemu}
 Gra w życie jest automatem komórkowym wymyślonym przez brytyjskiego matematyka John Horton Conway %Sprawdzić
@@ -35,7 +35,7 @@ w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według nast
 
 % \subsection{Zasady}
 
-\paragraph{Stany}  Komórka może znajdować się w jednym z dwóch stanów
+\paragraph{Stany}  Komórka może znajdować się w jednym z dwóch stanów:
 \begin{itemize}
 \item żywa
 \item martwa
@@ -43,54 +43,45 @@ w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według nast
 
 \paragraph{Reguły} Następne pokolenie generowane jest zgodnie z regułami:
 \begin{itemize}
-\item Jeżeli komórka była martwa i miała dokładnie 3 żywych sąsiadów, w następnym pokoleniu staje się żywa.
+\item Jeżeli komórka była martwa i miała dokładnie 3 żywych sąsiadów, w następnym pokoleniu staje się żywa,
 \item Jeżeli komórka była żywa to pozostaje żywa jeśli miała dwóch lub trzech żywych sąsiadów. W przeciwnym razie staje się martwa.
 \end{itemize}
 
 \chapter{Działanie programu}
 
 \section{Komunikacja z użytkownikiem}
+Program działa w trybie wsadowym. Oznacza to, że użytkownik podaje jedynie argumenty początkowe dla symulacji wraz z uruchomieniem programu (w formie flag), a następnie program automatycznie przetwarza dane i generuje wyniki.
 
-\subsection{Tryb z argumentami z wiersza poleceń}
+\section{Tryb wsadowy}
 \paragraph{Argumenty}
 \begin{itemize}
-\item -h / --help \\ Wyświetlenie pomocy
-\item -f [nazwa pliku]  / -{}-file plik=[nazwa pliku] \\ Plik z wejściowym stanem planszy zgodny z \hyperref[format]{\textcolor{LinkColor}{formatem}}. %ToDo: Dać link
+\item \texttt{-h / --help} \\ Wyświetlenie pomocy
+\item \texttt{ -f [nazwa pliku]  / --file plik=[nazwa pliku] } 
+	\\ Plik z wejściowym stanem planszy zgodny z \hyperref[format]{\textcolor{LinkColor}{formatem}}.
 % \item -r / -{}-random \\ Jeśli podany, to plansza jest tworzona losowo. Wyklucza się z -f
-\item -o [ścieżka] / -{}-output\textunderscore{}dest=[ścieżka]  \\Ścieżka do folderu, w którym zostaną zapisane wyniki \label{output_dest} symulacji. Domyślnie brak generacji plików wynikowych i aktywna \hyperref[delay]{\textcolor{LinkColor}{flaga -d 1000}}
-\item -t (gif | png) / -{}-type (gif | png)) \\Typ generowanych rezultatów. Domyślnie gif. \label{output_args}
-\item -n [liczba] / -{}-amount\textunderscore{}of\textunderscore{}generations=[liczba] \\ Ilość pokoleń do wygenerowania. Domyślnie 15
-\item -p [liczba] / -{}-step=[liczba] \\ Wybór co który stan symulacji będzie zapisywany. Domyślnie 1
-\item -s [liczba] / -{}-size=[liczba] \\ Losowe generowanie planszy początkowej o podanym rozmiarze. Wyklucza się z -f
-\item \label{delay} -d [liczba] / -{}-delay=[liczba] \\ Podanie tego argumentu spowoduje wyświetlanie w konsoli kolejnych generacji symulacji. Wartość argumentu [liczba] oznacza czas  w milisekundach między wyświetleniem poszczególnych pokoleń. Domyślnie 1000.
+\item \texttt{-o [ścieżka] / --output\textunderscore{}dest=[ścieżka]}  \\Ścieżka do folderu, w którym zostaną zapisane wyniki \label{output_dest} symulacji. Domyślnie pliki graficzne nie będą generowane.
+\item \texttt{-t (gif | png) / --type (gif | png))} \\Typ generowanych rezultatów. Domyślnie gif. \label{output_args}
+\item \texttt{-n [liczba] / --number\textunderscore{}of\textunderscore{}generations=[liczba]} \\ Ilość pokoleń do wygenerowania. Domyślnie 15
+\item \texttt{-p [liczba] / --step=[liczba]} \\ Wybór co który stan symulacji będzie zapisywany. Domyślnie 1
+\item \texttt{-s [liczba] / --size=[liczba]} \\ Losowe generowanie planszy początkowej o podanym rozmiarze. Wyklucza się z -f
+\item \label{delay} \texttt{-d [liczba] / --delay=[liczba]} \\ Podanie tego argumentu spowoduje wyświetlanie w konsoli kolejnych generacji symulacji. Wartość argumentu [liczba] oznacza czas  w milisekundach między wyświetleniem poszczególnych pokoleń. Domyślnie 1000.
 % \item -v / -{}-verboose
 \end{itemize}
 
-\subsection{Tryb interaktywny} \label{interaktywny}
-Program prowadzi dialog z użytkownikiem pozwalając na wybór wszystkich niezbędnych ustawień (odpowiedników flag). Prosi użytkownika o podawanie kolejnych parametrów zgodnie z którymi program będzie działać, na bieżąco kontrolując ich poprawność, nie dopuszczając danych mogących negatywnie wpłynąć na działanie programu.
+\section{Plik wejściowy wejściowego}  \label{format}
+Plik wejściowy pozwala na wczytanie planszy bez konieczności wprowadzania przez użytkownika informacji o komórkach jedna po drugiej.
 
-\section{Format pliku wejściowego}  \label{format}
-\subsection*{Przykład}
+\subsection{Przykład}
 5 3 \tab -- rozmiar (x y) \\
 1 0 0 1 1 \tab -- Wartości poszczególnych komórek \\
 0 1 1 0 1 \tab -- 1 - żywa \\
 0 0 0 1 1 \tab -- 0 - martwa \\
 
-\subsection*{Opis} 
-Plik wejściowy pozwala na wczytanie planszy bez konieczności wprowadzania przez użytkownika informacji o komórkach jedna po drugiej.
-Jest to jedyna opcja wczytania planszy w trybie z argumentami z wiersza poleceń. \\
-W trybie interaktywnym użytkownik ma możliwość skorzystania z pliku, jako źródła danych o planszy lub może ręcznie wskazać rozmiar i stany poszczególnych komórek.
-
-\subsection*{Format pliku}
+\subsection{Format pliku}
 \subsubsection*{Kodowanie}
 Ponieważ plik powinien zawierać tylko liczby arabskie i odstępy możliwe jest dowolne kodowanie kompatybilne z ASCII. \\
 \paragraph{Sugerowane kodowania to:}
-\begin{itemize}
-\item ASCII
-\item UTF-8
-\item ISO 8859
-\item Windows-1250
-\end{itemize}
+ASCII, UTF-8, ISO 8859, Windows-1250
 
 \subsubsection*{Opis formatu}
 Plik w pierwszej linii powinien zawierać 2 liczby. Pierwsza z nich oznacza rozmiar planszy w poziomie, druga w pionie. \\
