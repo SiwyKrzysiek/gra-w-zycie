@@ -10,6 +10,9 @@
 
 \usepackage{tabto}
 
+\usepackage{graphicx} % Pakiet do obrazów
+\graphicspath{ {./Obrazy/} } % Folder, z którego będą brane obrazy
+
 % Nie twórz nowch stron
 \usepackage{etoolbox}
 \makeatletter
@@ -76,6 +79,16 @@ Plik wejściowy pozwala na wczytanie planszy bez konieczności wprowadzania prze
 1 0 0 1 1 \tab -- Wartości poszczególnych komórek \\
 0 1 1 0 1 \tab -- 1 - żywa \\
 0 0 0 1 1 \tab -- 0 - martwa \\
+
+\begin{figure}[h]
+\centering
+\setlength{\fboxsep}{0pt} %Odstęp 0
+\setlength{\fboxrule}{1pt} %Grubośc ramki 1p
+\fbox{\includegraphics[width=7cm]{Przyklad_planszy}}
+\caption{Grafika wygenerowana na podstawie przykładowej planszy}
+\end{figure}
+
+
 
 \subsection{Format pliku}
 \subsubsection*{Kodowanie}
