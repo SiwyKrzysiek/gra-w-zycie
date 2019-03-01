@@ -29,7 +29,7 @@
 \tableofcontents{}
 
 \chapter{Cel projektu}
-Celem projektu jest implementacja gry w życie w języku C. Gotowy program ma przeprowadzać symulację kolejnych pokoleń oraz generować na ich podstawie pliki graficzne przedstawiające etapy symulacji.
+Celem projektu jest implementacja gry w życie w języku C. Gotowy program ma przeprowadzać symulację kolejnych pokoleń oraz generować na ich podstawie pliki graficzne przedstawiające etapy symulacji. Generacja odbywa się na podstawie parametrów podanych przez użytkownika w postaci flag. Program działa wyłącznie w trybie wsadowym, co oznacza, że cały proces symulacji odbywać się bez ingerencji użytkownika. Aplikacja może generować jeden z trzech rodzajów plików wyjściowych: obrazów, animacji lub plików tekstowych.
 %ToDo: Dopisać więcej
 
 \chapter{Opis ogólny problemu}
@@ -40,8 +40,8 @@ w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według nast
 
 \paragraph{Stany}  Komórka może znajdować się w jednym z dwóch stanów:
 \begin{itemize}
-\item żywa
-\item martwa
+\item żywa,
+\item martwa.
 \end{itemize}
 
 \paragraph{Reguły} Następne pokolenie generowane jest zgodnie z regułami:
@@ -58,18 +58,30 @@ Program działa w trybie wsadowym. Oznacza to, że użytkownik podaje jedynie ar
 \section{Tryb wsadowy}
 \paragraph{Argumenty}
 \begin{itemize}
-\item \texttt{-h / --help} \\ Wyświetlenie pomocy
-\item \texttt{ -f [nazwa pliku]  / --file plik=[nazwa pliku] } 
-	\\ Plik z wejściowym stanem planszy zgodny z \hyperref[format]{\textcolor{LinkColor}{formatem}}.
-% \item -r / -{}-random \\ Jeśli podany, to plansza jest tworzona losowo. Wyklucza się z -f
-\item \texttt{-o [ścieżka] / --output\textunderscore{}dest=[ścieżka]}  \\Ścieżka do folderu, w którym zostaną zapisane wyniki \label{output_dest} symulacji. Domyślnie pliki graficzne nie będą generowane.
-\item \texttt{-t (gif | png) / --type (gif | png))} \\Typ generowanych rezultatów. Domyślnie gif. \label{output_args}
-\item \texttt{-n [liczba] / --number\textunderscore{}of\textunderscore{}generations=[liczba]} \\ Ilość pokoleń do wygenerowania. Domyślnie 15
-\item \texttt{-p [liczba] / --step=[liczba]} \\ Wybór co który stan symulacji będzie zapisywany. Domyślnie 1
-\item \texttt{-s [liczba] / --size=[liczba]} \\ Losowe generowanie planszy początkowej o podanym rozmiarze. Wyklucza się z -f
-\item \label{delay} \texttt{-d [liczba] / --delay=[liczba]} \\ Podanie tego argumentu spowoduje wyświetlanie w konsoli kolejnych generacji symulacji. Wartość argumentu [liczba] oznacza czas  w milisekundach między wyświetleniem poszczególnych pokoleń. Domyślnie 1000.
+\item \texttt{-h / --help} \\ Wyświetlenie pomocy,
+\item \texttt{ -f [nazwa pliku]  / --file plik [nazwa pliku] } 
+	\\ \textit{ Łańcuch znaków }będący nazwą pliku z wejściowym stanem planszy zgodny z \hyperref[format]{\textcolor{LinkColor}{formatem}}; wyklucza się z  \hyperref[s]{\textcolor{LinkColor}{flagą -s}}
+ %\item -r / -{}-random \\ Jeśli podany, to plansza jest tworzona losowo. Wyklucza się z -f
+\item \texttt{-o [ścieżka] / --output\textunderscore{}dest [ścieżka]}  \\\textit{ Łańcuch znaków }będący ścieżką do folderu, w którym zostaną zapisane wyniki \label{output_dest} symulacji. Domyślnie pliki  będą generowane w folderze  o nazwie będącej aktualną datą i godziną wywołania programu,
+\item \texttt{-t [gif | png | txt] / --type [gif | png | txt])} \\\textit{ Łańcuch znaków }reprezentujący typ generowanych rezultatów. Domyślnie gif, \label{output_args}
+\item \texttt{-n [liczba] / --number\textunderscore{}of\textunderscore{}generations [liczba]} \\ \textit{ Liczba } pokoleń do wygenerowania. Domyślnie 15,
+\item \texttt{-p [liczba] / --step [liczba]} \\ \textit{ Liczba }decydująca o tym, co który stan symulacji będzie zapisywany. Domyślnie 1,
+\item \label{s} \texttt{-s [LICZBAxLICZBA] / --size [LICZBAxLICZBA]} \\ \textit{ Łańcuch znaków } o formacie "XxY" (X -- szerokość planszy, Y -- wysokość planszy), będący wymiarami losowo generowanej planszy początkowej. Wyklucza się z -f, 
+\item \label{delay} \texttt{-d [liczba] / --delay [liczba]} \\ Podanie tego argumentu spowoduje wyświetlanie w konsoli kolejnych pokolenie symulacji. \textit{ Liczba } ta będzie oznaczać czas  w milisekundach między wyświetleniem poszczególnych pokoleń. Wartość -1, co oznacza manualne przechodzenie do następnego pokolenia klawiszem ENTER lub zapisanie wyświetlanego pokolenia w pliku.txt wpisując ,,save''.
 % \item -v / -{}-verboose
 \end{itemize}
+
+Wywołanie programu bez żadnego argumentu przyjmuje flagę --size 10, i wartości domyślne innych parametrów.
+
+Wywołanie programu z błędnymi argumentami lub niewystarczającą ich liczbą wyświetli pomoc wraz z   \hyperref[przykłady]{\textcolor{LinkColor}{przykładami wywołania i ich opisami.}}
+
+\section{Przykłady wywołania}  \label{przykłady}
+\texttt{./gra_w_zycie -s 5x8 -d -1} \\
+Program utworzy losową planszę o 5 komórkach szerokości i 8 wysokości i przeprowadzi symulację wyświetlając kolejne pokolenia w konsoli, pomiędzy którymi użytkownik będzie przełączać się wciskając ENTER oraz będzie mógł zapisać aktualnie wyświetlane pokolenie wpisując ,,save'' i zatwierdzając klawiszem ENTER.
+
+\texttt{./gra_w_zycie -f dane_wejsciowe.txt -p 3 -t png -n 21}\\
+Program wyczyta początkową planszę z pliku o nazwie ,,dane_wejsciowe.txt'', utworzy nowy folder o nazwie będącej dzisiejszą data oraz godziną i zapisze do niego 7 obrazów w formacie .png (co 3 pokolenie). 
+
 
 \section{Plik wejściowy wejściowego}  \label{format}
 Plik wejściowy pozwala na wczytanie planszy bez konieczności wprowadzania przez użytkownika informacji o komórkach jedna po drugiej.
@@ -104,9 +116,10 @@ Zero oznacz komórkę martwą, a jeden komórkę żywą.
 \chapter{Wyniki działania programu}
 Wyniki działania programu będą zależeć od preferencji użytkownika. W trybie \hyperref[interaktywny]{\textcolor{LinkColor}{interaktywnym}} program zapyta o docelowy format wyniku, a w trybie z argumentami wiersza poleceń, wynik zależeć będzie od wartości  \hyperref[output_args]{\textcolor{LinkColor}{argumentu -t}} oraz \hyperref[output_dest]{\textcolor{LinkColor}{argumentu -o}}. W obu przypadkach użytkownik będzie mógł:
 \begin{itemize}
-\item wyświetlić wybraną ilość generacji w konsoli,
-\item wygenerować wybraną ilość plików .png z reprezentacjami graficznymi kolejnych pokoleń
-\item wygenerować plik .gif przedstawiający życie cywilizacji
+\item wyświetlić wybraną ilość pokoleń w konsoli,
+\item wygenerować wybraną ilość plików .png z reprezentacjami graficznymi kolejnych pokoleń,
+\item wygenerować plik .gif przedstawiający życie cywilizacji,
+\item wygenerować plik .txt reprezentujący konkretny stan cywilizacji, mogący służyć za plik wejściowy.
 \end{itemize}
 
 \end{document}
