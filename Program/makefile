@@ -4,11 +4,17 @@ ReleseFlags=-Ofast -std=c11 -g0
 
 NAME=main.exe
 
-development: 
-	$(CC) $(DebugFlags) -D DEBUG -o $(NAME) main.c
+development: board.o
+	$(CC) $(DebugFlags) -o $(NAME) board.o main.c
 
 relese:
 	$(CC) $(ReleseFlags) -o $(NAME) main.c
 
 clean:
 	rm -rf main.exe.dSYM
+
+board.o: board.c board.h
+	$(CC) $(DebugFlags) -c board.c
+
+parser.o: parser.c parser.h
+	$(CC) $(DebugFlags) -c parser.c

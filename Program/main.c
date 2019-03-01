@@ -1,18 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "board.h"
+
 int main()
 {
     puts("Poczatek projektu");
     // char string [] = "Hello world!";
     // puts(string);
 
-    int tab[] = {1, 2, 3, 4};
+    Board board = {2, 2};
+    board.cells = (CellState[]){ALIVE, ALIVE, DEAD, ALIVE};
 
-    for(int i=0; i<3; i++)
-        printf("%d ", tab[i]);
+    char *result = boardToString(&board);
+    puts(result);
 
-    puts("");
+    free(result);
+    //free(board.cells);
 
     return EXIT_SUCCESS;
 }
