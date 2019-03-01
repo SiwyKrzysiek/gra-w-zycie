@@ -1,13 +1,14 @@
 CC=gcc
-CFLAGS=-std=c11 -Wall -g3
+DebugFlags=-std=c11 -Wall -g3 -D DEBUG
+ReleseFlags=-Ofast -std=c11 -g0
 
 NAME=main.exe
 
 development: 
-	$(CC) $(CFLAGS) -D DEBUG -o $(NAME) main.c
+	$(CC) $(DebugFlags) -D DEBUG -o $(NAME) main.c
 
 relese:
-	$(CC) -Ofast -std=c11 -g0 -o $(NAME) main.c
+	$(CC) $(ReleseFlags) -o $(NAME) main.c
 
 clean:
 	echo "Not implemented"
