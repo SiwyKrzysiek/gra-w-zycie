@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdlib.h>
 #include "states.h"
 
 typedef struct
@@ -9,3 +10,6 @@ typedef struct
 
     CellState *cells;
 } Board;
+
+//Generates string reprezentation of the board
+char* boardToString(Board *board);
