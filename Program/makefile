@@ -1,4 +1,4 @@
-CC=gcc
+CC=clang
 DebugFlags=-std=c11 -Wall -g3 -D DEBUG
 ReleseFlags=-Ofast -std=c11 -g0
 
@@ -11,4 +11,4 @@ relese:
 	$(CC) $(ReleseFlags) -o $(NAME) main.c
 
 clean:
-	echo "Not implemented"
+	rm -rf main.exe.dSYM
