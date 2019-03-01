@@ -12,6 +12,7 @@ relese:
 
 clean:
 	rm -rf main.exe.dSYM
+	rm *.o
 
 board.o: board.c board.h
 	$(CC) $(DebugFlags) -c board.c
