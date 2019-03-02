@@ -73,18 +73,18 @@ Program działa w trybie wsadowym. Oznacza to, że użytkownik podaje jedynie ar
 
 Wywołanie programu bez żadnego argumentu przyjmuje flagę --size 10, i wartości domyślne innych parametrów.
 
-Wywołanie programu z błędnymi argumentami lub niewystarczającą ich liczbą wyświetli pomoc wraz z   \hyperref[przykłady]{\textcolor{LinkColor}{przykładami wywołania i ich opisami.}}
+Wywołanie programu z błędnymi argumentami lub niewystarczającą ich liczbą wyświetli pomoc wraz z   \hyperref[przyklady]{\textcolor{LinkColor}{przykładami wywołania i ich opisami.}}
 
-\section{Przykłady wywołania}  \label{przykłady}
-\texttt{./gra_w_zycie -s 5x8 -d -1} \\
+\section{Przykłady wywołania}  \label{przyklady}
+\paragraph{\texttt{gra\textunderscore{}w\textunderscore{}zycie -s 5x8 -d -1}} \mbox{} \\
 Program utworzy losową planszę o 5 komórkach szerokości i 8 wysokości i przeprowadzi symulację wyświetlając kolejne pokolenia w konsoli, pomiędzy którymi użytkownik będzie przełączać się wciskając ENTER oraz będzie mógł zapisać aktualnie wyświetlane pokolenie wpisując ,,save'' i zatwierdzając klawiszem ENTER.
 
-\texttt{./gra_w_zycie -f dane_wejsciowe.txt -p 3 -t png -n 21}\\
-Program wyczyta początkową planszę z pliku o nazwie ,,dane_wejsciowe.txt'', utworzy nowy folder o nazwie będącej dzisiejszą data oraz godziną i zapisze do niego 7 obrazów w formacie .png (co 3 pokolenie). 
+\paragraph{\texttt{gra\textunderscore{}w\textunderscore{}zycie -f dane\textunderscore{}wejsciowe.txt -p 3 -t png -n 21}} \mbox{} \\
+Program wyczyta początkową planszę z pliku o nazwie ,,dane\textunderscore{}wejsciowe.txt'', utworzy nowy folder o nazwie będącej dzisiejszą data oraz godziną i zapisze do niego 7 obrazów w formacie .png (co 3 pokolenie). 
 
 
-\section{Plik wejściowy wejściowego}  \label{format}
-Plik wejściowy pozwala na wczytanie planszy bez konieczności wprowadzania przez użytkownika informacji o komórkach jedna po drugiej.
+\section{Plik wejściowy}  \label{format}
+Plik wejściowy pozwala na wczytanie stanu planszy. Dzięki temu użytkownik ma kontrolę nad początkiem symulacji, oraz może kontynuować symulacje z zapisanego wcześniej etapu.
 
 \subsection{Przykład}
 5 3 \tab -- rozmiar (x y) \\
