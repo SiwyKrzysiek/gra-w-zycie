@@ -33,7 +33,7 @@ Celem projektu jest implementacja gry w życie w języku C. Gotowy program ma pr
 
 \chapter{Opis ogólny problemu}
 Gra w życie jest automatem komórkowym wymyślonym przez brytyjskiego matematyka John Horton Conway
-%TODO: Dopisać więcej
+%TODO: Dopisać więcej, Czym jest siatka, czym są stany
 w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według następujących zasad.
 
 \paragraph{Stany}  Komórka może znajdować się w jednym z dwóch stanów:
@@ -107,6 +107,7 @@ Następnie plik powinien zawierać tyle linii jaki został podany rozmiar w pion
 Zero oznacz komórkę martwą, a jeden komórkę żywą.
 
 \chapter{Wyniki działania programu}
+%TODO: Napisać od nowa
 Wyniki działania programu będą zależeć od preferencji użytkownika. W trybie interaktywnym program zapyta o docelowy format wyniku, a w trybie z argumentami wiersza poleceń, wynik zależeć będzie od wartości \hyperref[argumenty]{\textcolor{LinkColor}{argumentu -t}} oraz \hyperref[argumenty]{\textcolor{LinkColor}{argumentu -o}}. W obu przypadkach użytkownik będzie mógł:
 \begin{itemize}
 \item wyświetlić wybraną ilość pokoleń w konsoli,
@@ -114,5 +115,51 @@ Wyniki działania programu będą zależeć od preferencji użytkownika. W trybi
 \item wygenerować plik .gif przedstawiający życie cywilizacji,
 \item wygenerować plik .txt reprezentujący konkretny stan cywilizacji, mogący służyć za plik wejściowy.
 \end{itemize}
+
+\chapter{Sytuacje wyjątkowe}
+Czasem działanie programu może ulec zmianie na skutek nieprawidłowych danych wejściowych, niestandardowych ustawień wprowadzonych przez użytkownik lub z przyczyn losowych. Ten rozdział opisuje jak program zachowa się w takiej sytuacji, oraz co może ją wywołać.
+
+\section{Zmiana domyślnego zachowania}
+\paragraph{Zbyt szeroka plansza}
+W przypadku gdy użytkownik włączy wyświetlanie kolejnych stanów w konsoli ale rozmiar planszy będzie zbyt szeroki by możliwe było jej wyświetlenie bez zawijania wierszy program wyświetli komunikat o niemożliwości wyświetlenia planszy w konsoli. Kolejne pokolenia nie będą wyświetlanie oknie wiersza poleceń ale generacja plików wynikowych nie ulegnie zmianie. \\
+Treść komunikatu: ,,Wybrana szerokość planszy jest zbyt duża by możliwe było wyświetlenie kolejnych pokoleń w oknie konsoli.''
+
+\section{Błędy}
+Opis błędów, które mogą wystąpić w trakcie działania programu.
+
+\subsection{Błędy pliku wejściowego}
+
+\paragraph{Podany plik nie istnieje}
+Jeśli ścieżka podana przez użytkownika jest błędna program wyświetli komunikat o braku możliwości otwarcia wskazanego pliku i zakończy pracę. \\
+Treść komunikatu: ,,Nie udało się otworzyć wskazanego pliku.''
+
+\paragraph{Pusty plik}
+W przypadku gdy plik wskazany przez użytkownika będzie pusty program powiadomi o tym i zakończy pracę. \\
+Treść komunikatu: ,,Wskazany plik wejściowy jest pusty.''
+
+\paragraph{Rozmiar planszy nie będący liczbą}
+Jeśli w pierwszej lini pliku znajdować się będą wartości inne niż liczby program nie będzie w stanie wczytać rozmiaru planszy. W takiej sytuacji wyświetli odpowiedni komunikat i zakończy pracę. \\
+ Treść komunikatu: ,,Nie udało się wczytać rozmiaru planszy.''
+ 
+ \paragraph{Niedodatni rozmiar planszy}
+ Jeśli jeden z wymiarów planszy nie będzie dodatnią liczbą całkowitą program zasygnalizuje błąd i zakończy pracę. \\
+ Przykładowy komunikat: ,,Szerokość musi być większa od 0. Podana szerokość to -5.''
+ 
+ \paragraph{Brak nowej linii po rozmiarze planszy}
+ W przypadku gdy po wysokości planszy w pliku będzie inny znak niż przejście do nowej lini program zasygnalizuje błąd i zakończy pracę. \\
+ Treść komunikatu: ,,Spodziewany koniec lini po wymiarze planszy.''
+ 
+ \paragraph{Błąd przy wczytywaniu stanu komórki}
+ Jeśli nie uda się wczytać stanu komórki, na przykład ponieważ w pliku jest za mało linii lub jedna z linii jest zbyt krótka, program wypisze, w którym miejscu pliku wystąpił błąd i zakończy pracę. \\
+ Przykładowy komunikat: ,,Wystąpił błąd przy próbie przeczytania znaku w lini: 3 kolumnie: 8.''
+ 
+ \paragraph{Nieprawidłowy znak w pliku}
+ Jeśli podczas czytania pliku program napotka nieprawidłowy znak wypisze na jakiej pozycji w pliku napotkany został nieprawidłowy znak, jaki to znak, oraz czego spodziewał się program. \\
+ Przykładowy komunikat: ,,Niewspierany znak napotkany w lini: 2 kolumnie: 1. Spodziewana wartość: 0 lub 1. Napotkana wartość: T''
+
+\subsection{Błędy losowe}
+\paragraph{Brak pamięci operacyjnej}
+Gdyby w systemie zabrakło pamięci program nie będzie w stanie funkcjonować poprawnie. Program wyświetli komunikat o błędzie i przerwie pracę. \\
+Treść komunikatu: ,,Program nie uzyskał pamięci od systemu operacyjnego. Spróbuj uruchomić program ponownie za pewien czas.''
 
 \end{document}
