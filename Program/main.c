@@ -6,16 +6,16 @@
 
 int main()
 {
-    // Board board = {2, 2};
-    // board.cells = (CellState[]){ALIVE, ALIVE, DEAD, ALIVE};
+    // Board board = {2, 3};
+    // board.cells = (CellState[]){0, 1, 1, 1, 0, 0};
 
     // char *result = boardToString(&board);
     // puts(result);
 
     // free(result);
-    // //free(board.cells);
 
-    loadBoardFromFile("input.txt");
+    Board board = loadBoardFromFile("input.txt");
+    free(board.cells);
 
     return EXIT_SUCCESS;
 }
