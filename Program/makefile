@@ -4,10 +4,10 @@ ReleseFlags=-Ofast -std=c11 -g0
 
 NAME=main.exe
 
-development: board.o
-	$(CC) $(DebugFlags) -o $(NAME) board.o main.c
+development: board.o parser.o
+	$(CC) $(DebugFlags) -o $(NAME) board.o parser.o main.c
 
-relese:
+relese: # o. files are not compiled with correct flags
 	$(CC) $(ReleseFlags) -o $(NAME) main.c
 
 clean:
