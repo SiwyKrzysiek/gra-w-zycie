@@ -1,4 +1,9 @@
+# OSX file system specific file
 .DS_Store
+
+## Compilation artefacts
+*.o
+Program/main.exe.dSYM/Contents/Info.plist
 
 *.exe
 
