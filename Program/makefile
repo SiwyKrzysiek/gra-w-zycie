@@ -2,15 +2,17 @@ CC=clang
 DebugFlags=-std=c11 -Wall -g3 -D DEBUG
 ReleseFlags=-Ofast -std=c11 -g0
 
+Objects=board.o parser.o
+
 NAME=main.exe
 
 development: CompileFlags=$(DebugFlags)
-development: board.o parser.o
-	$(CC) $(DebugFlags) -o $(NAME) board.o parser.o main.c
+development: $(Objects)
+	$(CC) $(DebugFlags) -o $(NAME) $(Objects) main.c
 
 relese: CompileFlags=$(ReleseFlags)
 relese: board.o parser.o
-	$(CC) $(ReleseFlags) -o $(NAME) board.o parser.o main.c
+	$(CC) $(ReleseFlags) -o $(NAME) $(Objects) main.c
 
 rebuild: clean relese
 
@@ -18,8 +20,9 @@ clean:
 	rm -rf main.exe.dSYM
 	rm -f *.o
 
-board.o: board.c board.h
-	$(CC) $(CompileFlags) -c board.c
+%.o : %.c %.h
+	$(CC) $(CompileFlags) -c $< -o $@
 
-parser.o: parser.c parser.h
-	$(CC) $(CompileFlags) -c parser.c
+# % - dowolne znaki. Jak już zadanie zostanie uruchomione to nie zmienia wargości
+# $< - pierwsze wymaganie
+# $@ - cała nazwa celu
