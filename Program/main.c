@@ -15,6 +15,13 @@ int main()
     // free(result);
 
     Board board = loadBoardFromFile("input.txt");
+
+    puts("--------------------------------------\n");
+    char *serialized =  serializeBoard(&board);
+    
+    printf("%s\n", serialized);
+    free(serialized);
+
     free(board.cells);
 
     return EXIT_SUCCESS;

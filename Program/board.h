@@ -1,6 +1,8 @@
 #pragma once
 
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include "states.h"
 
 typedef struct
@@ -11,5 +13,11 @@ typedef struct
     CellState *cells;
 } Board;
 
-//Generates string reprezentation of the board
+//Generates string representation of the board
+//Returned string must be freed
 char* boardToString(Board *board);
+
+//Generates serialized version of Board that can be parsed later
+//Can be used to save board in file
+//Returned string must be freed
+char* serializeBoard(Board *board);
