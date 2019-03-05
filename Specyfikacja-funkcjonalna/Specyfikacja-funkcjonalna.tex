@@ -42,11 +42,28 @@ w 1970 roku. Polega na symulacji kolejnych pokoleń życia komórek według nast
 \item martwa.
 \end{itemize}
 
+\paragraph{Pokolenie} to stan wszystkich komórek w danej chwili. Gdy stan pokolenia jest ustalony, możliwe jest utworzenie nowego (potomnego) pokolenia komórek, powstających według poniższych zasad.
+
 \paragraph{Reguły} Następne pokolenie generowane jest zgodnie z regułami:
 \begin{itemize}
 \item Jeżeli komórka była martwa i miała dokładnie 3 żywych sąsiadów, w następnym pokoleniu staje się żywa,
 \item Jeżeli komórka była żywa to pozostaje żywa jeśli miała dwóch lub trzech żywych sąsiadów. W przeciwnym razie staje się martwa.
 \end{itemize}
+
+\subsection{Struktury}
+Symulacja przeprowadzona zgodnie z powyższymi regułami może prowadzić do powstania ciekawych obiektów zwanych strukturami. 
+
+\begin{figure}[h]
+\centering
+\setlength{\fboxsep}{0pt} %Odstęp 0
+\setlength{\fboxrule}{1pt} %Grubość ramki 1p
+\fbox{\includegraphics[width=13cm]{struktury}}
+\caption{Przykłady struktur}
+\end{figure}
+
+Reguły symulacji umożliwiają również tworzenie dużo bardziej skomplikowanych struktur (jak na przykład maszyna Turinga -- https://youtu.be/My8AsV7bA94).
+
+
 
 \chapter{Działanie programu}
 
@@ -108,12 +125,12 @@ Zero oznacz komórkę martwą, a jeden komórkę żywą.
 
 \chapter{Wyniki działania programu}
 %TODO: Napisać od nowa
-Wyniki działania programu będą zależeć od preferencji użytkownika. W trybie interaktywnym program zapyta o docelowy format wyniku, a w trybie z argumentami wiersza poleceń, wynik zależeć będzie od wartości \hyperref[argumenty]{\textcolor{LinkColor}{argumentu -t}} oraz \hyperref[argumenty]{\textcolor{LinkColor}{argumentu -o}}. W obu przypadkach użytkownik będzie mógł:
+Wyniki działania programu będą zależeć od preferencji użytkownika -  od podanych \hyperref[argumenty]{\textcolor{LinkColor}{argumentów}}. 
 \begin{itemize}
 \item wyświetlić wybraną ilość pokoleń w konsoli,
-\item wygenerować wybraną ilość plików .png z reprezentacjami graficznymi kolejnych pokoleń,
+\item wygenerować plik lub pliki .png z reprezentacjami graficznymi kolejnych pokoleń,
 \item wygenerować plik .gif przedstawiający życie cywilizacji,
-\item wygenerować plik .txt reprezentujący konkretny stan cywilizacji, mogący służyć za plik wejściowy.
+\item wygenerować plik lub pliki .txt reprezentujący konkretny stan cywilizacji, mogący służyć za plik wejściowy.
 \end{itemize}
 
 \chapter{Sytuacje wyjątkowe}
