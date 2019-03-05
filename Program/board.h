@@ -13,6 +13,10 @@ typedef struct
     CellState *cells;
 } Board;
 
+//Clears dynamically allocated memory used for board
+//Object becomes no longer usable!
+void disposeBoard(Board *board);
+
 //Generates string representation of the board
 //Returned string must be freed
 char* boardToString(Board *board);

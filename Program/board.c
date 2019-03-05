@@ -1,5 +1,10 @@
 #include "board.h"
 
+void disposeBoard(Board *board)
+{
+    free(board->cells);
+}
+
 char *boardToString(Board *board)
 {
     const int resultLenght = board->sizeX * 2 * board->sizeY;

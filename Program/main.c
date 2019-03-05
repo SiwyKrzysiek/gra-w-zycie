@@ -18,11 +18,11 @@ int main()
 
     puts("--------------------------------------\n");
     char *serialized =  serializeBoard(&board);
-    
+
     printf("%s\n", serialized);
     free(serialized);
 
-    free(board.cells);
+    disposeBoard(&board);
 
     return EXIT_SUCCESS;
 }
