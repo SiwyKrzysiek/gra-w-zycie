@@ -51,6 +51,66 @@ Program będzie podzielony na współdziałające moduły. Pozwoli to na łatwie
 Główny moduł kontrolujący przepływ sterowania i danych między pozostałymi modułami.
 
 \subsubsection{Funkcje}
-\texttt{main(int argc, char** args)} -- Punkt startowy programu. Z niej wywoływane będą kolejne funkcje.
+\texttt{int main(int argc, char** args)} -- Punkt startowy programu. Z niej wywoływane będą kolejne funkcje. Przyjmować będzie 2 argumenty -- argumenty wsadowe programu:\\\\
+	 \hspace*{10mm}\texttt{int argc} -- ilość argumentów,\\\\
+	 \hspace*{10mm}\texttt{char** args} -- tablica napisów -- faktycznych argumentów wywołania	 \hspace*{34mm} programu.\\
 
+\subsection{ArgumentsParser}
+Moduł odpowiadający za interpretacje podanych wsadowo argumentów programu, konwersji ich oraz zapisu do utworzonej w tym celu struktury.
+
+\subsubsection{Funkcje}
+\texttt{params parseArgs(int argc, char** argv)} -- będzie przetwarzać argumenty wsadowe programu podane w postaci flag na strukturę zawierającą ustawienia symulacji. Przyjmować będzie 2 argumenty -- argumenty wsadowe programu:\\\\
+	 \hspace*{10mm}\texttt{int argc} -- ilość argumentów,\\\\
+	 \hspace*{10mm}\texttt{char** args} -- tablica napisów, będących faktycznymi argumentami wy-\hspace*{10mm}wołania programu.\\
+\\
+Zwracać będzie strukturę zawierająca ustawienia symulacji.
+
+\subsubsection{Struktury}
+Struktura zawierająca ustawienia symulacji: \\\\
+\texttt{typedef struct\{\\
+	 \hspace*{10mm}int help;\\
+	 \hspace*{10mm}char* file;\\
+	 \hspace*{10mm}char* output\_dest;\\
+	 \hspace*{10mm}char* type;\\
+	 \hspace*{10mm}int number\_of\_generations;\\
+	 \hspace*{10mm}int step;\\
+	 \hspace*{10mm}int delay;\\
+\}params;\\}
+\\
+\texttt{help} -- informuje o tym czy ma być wyświetlana pomoc,\\
+\texttt{file} -- informuje o tym jaka jest ścieżka do pliku wejściowego,\\
+\texttt{output\_dest} --  informuje o tym jaka jest ścieżka dla pliku/plików wyjściowych,\\
+\texttt{type} -- informuje o tym jaki jest typ zwracanych wyników,\\
+\texttt{number\_o\_generations} -- informuje o tym ile pokoleń komórek zostanie wygenerowane,\\
+\texttt{step} -- informuje o tym co ile pokoleń zapisywane będą dane wyjściowe,\\
+\texttt{delay} -- informuje w jakich odstępach czasu mają się wyświetlać kolejne generacje komórek.\\
+
+\subsection{Simulator}
+Moduł odpowiadający za przeprowadzenie właściwej symulacji zgodnie z regułami gry w życie.
+
+\subsubsection{Funkcje}
+\texttt{board simulate(board b, params p)} -- będzie przeprowadzać symulacje całej gry w życie:\\\\
+	 \hspace*{10mm}\texttt{board b} -- struktura zawierająca stan planszy,\\
+	 \hspace*{10mm}\texttt{params p} -- struktura zawierająca ustawienia symulacji.\\
+\\
+Zwracać będzie strukturę zawierająca końcowy stan planszy.\\\\
+\\
+\texttt{board nextGen(board b)} -- będzie generować planszę odpowiadającą następnemu pokoleniu komórek. Jako argument będzie przyjmować:\\\\
+	 \hspace*{10mm}\texttt{board b} -- struktura zawierająca stan planszy,\\
+\\
+Zwracać będzie strukturę zawierająca stan planszy w następnym pokoleniu.
+
+\subsection{Loader}
+Moduł odpowiedzialny za wczytanie planszy początkowej z pliku tekstowego i zapisanie jej do struktury.
+
+\subsubsection{Funkcje}
+\texttt{board load(char* path)} -- będzie przetwarzać plik wejściowy i zapisywać go do struktury. Jako argument będzie przyjmować:\\\\
+	 \hspace*{10mm}\texttt{char* path} -- ścieżka do pliku wejściowego,\\
+\\
+Zwracać będzie strukturę opisującą początkowy stan planszy.\\\\
+\\
+\texttt{int* getSize(char* path)} -- będzie wczytywać rozmiar planszy zapisanej w pliku wejściowym:\\\\
+	 \hspace*{10mm}\texttt{char* path} -- ścieżka do pliku wejściowego,\\
+\\
+Zwracać będzie dwuelementowy wektor zawierający rozmiary planszy początkowej.
 \end{document}
