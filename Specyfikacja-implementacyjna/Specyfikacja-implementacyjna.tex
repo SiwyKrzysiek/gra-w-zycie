@@ -1,0 +1,52 @@
+\documentclass{article}
+
+\usepackage{polski} % Pozwala na użycie polskiego. Ustawia między innymi fontenc na T1
+\usepackage[utf8]{inputenc} % Informuje o kodowaniu
+
+\usepackage{xcolor}% http://ctan.org/pkg/xcolor
+\usepackage{hyperref}% http://ctan.org/pkg/hyperref
+
+\definecolor{LinkColor}{HTML}{1d5cc1}
+
+\usepackage{tabto}
+
+\usepackage{graphicx} % Pakiet do obrazów
+\graphicspath{ {./Obrazy/} } % Folder, z którego będą brane obrazy
+
+% Nie twórz nowych stron
+\usepackage{etoolbox}
+\makeatletter
+% \patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+
+\title{Specyfikacja implementacyjna -- Gra w życie}
+\author{Krzysztof Dąbrowski i Jakub Bogusz}
+\date{\today}
+
+\begin{document}
+\maketitle{}
+
+\tableofcontents{}
+
+\section{Podział na moduły}
+Program będzie podzielony na współdziałające moduły. Pozwoli to na łatwiejszą modyfikację programu oraz dodawanie nowych funkcjonalności.
+
+\begin{center}
+    \textbf{DIAGRAM MODÓŁÓW}
+\end{center}
+
+%TODO: Dodać linki
+\paragraph{Spis modułów}
+\begin{itemize}
+    \item GameOfLife
+    \item ArgumentsParser
+    \item BoardHandler
+    \item Simulator
+    \item Save
+    \item Loader
+    \item GraphicsGenerator
+\end{itemize}
+
+\subsection{GameOfLife}
+
+\end{document}
