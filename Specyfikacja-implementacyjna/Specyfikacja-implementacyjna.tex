@@ -121,11 +121,11 @@ Typ wyliczeniowy zawierający możliwe stany pojedynczej komórki. \\
 \hspace*{10mm}\texttt{Board *board} -- Adres planszy, która będzie zwalniana\\
 
 \vspace*{8mm}
-\noindent{}\texttt{char* boardToString(Board *board)} -- Generuje ciąg znaków reprezentujący stan wskazanej planszy. Zwrócony napis należy po wykożystaniu zwolnić. \\ \\
+\noindent{}\texttt{char* boardToString(Board *board)} -- Generuje ciąg znaków reprezentujący stan wskazanej planszy. Zwrócony napis należy po wykorzystaniu zwolnić. \\ \\
 \hspace*{10mm}\texttt{Board *board} -- Adres planszy, której reprezentacja ma zostać wygenerowana\\
 
 \vspace*{8mm}
-\noindent{}\texttt{char* serializeBoard(Board *board)} -- Generuje ciąg znaków reprezentujący wskazaną strukturę \texttt{Board}. Zwrócony napis zawiera wszystkie niezbędne informacje do rekonstrukcji struktury na jego podstawie. Zwrócony napis należy po wykożystaniu zwolnić. \\ \\
+\noindent{}\texttt{char* serializeBoard(Board *board)} -- Generuje ciąg znaków reprezentujący wskazaną strukturę \texttt{Board}. Zwrócony napis zawiera wszystkie niezbędne informacje do rekonstrukcji struktury na jego podstawie. Zwrócony napis należy po wykorzystaniu zwolnić. \\ \\
 \hspace*{10mm}\texttt{Board *board} -- Adres planszy, której reprezentacja ma zostać wygenerowana
 
 
@@ -157,6 +157,31 @@ Zwracać będzie strukturę opisującą początkowy stan planszy.\\\\
 	 \hspace*{10mm}\texttt{char* path} -- ścieżka do pliku wejściowego,\\
 \\
 Zwracać będzie dwuelementowy wektor zawierający rozmiary planszy początkowej.
+
+\section{Kompilacja}
+W celu automatyzacji procesu kompilacji wykorzystane zostanie narzędzie \textit{makefile}. Umożliwi ono przygotowanie scenariuszy kompilacji na różne środowiska.
+
+\subsection{Środowisko testowe}
+Środowisko to ma na celu optymalizację prędkości kompilacji i umieszczenie symboli pozwalających na sprawne debugowanie kodu w plikach wynikowych. Przy kompilacji testowej zostanie zdefiniowana stała \texttt{DEBUG}. Dzięki temu wykorzystując mechanizm kompilacji warunkowej możliwe będzie wyświetlenie dodatkowych informacji o działaniu programu w trybie testowym.
+
+\paragraph{Lista flag:}
+\begin{itemize}
+	\item \texttt{-O0} -- Optymalizacja czasu kompilacji
+	\item \texttt{-std=c11} -- Ustawienie standardu języka C
+	\item \texttt{-Wall} -- Wypisywanie wszystkich ostrzeżeń
+	\item \texttt{-g3} -- Umieszczenie pełnych symboli do debugowania
+	\item \texttt{-D DEBUG} -- Ustawienie stałej preprocesora o nazwie \texttt{DEBUG}
+\end{itemize}
+
+\subsection{Środowisko produkcyjne}
+Środowisko to ma na celu optymalizację zasobów wykorzystywanych przez program w trakcie działania.
+
+\paragraph{Lista flag:}
+\begin{itemize}
+	\item \texttt{-Ofast} -- Optymalizacja zasobów kosztem czasu kompilacji
+	\item \texttt{-std=c11} -- Ustawienie standardu języka C
+	\item \texttt{-g0} -- Nie umieszczenie symboli do debugowania
+\end{itemize}
 
 \section{Biblioteki zewnętrzne}
 Program będzie korzystał z bibliotek nie będących częścią standardu języka C. Umożliw to dostarczenie szerszej funkcjonalności.
