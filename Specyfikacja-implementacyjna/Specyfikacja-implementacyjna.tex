@@ -153,8 +153,18 @@ Moduł odpowiedzialny za wczytanie planszy początkowej z pliku tekstowego i zap
 \\
 Zwracać będzie strukturę opisującą początkowy stan planszy.\\\\
 \\
-\texttt{int* getSize(char* path)} -- będzie wczytywać rozmiar planszy zapisanej w pliku wejściowym:\\\\
+\texttt{int* getSize(char* path)} -- będzie wczytywać rozmiar planszy zapisanej w pliku wejściowym:\\\\ %Nie wiem czy to jest potrzebne
 	 \hspace*{10mm}\texttt{char* path} -- ścieżka do pliku wejściowego,\\
 \\
 Zwracać będzie dwuelementowy wektor zawierający rozmiary planszy początkowej.
+
+\section{Biblioteki zewnętrzne}
+Program będzie korzystał z bibliotek nie będących częścią standardu języka C. Umożliw to dostarczenie szerszej funkcjonalności.
+
+\subsection{zlib.h}
+Biblioteka zawierająca darmową implementację algorytmów kompresji i dekompresji \textit{deflate}. Jest ona wykorzystywana wewnętrznie przez bibliotekę \texttt{libpng.h}.
+
+\subsection{libpng.h}
+Biblioteka ta umożliwia tworzenie oraz odczytywanie plików graficznych takich jak \textit{png} czy \textit{gif}.
+
 \end{document}
