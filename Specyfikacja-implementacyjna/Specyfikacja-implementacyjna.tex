@@ -85,6 +85,34 @@ Struktura zawierająca ustawienia symulacji: \\\\
 \texttt{step} -- informuje o tym co ile pokoleń zapisywane będą dane wyjściowe,\\
 \texttt{delay} -- informuje w jakich odstępach czasu mają się wyświetlać kolejne generacje komórek.\\
 
+\subsection{BoardHandler}
+Moduł definiujący strukturę planszy -- \textit{Board} oraz podstawowe funkcje związane z tą strukturą.
+
+\subsubsection{Struktury}
+
+Typ wyliczeniowy zawierający możliwe stany pojedynczej komórki. \\
+\texttt{typedef enum\{\\
+	 \hspace*{10mm}DEAD = 0,\\
+	 \hspace*{10mm}ALIVE = 1\\
+\}CellState;\\} \\
+\texttt{DEAD} -- Komórka jest martwa \\
+\texttt{ALIVE} -- Komórka jest żywa
+
+\vspace*{10mm}
+
+\noindent{}Struktura przechowująca stan pojedynczego pokolenia. \\
+\texttt{typedef struct\{\\
+	 \hspace*{10mm}int sizeX;\\
+	 \hspace*{10mm}int sizeY;\\
+	 \hspace*{10mm}CellState *cells;\\
+\}Board;\\} \\
+\texttt{sizeX} -- Szerokość planszy \\
+\texttt{sizeY} -- Wysokość planszy \\
+\texttt{cells} -- Tablica zawierająca stany wszystkich komórek
+
+\subsubsection{Funkcje}
+
+
 \subsection{Simulator}
 Moduł odpowiadający za przeprowadzenie właściwej symulacji zgodnie z regułami gry w życie.
 
