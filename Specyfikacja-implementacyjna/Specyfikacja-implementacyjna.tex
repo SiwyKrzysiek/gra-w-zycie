@@ -112,6 +112,22 @@ Typ wyliczeniowy zawierający możliwe stany pojedynczej komórki. \\
 
 \subsubsection{Funkcje}
 
+\texttt{Board* createRandomBoard(int x, int y)} -- Tworzy planszę o podanej wielkości z komórkami o losowych stanach. Zwracany jest wskaźnik na nowy obiekt \texttt{Board} utworzony na stercie. \\
+\hspace*{10mm}\texttt{int x} -- szerokość planszy\\
+\hspace*{10mm}\texttt{int y} -- wysokość planszy\\
+
+\vspace*{8mm}
+\noindent{}\texttt{void disposeBoard(Board *board)} -- Zwalnia dynamicznie alokowane pola struktury \texttt{Board}. Powinna zostać wywołana przed zwolnieniem dowolnej zmiennej typu \texttt{Board}. Po zastosowaniu tej metody zmienna wskazana przez argument \texttt{board} nie nadaje się już do użytku. \\ \\
+\hspace*{10mm}\texttt{Board *board} -- Adres planszy, która będzie zwalniana\\
+
+\vspace*{8mm}
+\noindent{}\texttt{char* boardToString(Board *board)} -- Generuje ciąg znaków reprezentujący stan wskazanej planszy. Zwrócony napis należy po wykożystaniu zwolnić. \\ \\
+\hspace*{10mm}\texttt{Board *board} -- Adres planszy, której reprezentacja ma zostać wygenerowana\\
+
+\vspace*{8mm}
+\noindent{}\texttt{char* serializeBoard(Board *board)} -- Generuje ciąg znaków reprezentujący wskazaną strukturę \texttt{Board}. Zwrócony napis zawiera wszystkie niezbędne informacje do rekonstrukcji struktury na jego podstawie. Zwrócony napis należy po wykożystaniu zwolnić. \\ \\
+\hspace*{10mm}\texttt{Board *board} -- Adres planszy, której reprezentacja ma zostać wygenerowana
+
 
 \subsection{Simulator}
 Moduł odpowiadający za przeprowadzenie właściwej symulacji zgodnie z regułami gry w życie.
