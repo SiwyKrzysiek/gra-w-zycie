@@ -3,7 +3,7 @@ DebugFlags=-std=c11 -Wall -g3 -D DEBUG
 ReleseFlags=-Ofast -std=c11 -g0
 Libraries=cunit
 
-Objects=board.o parser.o
+Objects=board.o parser.o boardTest.o
 
 NAME=main.exe
 
