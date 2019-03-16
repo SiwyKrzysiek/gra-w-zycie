@@ -183,6 +183,15 @@ W celu automatyzacji procesu kompilacji wykorzystane zostanie narzędzie \textit
 	\item \texttt{-g0} -- Nie umieszczenie symboli do debugowania
 \end{itemize}
 
+\section{Testy}
+Poprawność działania funkcji zawartych w modułach programu będzie testowana przy pomocy testów jednostkowych. W celu organizacji oraz uspójnienia testów zostanie wykorzystany framework \textbf{CUnit}.
+
+\subsection{Stuktóra testów}
+Testy zostaną podzielone na zestawy. Każdy zestaw będzie grupował testy dotyczące danej części projektu (najczęściej modułu, ale koniecznie). Dzięki podziałowi testów łatwiej będzie zidentyfikować kod wywołujący problemy.
+
+\subsection{Planowane testy}
+%TODO: Opisać jakie testy chcemy robić
+
 \section{Biblioteki zewnętrzne}
 Program będzie korzystał z bibliotek nie będących częścią standardu języka C. Umożliw to dostarczenie szerszej funkcjonalności.
 
@@ -191,5 +200,7 @@ Biblioteka zawierająca darmową implementację algorytmów kompresji i dekompre
 
 \subsection{libpng.h}
 Biblioteka ta umożliwia tworzenie oraz odczytywanie plików graficznych takich jak \textit{png} czy \textit{gif}.
+
+%TODO: Opisać CUnit
 
 \end{document}
