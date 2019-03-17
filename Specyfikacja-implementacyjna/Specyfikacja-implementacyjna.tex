@@ -180,6 +180,17 @@ Testy zostaną podzielone na zestawy. Każdy zestaw będzie grupował testy doty
 \subsection{Planowane testy}
 %TODO: Opisać jakie testy chcemy robić
 
+\paragraph{Test zamiany planszy na ciąg znaków} będzie polegał na ręcznym utworzeniu struktury planszy o konkretym stanie komórek. Następnie zostanie utworzona reprezentacja tekstowa planszy przy pomocy funkcji \\ \texttt{char* boardToString(Board *board)}. Powstały w ten sposób tekst zostanie porównany z ręcznie wpisaną spodziewaną wartością.
+
+\paragraph{Test parsowania planszy} będzie polegał na utworzeniu tymczasowego pliku zawierającego tekst w formacie pliku przechowującego stan planszy. Następnie zostanie wywołana funkcja \texttt{board load(char* path)}. Kolejnym krokiem będzie sprawdzenie czy szerokość, długość i wartości komórek wczytanej planszy są takie jak spodziewane. Jeśli te warunki zostaną spełnione wynik testu będzie pozytywny. Pod koniec testu usunięty zostanie plik tymczasowy.
+
+%TODO: Napisać jaka funkcja jest wywoływana z modułu zasad
+\paragraph{Test reguł} będzie weryfikował czy zasady generacji komórek następnego pokolenia przeważają poprawnie otrzymany obszar. W jego trakcie do modułu zasad zostanie przekazany obszar hipotetycznej planszy. Wynik realizacji reguł generacji następnego pokolenia na danym obszarze zostanie porównany ze spodziewanym obszarem. Jeśli wszystkie komórki będą miały identyczne stany test zakończy się pozytywnie.
+
+\paragraph{Test symulacji} ma za zadanie zweryfikować proces wytworzenia całego nowego pokolenia na podstawie poprzedniego. W tym celu zostanie utworzona plansza o znanym stanie komórek. Będzie ona przekazana funkcji \texttt{board simulate\\(board b, params p)}. Nowa plansza powstała w wyniku działania funkcji symulującej zostanie porównana ze spodziewanym stanem planszy. Jeśli jakakolwiek z komórek będzie różna między wynikiem symulacji a wartością spodziewaną test zakończy się niepowodzeniem.
+
+\section{Test wczytania argumentów wsadowych} będzie polegał na utworzeniu napisu reprezentującego flagi podane przez użytkownika. Następnie zostanie wywołana funkcja \texttt{params parseArgs(int argc, char** argv)}. Zwrócona struktura ustawień zostanie porównana pole po polu ze spodziewanym wynikiem. Jeśli wszystkie pola spodziewanych ustawień będą takie same jak tych powstały w wyniku parsowania flag programu test zakończy się powodzeniem.
+
 \section{Biblioteki zewnętrzne}
 Program będzie korzystał z bibliotek nie będących częścią standardu języka C. Umożliw to dostarczenie szerszej funkcjonalności.
 
@@ -189,6 +200,7 @@ Biblioteka zawierająca darmową implementację algorytmów kompresji i dekompre
 \subsection{libpng.h}
 Biblioteka ta umożliwia tworzenie oraz odczytywanie plików graficznych takich jak \textit{png} czy \textit{gif}.
 
-%TODO: Opisać CUnit
+\subsection{cunit.h}
+Jest to framework służący do tworzenia i uruchamiania testów jednostkowych. Zostanie wykorzystany do uspójnienia procesu testowania modłów programu.
 
 \end{document}
