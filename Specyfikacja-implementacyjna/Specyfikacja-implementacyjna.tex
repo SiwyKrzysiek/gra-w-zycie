@@ -55,6 +55,34 @@ Moduł odpowiadający za interpretacje podanych wsadowo argumentów programu, ko
 \\
 Zwracać będzie strukturę zawierająca ustawienia symulacji.
 
+\subsection{BoardSaver}
+Moduł odpowiadający za obsługę zapisu wyników działania programu w zależności od argumentów.
+
+\subsubsection{Funkcje}
+\texttt{void save(board* b, config c)} -- będzie uruchamiać konkretne funkcję zapisujące w zależności od podanych flag. Jako argument będzie przyjmować wskaźnik na strukturę zawierającą opis planszy:\\\\
+	 \hspace*{10mm}\texttt{board* b} -- wskaźnik na strukturę zawierającą opis planszy,\\\\
+\\
+\texttt{void saveTxt(board* b, config c)} -- Będzie zapisywać dany stan planszy w pliku tekstowym, mogącym w przyszłości służyć za plik wejściowy. Jako argument będzie przyjmować wskaźnik na strukturę zawierającą opis planszy:\\\\
+	 \hspace*{10mm}\texttt{board* b} -- wskaźnik na strukturę zawierającą opis planszy,\\\\
+\\
+
+\subsection{GraphicsGenerator}
+Moduł odpowiadający za obsługę zapisu wyników działania programu w zależności od argumentów.
+
+\subsubsection{Funkcje}
+\texttt{void savePng(char* data, config c)} -- będzie generować plik .png będący reprezentacją planszy :\\\\
+	 \hspace*{10mm}\texttt{char* data} -- dane opisujące planszę, potrzebne do generacji pliku .png,\\\\
+	  \hspace*{10mm}\texttt{config c} -- struktura zawierająca parametry pliku wyjściowego.\\\\
+\\
+\texttt{void saveGif(char* data, config c)} -- będzie generować plik .gif będący reprezentacją planszy :\\\\
+	 \hspace*{10mm}\texttt{char* data} -- dane opisujące planszę, potrzebne do generacji pliku .gif,\\\\
+	  \hspace*{10mm}\texttt{config c} -- struktura zawierająca parametry pliku wyjściowego.\\\\
+\\
+
+
+
+
+
 \subsubsection{Struktury}
 Struktura zawierająca ustawienia symulacji: \\\\
 \texttt{typedef struct\{\\
@@ -123,25 +151,25 @@ Typ wyliczeniowy zawierający możliwe stany pojedynczej komórki. \\
 Moduł odpowiadający za przeprowadzenie właściwej symulacji zgodnie z regułami gry w życie.
 
 \subsubsection{Funkcje}
-\texttt{board simulate(board b, params p)} -- będzie przeprowadzać symulacje całej gry w życie:\\\\
-	 \hspace*{10mm}\texttt{board b} -- struktura zawierająca stan planszy,\\
+\texttt{board* simulate(board* b, params p)} -- będzie przeprowadzać symulacje całej gry w życie:\\\\
+	 \hspace*{10mm}\texttt{board* b} -- wskaźnik na strukturę zawierającą stan planszy,\\
 	 \hspace*{10mm}\texttt{params p} -- struktura zawierająca ustawienia symulacji.\\
 \\
 Zwracać będzie strukturę zawierająca końcowy stan planszy.\\\\
 \\
-\texttt{board nextGen(board b)} -- będzie generować planszę odpowiadającą następnemu pokoleniu komórek. Jako argument będzie przyjmować:\\\\
-	 \hspace*{10mm}\texttt{board b} -- struktura zawierająca stan planszy,\\
+\texttt{board nextGen(board* b)} -- będzie generować planszę odpowiadającą następnemu pokoleniu komórek. Jako argument będzie przyjmować:\\\\
+	 \hspace*{10mm}\texttt{board* b} -- wskaźnik na strukturę zawierającą stan planszy,\\
 \\
-Zwracać będzie strukturę zawierająca stan planszy w następnym pokoleniu.
+Zwracać będzie wskaźnik na strukturę zawierająca stan planszy w następnym pokoleniu.
 
 \subsection{Loader}
 Moduł odpowiedzialny za wczytanie planszy początkowej z pliku tekstowego i zapisanie jej do struktury.
 
 \subsubsection{Funkcje}
-\texttt{board load(char* path)} -- będzie przetwarzać plik wejściowy i zapisywać go do struktury. Jako argument będzie przyjmować:\\\\
+\texttt{board* load(char* path)} -- będzie przetwarzać plik wejściowy i zapisywać go do struktury. Jako argument będzie przyjmować:\\\\
 	 \hspace*{10mm}\texttt{char* path} -- ścieżka do pliku wejściowego,\\
 \\
-Zwracać będzie strukturę opisującą początkowy stan planszy.\\\\
+Zwracać będzie wskaźnik na strukturę opisującą początkowy stan planszy.\\\\
 \\
 \texttt{int* getSize(char* path)} -- będzie wczytywać rozmiar planszy zapisanej w pliku wejściowym:\\\\ %Nie wiem czy to jest potrzebne
 	 \hspace*{10mm}\texttt{char* path} -- ścieżka do pliku wejściowego,\\
@@ -184,7 +212,7 @@ Testy zostaną podzielone na zestawy. Każdy zestaw będzie grupował testy doty
 
 \paragraph{Test zamiany planszy na ciąg znaków} będzie polegał na ręcznym utworzeniu struktury planszy o konkretym stanie komórek. Następnie zostanie utworzona reprezentacja tekstowa planszy przy pomocy funkcji \\ \texttt{char* boardToString(Board *board)}. Powstały w ten sposób tekst zostanie porównany z ręcznie wpisaną spodziewaną wartością.
 
-\paragraph{Test parsowania planszy} będzie polegał na utworzeniu tymczasowego pliku zawierającego tekst w formacie pliku przechowującego stan planszy. Następnie zostanie wywołana funkcja \texttt{board load(char* path)}. Kolejnym krokiem będzie sprawdzenie czy szerokość, długość i wartości komórek wczytanej planszy są takie jak spodziewane. Jeśli te warunki zostaną spełnione wynik testu będzie pozytywny. Pod koniec testu usunięty zostanie plik tymczasowy.
+\paragraph{Test parsowania planszy} będzie polegał na utworzeniu tymczasowego pliku zawierającego tekst w formacie pliku przechowującego stan planszy. Następnie zostanie wywołana funkcja \texttt{board* load(char* path)}. Kolejnym krokiem będzie sprawdzenie czy szerokość, długość i wartości komórek wczytanej planszy są takie jak spodziewane. Jeśli te warunki zostaną spełnione wynik testu będzie pozytywny. Pod koniec testu usunięty zostanie plik tymczasowy.
 
 %TODO: Napisać jaka funkcja jest wywoływana z modułu zasad
 \paragraph{Test reguł} będzie weryfikował czy zasady generacji komórek następnego pokolenia przeważają poprawnie otrzymany obszar. W jego trakcie do modułu zasad zostanie przekazany obszar hipotetycznej planszy. Wynik realizacji reguł generacji następnego pokolenia na danym obszarze zostanie porównany ze spodziewanym obszarem. Jeśli wszystkie komórki będą miały identyczne stany test zakończy się pozytywnie.
