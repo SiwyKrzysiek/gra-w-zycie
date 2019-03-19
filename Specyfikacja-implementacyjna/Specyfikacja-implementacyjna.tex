@@ -2,7 +2,7 @@
 
 \usepackage{polski} % Pozwala na użycie polskiego. Ustawia między innymi fontenc na T1
 \usepackage[utf8]{inputenc} % Informuje o kodowaniu
-\userpackege{enumitem}
+\usepackage{enumitem}
 
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 \usepackage{hyperref}% http://ctan.org/pkg/hyperref
@@ -44,60 +44,66 @@ Główny moduł kontrolujący przepływ sterowania i danych między pozostałymi
 \subsubsection{Funkcje}
 \texttt{int main(int argc, char** args)} -- Punkt startowy programu. Z niej wywoływane będą kolejne funkcje. Przyjmować będzie 2 argumenty -- argumenty wsadowe programu:
 \begin{itemize}[label={}]
-	\texttt{int argc} -- ilość argumentów,
-	\texttt{char** args} -- tablica napisów -- faktycznych argumentów wywołania programu.
+	\item{} \texttt{int argc} -- ilość argumentów,
+	\item{} \texttt{char** args} -- tablica napisów -- faktycznych argumentów wywołania programu.
 \end{itemize}
 
 \subsection{ArgumentsParser}
 Moduł odpowiadający za interpretacje podanych wsadowo argumentów programu, konwersji ich oraz zapisu do utworzonej w tym celu struktury.
 
 \subsubsection{Funkcje}
-\texttt{params parseArgs(int argc, char** argv)} -- będzie przetwarzać argumenty wsadowe programu podane w postaci flag na strukturę zawierającą ustawienia symulacji. Przyjmować będzie 2 argumenty -- argumenty wsadowe programu:\\\\
-	 \hspace*{10mm}\texttt{int argc} -- ilość argumentów,\\\\
-	 \hspace*{10mm}\texttt{char** args} -- tablica napisów, będących faktycznymi argumentami wy-\hspace*{10mm}wołania programu.\\
-\\
+\texttt{Config parseArgs(int argc, char** argv)} -- będzie przetwarzać argumenty wsadowe programu podane w postaci flag na strukturę zawierającą ustawienia symulacji. Przyjmować będzie 2 argumenty -- argumenty wsadowe programu:
+\begin{itemize}[label={}]
+	\item \texttt{int argc} -- ilość argumentów,
+	\item \texttt{char** args} -- tablica napisów, będących faktycznymi argumentami wywołania programu.
+\end{itemize}
+
 Zwracać będzie strukturę zawierająca ustawienia symulacji.
 
 \subsection{BoardSaver}
 Moduł odpowiadający za obsługę zapisu wyników działania programu w zależności od argumentów.
 
 \subsubsection{Funkcje}
-\texttt{void save(board* b, config c)} -- będzie uruchamiać konkretne funkcję zapisujące w zależności od podanych flag. Jako argument będzie przyjmować wskaźnik na strukturę zawierającą opis planszy:\\\\
-	 \hspace*{10mm}\texttt{board* b} -- wskaźnik na strukturę zawierającą opis planszy,\\\\
-\\
-\texttt{void saveTxt(board* b, config c)} -- Będzie zapisywać dany stan planszy w pliku tekstowym, mogącym w przyszłości służyć za plik wejściowy. Jako argument będzie przyjmować wskaźnik na strukturę zawierającą opis planszy:\\\\
-	 \hspace*{10mm}\texttt{board* b} -- wskaźnik na strukturę zawierającą opis planszy,\\\\
-\\
+\texttt{void save(Board* b, Config c)} -- będzie uruchamiać konkretne funkcję zapisujące w zależności od podanych flag. Jako argument będzie przyjmować wskaźnik na strukturę zawierającą opis planszy:
+\begin{itemize}[label={}]
+	\item \texttt{Board* b} -- wskaźnik na strukturę zawierającą opis planszy.
+\end{itemize}
+
+\noindent{}\texttt{void saveTxt(Board* b, Config c)} -- Będzie zapisywać dany stan planszy w pliku tekstowym, mogącym w przyszłości służyć za plik wejściowy. Jako argument będzie przyjmować wskaźnik na strukturę zawierającą opis planszy:
+\begin{itemize}
+	\item \texttt{Board* b} -- wskaźnik na strukturę zawierającą opis planszy.
+\end{itemize}
 
 \subsection{GraphicsGenerator}
 Moduł odpowiadający za obsługę zapisu wyników działania programu w zależności od argumentów.
 
 \subsubsection{Funkcje}
-\texttt{void savePng(char* data, config c)} -- będzie generować plik .png będący reprezentacją planszy :\\\\
-	 \hspace*{10mm}\texttt{char* data} -- dane opisujące planszę, potrzebne do generacji pliku .png,\\\\
-	  \hspace*{10mm}\texttt{config c} -- struktura zawierająca parametry pliku wyjściowego.\\\\
-\\
-\texttt{void saveGif(char* data, config c)} -- będzie generować plik .gif będący reprezentacją planszy :\\\\
-	 \hspace*{10mm}\texttt{char* data} -- dane opisujące planszę, potrzebne do generacji pliku .gif,\\\\
-	  \hspace*{10mm}\texttt{config c} -- struktura zawierająca parametry pliku wyjściowego.\\\\
-\\
-
-
-
-
+\texttt{void savePng(char* data, Config c)} -- będzie generować plik .png będący reprezentacją planszy:
+\begin{itemize}[label={}]
+	\item \texttt{char* data} -- dane opisujące planszę, potrzebne do generacji pliku .png,
+	\item \texttt{Config c} -- struktura zawierająca parametry pliku wyjściowego.
+\end{itemize}
+	
+\noindent{}\texttt{void saveGif(char* data, Config c)} -- będzie generować plik .gif będący reprezentacją planszy:
+\begin{itemize}[label={}]
+	\item \texttt{char* data} -- dane opisujące planszę, potrzebne do generacji pliku .gif,
+	\item \texttt{Config c} -- struktura zawierająca parametry pliku wyjściowego.
+\end{itemize}
 
 \subsubsection{Struktury}
 Struktura zawierająca ustawienia symulacji: \\\\
-\texttt{typedef struct\{\\
-	 \hspace*{10mm}int help;\\
-	 \hspace*{10mm}char* file;\\
-	 \hspace*{10mm}char* output\_dest;\\
-	 \hspace*{10mm}char* type;\\
-	 \hspace*{10mm}int number\_of\_generations;\\
-	 \hspace*{10mm}int step;\\
-	 \hspace*{10mm}int delay;\\
-\}config;\\}
-\\
+\texttt{typedef struct\{}
+\begin{itemize}[label={}, noitemsep, topsep=0pt]
+	\item \texttt{int help;}
+	\item \texttt{char* file;}
+	\item \texttt{char* output\_dest;}
+	\item \texttt{char* type;}
+	\item \texttt{int number\_of\_generations;}
+	\item \texttt{int step;}
+	\item \texttt{int delay;}
+\end{itemize}
+\texttt{\}Config;}
+\\\\
 \texttt{help} -- informuje o tym czy ma być wyświetlana pomoc,\\
 \texttt{file} -- informuje o tym jaka jest ścieżka do pliku wejściowego,\\
 \texttt{output\_dest} --  informuje o tym jaka jest ścieżka dla pliku/plików wyjściowych,\\
@@ -111,43 +117,57 @@ Moduł definiujący operacje wykonywane na strukturze \texttt{Board}.
 
 \subsubsection{Funkcje}
 
-\texttt{Board* createRandomBoard(int x, int y)} -- Tworzy planszę o podanej wielkości z komórkami o losowych stanach. Zwracany jest wskaźnik na nowy obiekt \texttt{Board} utworzony na stercie. \\
-\hspace*{10mm}\texttt{int x} -- szerokość planszy\\
-\hspace*{10mm}\texttt{int y} -- wysokość planszy\\
+\texttt{Board* createRandomBoard(int x, int y)} -- Tworzy planszę o podanej wielkości z komórkami o losowych stanach.
+\begin{itemize}[label={}]
+	\item \texttt{int x} -- szerokość planszy
+	\item \texttt{int y} -- wysokość planszy
+\end{itemize}
+Zwracany jest wskaźnik na nowy obiekt \texttt{Board} utworzony na stercie.
 
-\vspace*{8mm}
-\noindent{}\texttt{void disposeBoard(Board *board)} -- Zwalnia dynamicznie alokowane pola struktury \texttt{Board}. Powinna zostać wywołana przed zwolnieniem dowolnej zmiennej typu \texttt{Board}. Po zastosowaniu tej metody zmienna wskazana przez argument \texttt{board} nie nadaje się już do użytku. \\ \\
-\hspace*{10mm}\texttt{Board *board} -- Adres planszy, która będzie zwalniana\\
+\vspace{5mm}
+\noindent{}\texttt{void disposeBoard(Board *Board)} -- Zwalnia dynamicznie alokowane pola struktury \texttt{Board}. Powinna zostać wywołana przed zwolnieniem dowolnej zmiennej typu \texttt{Board}. Po zastosowaniu tej metody zmienna wskazana przez argument \texttt{Board} nie nadaje się już do użytku.
+\begin{itemize}[label={}]
+	\item \texttt{Board *Board} -- Adres planszy, która będzie zwalniana
+\end{itemize}
 
-\vspace*{8mm}
-\noindent{}\texttt{char* boardToString(Board *board)} -- Generuje ciąg znaków reprezentujący stan wskazanej planszy. Zwrócony napis należy po wykorzystaniu zwolnić. \\ \\
-\hspace*{10mm}\texttt{Board *board} -- Adres planszy, której reprezentacja ma zostać wygenerowana\\
+\vspace{5mm}
+\noindent{}\texttt{char* boardToString(Board *Board)} -- Generuje ciąg znaków reprezentujący stan wskazanej planszy.
+\begin{itemize}[label={}]
+	\item \texttt{Board *Board} -- Adres planszy, której reprezentacja ma zostać wygenerowana
+\end{itemize}
+Zwrócony napis należy po wykorzystaniu zwolnić.
 
-\vspace*{8mm}
-\noindent{}\texttt{char* serializeBoard(Board *board)} -- Generuje ciąg znaków reprezentujący wskazaną strukturę \texttt{Board}. Zwrócony napis zawiera wszystkie niezbędne informacje do rekonstrukcji struktury na jego podstawie. Zwrócony napis należy po wykorzystaniu zwolnić. \\ \\
-\hspace*{10mm}\texttt{Board *board} -- Adres planszy, której reprezentacja ma zostać wygenerowana
+\vspace{5mm}
+\noindent{}\texttt{char* serializeBoard(Board *Board)} -- Generuje ciąg znaków reprezentujący wskazaną strukturę \texttt{Board}.
+\begin{itemize}[label={}]
+	\item \texttt{Board *Board} -- Adres planszy, której reprezentacja ma zostać wygenerowana
+\end{itemize}
+Zwrócony napis zawiera wszystkie niezbędne informacje do rekonstrukcji struktury na jego podstawie. Zwrócony napis należy po wykorzystaniu zwolnić.
 
 \subsection{Board}
 Moduł definiujący strukturę planszy.
 
 \subsubsection{Struktury}
-
 Typ wyliczeniowy zawierający możliwe stany pojedynczej komórki. \\
-\texttt{typedef enum\{\\
-	 \hspace*{10mm}DEAD = 0,\\
-	 \hspace*{10mm}ALIVE = 1\\
-\}CellState;\\} \\
+\texttt{typedef enum\{}
+\begin{itemize}[label={}, noitemsep, topsep=0pt]
+	\item \texttt{DEAD = 0,}
+	\item \texttt{ALIVE = 1}
+\end{itemize}
+\texttt{\}CellState;}\\\\
 \texttt{DEAD} -- Komórka jest martwa \\
 \texttt{ALIVE} -- Komórka jest żywa
 
-\vspace*{10mm}
+\vspace{5mm}
 
 \noindent{}Struktura przechowująca stan pojedynczego pokolenia. \\
-\texttt{typedef struct\{\\
-	 \hspace*{10mm}int sizeX;\\
-	 \hspace*{10mm}int sizeY;\\
-	 \hspace*{10mm}CellState *cells;\\
-\}Board;\\} \\
+\texttt{typedef struct\{}
+\begin{itemize}[label={}, noitemsep, topsep=0pt]
+	\item \texttt{int sizeX;}
+	\item \texttt{int sizeY;}
+	\item \texttt{CellState *cells;}
+\end{itemize}
+\texttt{\}Board;\\} \\
 \texttt{sizeX} -- Szerokość planszy \\
 \texttt{sizeY} -- Wysokość planszy \\
 \texttt{cells} -- Tablica zawierająca stany wszystkich komórek
@@ -157,29 +177,36 @@ Typ wyliczeniowy zawierający możliwe stany pojedynczej komórki. \\
 Moduł odpowiadający za przeprowadzenie właściwej symulacji zgodnie z regułami gry w życie.
 
 \subsubsection{Funkcje}
-\texttt{board* simulate(board* b, params p)} -- będzie przeprowadzać symulacje całej gry w życie:\\\\
-	 \hspace*{10mm}\texttt{board* b} -- wskaźnik na strukturę zawierającą stan planszy,\\
-	 \hspace*{10mm}\texttt{params p} -- struktura zawierająca ustawienia symulacji.\\
-\\
-Zwracać będzie strukturę zawierająca końcowy stan planszy.\\\\
-\\
-\texttt{board nextGen(board* b)} -- będzie generować planszę odpowiadającą następnemu pokoleniu komórek. Jako argument będzie przyjmować:\\\\
-	 \hspace*{10mm}\texttt{board* b} -- wskaźnik na strukturę zawierającą stan planszy,\\
-\\
+\texttt{Board* simulate(Board* b, Config p)} -- będzie przeprowadzać symulacje\\ całej gry w życie:
+\begin{itemize}[label={}]
+	\item \texttt{Board* b} -- wskaźnik na strukturę zawierającą stan planszy,
+	\item \texttt{Config p} -- struktura zawierająca ustawienia symulacji.
+\end{itemize}
+Zwracać będzie strukturę zawierająca końcowy stan planszy.
+
+\vspace{5mm}
+
+\noindent{}\texttt{Board nextGen(Board* b)} -- będzie generować planszę odpowiadającą następnemu pokoleniu komórek. Jako argument będzie przyjmować:
+\begin{itemize}[label={}]
+	\item \texttt{Board* b} -- wskaźnik na strukturę zawierającą stan planszy,
+\end{itemize}
 Zwracać będzie wskaźnik na strukturę zawierająca stan planszy w następnym pokoleniu.
 
 \subsection{Loader}
 Moduł odpowiedzialny za wczytanie planszy początkowej z pliku tekstowego i zapisanie jej do struktury.
 
 \subsubsection{Funkcje}
-\texttt{board* load(char* path)} -- będzie przetwarzać plik wejściowy i zapisywać go do struktury. Jako argument będzie przyjmować:\\\\
-	 \hspace*{10mm}\texttt{char* path} -- ścieżka do pliku wejściowego,\\
-\\
-Zwracać będzie wskaźnik na strukturę opisującą początkowy stan planszy.\\\\
-\\
-\texttt{int* getSize(char* path)} -- będzie wczytywać rozmiar planszy zapisanej w pliku wejściowym:\\\\ %Nie wiem czy to jest potrzebne
-	 \hspace*{10mm}\texttt{char* path} -- ścieżka do pliku wejściowego,\\
-\\
+\texttt{Board* load(char* path)} -- będzie przetwarzać plik wejściowy i zapisywać go do struktury. Jako argument będzie przyjmować:
+\begin{itemize}[label={}]
+	\item \texttt{char* path} -- ścieżka do pliku wejściowego,
+\end{itemize}
+Zwracać będzie wskaźnik na strukturę opisującą początkowy stan planszy.
+\vspace{5mm}
+
+\noindent{}\texttt{int* getSize(char* path)} -- będzie wczytywać rozmiar planszy zapisanej w pliku wejściowym:
+\begin{itemize}[label={}]
+	\item \texttt{char* path} -- ścieżka do pliku wejściowego,
+\end{itemize}
 Zwracać będzie dwuelementowy wektor zawierający rozmiary planszy początkowej.
 
 \section{Kompilacja}
@@ -214,18 +241,17 @@ Poprawność działania funkcji zawartych w modułach programu będzie testowana
 Testy zostaną podzielone na zestawy. Każdy zestaw będzie grupował testy dotyczące danej części projektu (najczęściej modułu, ale koniecznie). Dzięki podziałowi testów łatwiej będzie zidentyfikować kod wywołujący problemy.
 
 \subsection{Planowane testy}
-%TODO: Opisać jakie testy chcemy robić
 
-\paragraph{Test zamiany planszy na ciąg znaków} będzie polegał na ręcznym utworzeniu struktury planszy o konkretym stanie komórek. Następnie zostanie utworzona reprezentacja tekstowa planszy przy pomocy funkcji \\ \texttt{char* boardToString(Board *board)}. Powstały w ten sposób tekst zostanie porównany z ręcznie wpisaną spodziewaną wartością.
+\paragraph{Test zamiany planszy na ciąg znaków} będzie polegał na ręcznym utworzeniu struktury planszy o konkretym stanie komórek. Następnie zostanie utworzona reprezentacja tekstowa planszy przy pomocy funkcji \\ \texttt{char* boardToString(Board *Board)}. Powstały w ten sposób tekst zostanie porównany z ręcznie wpisaną spodziewaną wartością.
 
-\paragraph{Test parsowania planszy} będzie polegał na utworzeniu tymczasowego pliku zawierającego tekst w formacie pliku przechowującego stan planszy. Następnie zostanie wywołana funkcja \texttt{board* load(char* path)}. Kolejnym krokiem będzie sprawdzenie czy szerokość, długość i wartości komórek wczytanej planszy są takie jak spodziewane. Jeśli te warunki zostaną spełnione wynik testu będzie pozytywny. Pod koniec testu usunięty zostanie plik tymczasowy.
+\paragraph{Test parsowania planszy} będzie polegał na utworzeniu tymczasowego pliku zawierającego tekst w formacie pliku przechowującego stan planszy. Następnie zostanie wywołana funkcja \texttt{Board* load(char* path)}. Kolejnym krokiem będzie sprawdzenie czy szerokość, długość i wartości komórek wczytanej planszy są takie jak spodziewane. Jeśli te warunki zostaną spełnione wynik testu będzie pozytywny. Pod koniec testu usunięty zostanie plik tymczasowy.
 
 %TODO: Napisać jaka funkcja jest wywoływana z modułu zasad
 \paragraph{Test reguł} będzie weryfikował czy zasady generacji komórek następnego pokolenia przeważają poprawnie otrzymany obszar. W jego trakcie do modułu zasad zostanie przekazany obszar hipotetycznej planszy. Wynik realizacji reguł generacji następnego pokolenia na danym obszarze zostanie porównany ze spodziewanym obszarem. Jeśli wszystkie komórki będą miały identyczne stany test zakończy się pozytywnie.
 
-\paragraph{Test symulacji} ma za zadanie zweryfikować proces wytworzenia całego nowego pokolenia na podstawie poprzedniego. W tym celu zostanie utworzona plansza o znanym stanie komórek. Będzie ona przekazana funkcji \texttt{board simulate\\(board b, params p)}. Nowa plansza powstała w wyniku działania funkcji symulującej zostanie porównana ze spodziewanym stanem planszy. Jeśli jakakolwiek z komórek będzie różna między wynikiem symulacji a wartością spodziewaną test zakończy się niepowodzeniem.
+\paragraph{Test symulacji} ma za zadanie zweryfikować proces wytworzenia całego nowego pokolenia na podstawie poprzedniego. W tym celu zostanie utworzona plansza o znanym stanie komórek. Będzie ona przekazana funkcji \texttt{Board simulate\\(Board b, Config p)}. Nowa plansza powstała w wyniku działania funkcji symulującej zostanie porównana ze spodziewanym stanem planszy. Jeśli jakakolwiek z komórek będzie różna między wynikiem symulacji a wartością spodziewaną test zakończy się niepowodzeniem.
 
-\section{Test wczytania argumentów wsadowych} będzie polegał na utworzeniu napisu reprezentującego flagi podane przez użytkownika. Następnie zostanie wywołana funkcja \texttt{params parseArgs(int argc, char** argv)}. Zwrócona struktura ustawień zostanie porównana pole po polu ze spodziewanym wynikiem. Jeśli wszystkie pola spodziewanych ustawień będą takie same jak tych powstały w wyniku parsowania flag programu test zakończy się powodzeniem.
+\section{Test wczytania argumentów wsadowych} będzie polegał na utworzeniu napisu reprezentującego flagi podane przez użytkownika. Następnie zostanie wywołana funkcja \texttt{Config parseArgs(int argc, char** argv)}. Zwrócona struktura ustawień zostanie porównana pole po polu ze spodziewanym wynikiem. Jeśli wszystkie pola spodziewanych ustawień będą takie same jak tych powstały w wyniku parsowania flag programu test zakończy się powodzeniem.
 
 \section{Biblioteki zewnętrzne}
 Program będzie korzystał z bibliotek nie będących częścią standardu języka C. Umożliw to dostarczenie szerszej funkcjonalności.
