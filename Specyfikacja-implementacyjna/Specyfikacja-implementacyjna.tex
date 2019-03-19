@@ -216,11 +216,29 @@ Zwracać będzie strukturę zawierająca końcowy stan planszy.
 
 \vspace{5mm}
 
-\noindent{}\texttt{Board nextGen(Board* b)} -- będzie generować planszę odpowiadającą następnemu pokoleniu komórek. Jako argument będzie przyjmować:
+\noindent{}\texttt{Board* nextGen(Board* b)} -- będzie generować planszę odpowiadającą następnemu pokoleniu komórek. Jako argument będzie przyjmować:
 \begin{itemize}[label={}]
 	\item \texttt{Board* b} -- wskaźnik na strukturę zawierającą stan planszy,
 \end{itemize}
 Zwracać będzie wskaźnik na strukturę zawierająca stan planszy w następnym pokoleniu.
+
+\noindent{}\texttt{CellState* getArea(Board* b, int x, int y, int size)} -- będzie wycinać fragment planszy na potrzeby określenia stanu środkowej komórki. Funkcja będzie przyjmować argumenty:
+\begin{itemize}[label={}]
+	\item \texttt{Board* b} -- wskaźnik na strukturę zawierającą opis planszy, z której zostanie pobrany wycinek,
+	\item \texttt{int x, int y} -- współrzędne środka wycinka,
+	\item \texttt{int size} -- rozmiar wycinanego obszaru.
+\end{itemize}
+Zwracać będzie tablicę stanów komórek na danym obszarze.
+
+\subsection{Rules}
+Moduł odpowiedzialny za ustalenie stanu komórki na podstawie jej otoczenia.
+
+\noindent{}\texttt{CellState nextState(CellState* area)} -- będzie określać następny stan komórki na środku badanego obszaru:
+\begin{itemize}[label={}]
+	\item \texttt{CellState* area} -- tablica stanów komórek reprezentująca badany obszar.
+\end{itemize}
+Zwracać będzie stan komórki na środku obszaru.
+
 
 \subsection{Loader}
 Moduł odpowiedzialny za wczytanie planszy początkowej z pliku tekstowego i zapisanie jej do struktury.
@@ -276,8 +294,7 @@ Testy zostaną podzielone na zestawy. Każdy zestaw będzie grupował testy doty
 
 \paragraph{Test parsowania planszy} będzie polegał na utworzeniu tymczasowego pliku zawierającego tekst w formacie pliku przechowującego stan planszy. Następnie zostanie wywołana funkcja \texttt{Board* load(char* path)}. Kolejnym krokiem będzie sprawdzenie czy szerokość, długość i wartości komórek wczytanej planszy są takie jak spodziewane. Jeśli te warunki zostaną spełnione wynik testu będzie pozytywny. Pod koniec testu usunięty zostanie plik tymczasowy.
 
-%TODO: Napisać jaka funkcja jest wywoływana z modułu zasad
-\paragraph{Test reguł} będzie weryfikował czy zasady generacji komórek następnego pokolenia przeważają poprawnie otrzymany obszar. W jego trakcie do modułu zasad zostanie przekazany obszar hipotetycznej planszy. Wynik realizacji reguł generacji następnego pokolenia na danym obszarze zostanie porównany ze spodziewanym obszarem. Jeśli wszystkie komórki będą miały identyczne stany test zakończy się pozytywnie.
+\paragraph{Test reguł} będzie weryfikował czy zasady generacji komórek następnego pokolenia przetwarzają poprawnie otrzymany obszar. W jego trakcie do modułu zasad zostanie przekazany obszar hipotetycznej planszy. Wynik realizacji reguł generacji następnego pokolenia na danym obszarze zostanie porównany ze spodziewanym obszarem. Jeśli wszystkie komórki będą miały identyczne stany test zakończy się pozytywnie.
 
 \paragraph{Test symulacji} ma za zadanie zweryfikować proces wytworzenia całego nowego pokolenia na podstawie poprzedniego. W tym celu zostanie utworzona plansza o znanym stanie komórek. Będzie ona przekazana funkcji \texttt{Board simulate\\(Board b, Config p)}. Nowa plansza powstała w wyniku działania funkcji symulującej zostanie porównana ze spodziewanym stanem planszy. Jeśli jakakolwiek z komórek będzie różna między wynikiem symulacji a wartością spodziewaną test zakończy się niepowodzeniem.
 
