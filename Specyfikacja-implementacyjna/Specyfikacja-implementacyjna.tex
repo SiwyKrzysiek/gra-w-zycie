@@ -2,8 +2,8 @@
 
 \usepackage{polski} % Pozwala na użycie polskiego. Ustawia między innymi fontenc na T1
 \usepackage[utf8]{inputenc} % Informuje o kodowaniu
-\userpackege{enumitem}
-
+\usepackage{enumitem}
+\usepackage{xcolor}
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 \usepackage{hyperref}% http://ctan.org/pkg/hyperref
 
@@ -29,6 +29,36 @@
 
 \tableofcontents{}
 
+\section{Opis przepływu sterowania}
+
+\paragraph{Lista kolejnych czynności wykonywanych przez program:}\mbox{}\\
+
+\noindent1. Wczytanie argumentów wywołania programu\\
+	\hspace*{10mm}1.1 Pobranie argumentów\\
+	\hspace*{10mm}1.2 Przekonwertowanie argumentów do struktury ustawień\\
+2. Generacja planszy początkowej\\
+		\hspace*{10mm}a) na podstawie podanego pliku\\
+			\hspace*{20mm}2.a.1 Wczytanie danych z pliku\\
+			\hspace*{20mm}2.b.1 Przekonwertowanie wczytanych danych do struktury planszy\\
+		\hspace*{10mm}b) losowe wygenerowanie planszy\\
+3. Uruchomienie symulacji z odpowiednimi ustawieniami\\
+		\hspace*{10mm}3.1 Generacja kolejnych pokoleń\\
+		\hspace*{10mm}3.2 Ewentualny zapis stanu planszy do pliku tekstowego\\
+		\hspace*{10mm}3.3 Ewentualna konwersja wygenerowanych plików tekstowych na pliki \hspace*{15mm} odpowiednie pliki graficzne\\
+4. Wyczyszczenie zaalokowanej pamięci\\
+
+\section{Algorytm}
+
+Opis algorytmu służącego do generacji następnego pokolenia:
+
+\noindent\paragraph{Iteracja po planszy:}\mbox{}\\
+	1. Wycięcie fragmentu planszy
+		\textit{(w razie wyjścia poza tablicę planszy, uzupełnienie odpowiednich krawędzi obszaru martwymi komórkami)},\\
+	2. Zliczenie "żywych" komórek w tym obszarze z pominięciem elementu środkowego tego fragmentu,\\
+	3. Ustalenie stanu elementu środkowego fragmentu,\\
+	4. Zapisanie ustalonego stanu do planszy następnego pokolenia.\\
+
+
 \section{Podział na moduły}
 Program będzie podzielony na współdziałające moduły. Pozwoli to na łatwiejszą modyfikację programu oraz dodawanie nowych funkcjonalności.
 
@@ -44,8 +74,8 @@ Główny moduł kontrolujący przepływ sterowania i danych między pozostałymi
 \subsubsection{Funkcje}
 \texttt{int main(int argc, char** args)} -- Punkt startowy programu. Z niej wywoływane będą kolejne funkcje. Przyjmować będzie 2 argumenty -- argumenty wsadowe programu:
 \begin{itemize}[label={}]
-	\texttt{int argc} -- ilość argumentów,
-	\texttt{char** args} -- tablica napisów -- faktycznych argumentów wywołania programu.
+	\item\texttt{int argc} -- ilość argumentów,
+	\item\texttt{char** args} -- tablica napisów -- faktycznych argumentów wywołania programu.
 \end{itemize}
 
 \subsection{ArgumentsParser}
