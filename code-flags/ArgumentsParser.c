@@ -10,19 +10,9 @@ typedef struct{
 	int amount_of_generations;
 	int step;
 	int delay;
-}params;
+}Config;
 
-void display_params(params p){
-	printf("help: 		 %d\n",	p.help);
-	printf("file: 		 %s\n",	p.file);
-	printf("output_dest: %s\n",	p.output_dest);
-	printf("type: 		 %s\n",	p.type);
-	printf("step:		 %d\n",	p.step);
-	printf("delay: 		 %d\n",	p.delay);
-	printf("amount_of_generations: %d\n",	p.amount_of_generations);
-}
-
-params parseArgs(int argc, char** argv) {
+Config parseArgs(int argc, char** argv) {
 
 	int c;
 	int digit_optind = 0;
@@ -39,7 +29,7 @@ params parseArgs(int argc, char** argv) {
 
 	if (argc == 1){
 		printf("To view help, call the program with -h / --help flag\n");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	while (1) {
@@ -98,15 +88,8 @@ params parseArgs(int argc, char** argv) {
 	}
 
 	if (optind < argc) {
-		 printf("To view help, call the program with -h / --help flag\n");
-         exit(2);
+		 printf("To view help call the program with -h / --help flag\n");
+         exit(EXIT_FAILURE);
 	}
 	return args;
-	//exit(0); 
-}
-
-int main(int argc, char** argv){
-	params p = parseArgs(argc, argv);
-	display_params(p);
-	return 0;
 }
