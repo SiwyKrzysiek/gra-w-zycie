@@ -71,6 +71,29 @@ Program będzie podzielony na współdziałające moduły. Pozwoli to na łatwie
 \subsection{GameOfLife}
 Główny moduł kontrolujący przepływ sterowania i danych między pozostałymi modułami.
 
+\subsubsection{Struktury}
+Struktura zawierająca ustawienia symulacji: \\\\
+\texttt{typedef struct\{}
+\begin{itemize}[label={}, noitemsep, topsep=0pt]
+	\item \texttt{int help;}
+	\item \texttt{char* file;}
+	\item \texttt{char* output\_dest;}
+	\item \texttt{char* type;}
+	\item \texttt{int number\_of\_generations;}
+	\item \texttt{int step;}
+	\item \texttt{int delay;}
+\end{itemize}
+\texttt{\}Config;}
+\\\\
+\texttt{help} -- informuje o tym czy ma być wyświetlana pomoc,\\
+\texttt{file} -- informuje o tym jaka jest ścieżka do pliku wejściowego,\\
+\texttt{output\_dest} --  informuje o tym jaka jest ścieżka dla pliku/plików wyjściowych,\\
+\texttt{type} -- informuje o tym jaki jest typ zwracanych wyników,\\
+\texttt{number\_o\_generations} -- informuje o tym ile pokoleń komórek zostanie wygenerowane,\\
+\texttt{step} -- informuje o tym co ile pokoleń zapisywane będą dane wyjściowe,\\
+\texttt{delay} -- informuje w jakich odstępach czasu mają się wyświetlać kolejne generacje komórek.\\
+
+
 \subsubsection{Funkcje}
 \texttt{int main(int argc, char** args)} -- Punkt startowy programu. Z niej wywoływane będą kolejne funkcje. Przyjmować będzie 2 argumenty -- argumenty wsadowe programu:
 \begin{itemize}[label={}]
@@ -120,27 +143,6 @@ Moduł odpowiadający za obsługę zapisu wyników działania programu w zależn
 	\item \texttt{Config c} -- struktura zawierająca parametry pliku wyjściowego.
 \end{itemize}
 
-\subsubsection{Struktury}
-Struktura zawierająca ustawienia symulacji: \\\\
-\texttt{typedef struct\{}
-\begin{itemize}[label={}, noitemsep, topsep=0pt]
-	\item \texttt{int help;}
-	\item \texttt{char* file;}
-	\item \texttt{char* output\_dest;}
-	\item \texttt{char* type;}
-	\item \texttt{int number\_of\_generations;}
-	\item \texttt{int step;}
-	\item \texttt{int delay;}
-\end{itemize}
-\texttt{\}Config;}
-\\\\
-\texttt{help} -- informuje o tym czy ma być wyświetlana pomoc,\\
-\texttt{file} -- informuje o tym jaka jest ścieżka do pliku wejściowego,\\
-\texttt{output\_dest} --  informuje o tym jaka jest ścieżka dla pliku/plików wyjściowych,\\
-\texttt{type} -- informuje o tym jaki jest typ zwracanych wyników,\\
-\texttt{number\_o\_generations} -- informuje o tym ile pokoleń komórek zostanie wygenerowane,\\
-\texttt{step} -- informuje o tym co ile pokoleń zapisywane będą dane wyjściowe,\\
-\texttt{delay} -- informuje w jakich odstępach czasu mają się wyświetlać kolejne generacje komórek.\\
 
 \subsection{BoardHandler}
 Moduł definiujący operacje wykonywane na strukturze \texttt{Board}.
