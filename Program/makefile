@@ -11,11 +11,11 @@ development: CompileFlags=$(DebugFlags)
 development: $(Objects)
 	$(CC) $(DebugFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
 
-relese: CompileFlags=$(ReleseFlags)
-relese: board.o parser.o
+release: CompileFlags=$(ReleseFlags)
+release: board.o parser.o
 	$(CC) $(ReleseFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
 
-rebuild: clean relese
+rebuild: clean release
 
 clean:
 	rm -rf main.exe.dSYM
