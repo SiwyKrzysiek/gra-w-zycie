@@ -71,6 +71,16 @@ Program będzie podzielony na współdziałające moduły. Pozwoli to na łatwie
 \subsection{GameOfLife}
 Główny moduł kontrolujący przepływ sterowania i danych między pozostałymi modułami.
 
+\subsubsection{Funkcje}
+\texttt{int main(int argc, char** args)} -- Punkt startowy programu. Z niej wywoływane będą kolejne funkcje. Przyjmować będzie 2 argumenty -- argumenty wsadowe programu:
+\begin{itemize}[label={}]
+	\item\texttt{int argc} -- ilość argumentów,
+	\item\texttt{char** args} -- tablica napisów -- faktycznych argumentów wywołania programu.
+\end{itemize}
+
+\subsection{ArgumentsParser}
+Moduł odpowiadający za interpretacje podanych wsadowo argumentów programu, konwersji ich oraz zapisu do utworzonej w tym celu struktury.
+
 \subsubsection{Struktury}
 Struktura zawierająca ustawienia symulacji: \\\\
 \texttt{typedef struct\{}
@@ -92,17 +102,6 @@ Struktura zawierająca ustawienia symulacji: \\\\
 \texttt{number\_o\_generations} -- informuje o tym ile pokoleń komórek zostanie wygenerowane,\\
 \texttt{step} -- informuje o tym co ile pokoleń zapisywane będą dane wyjściowe,\\
 \texttt{delay} -- informuje w jakich odstępach czasu mają się wyświetlać kolejne generacje komórek.\\
-
-
-\subsubsection{Funkcje}
-\texttt{int main(int argc, char** args)} -- Punkt startowy programu. Z niej wywoływane będą kolejne funkcje. Przyjmować będzie 2 argumenty -- argumenty wsadowe programu:
-\begin{itemize}[label={}]
-	\item\texttt{int argc} -- ilość argumentów,
-	\item\texttt{char** args} -- tablica napisów -- faktycznych argumentów wywołania programu.
-\end{itemize}
-
-\subsection{ArgumentsParser}
-Moduł odpowiadający za interpretacje podanych wsadowo argumentów programu, konwersji ich oraz zapisu do utworzonej w tym celu struktury.
 
 \subsubsection{Funkcje}
 \texttt{Config parseArgs(int argc, char** argv)} -- będzie przetwarzać argumenty wsadowe programu podane w postaci flag na strukturę zawierającą ustawienia symulacji. Przyjmować będzie 2 argumenty -- argumenty wsadowe programu:
