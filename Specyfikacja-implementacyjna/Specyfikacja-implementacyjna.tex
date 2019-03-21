@@ -82,16 +82,18 @@ Główny moduł kontrolujący przepływ sterowania i danych między pozostałymi
 Moduł odpowiadający za interpretacje podanych wsadowo argumentów programu, konwersji ich oraz zapisu do utworzonej w tym celu struktury.
 
 \subsubsection{Struktury}
-
+\begin{samepage}
 Typ wyliczeniowy zawierający dostępne stany zapisu. \\
 
 \noindent\texttt{typedef enum\{}
 \begin{itemize}[label={}, noitemsep, topsep=0pt]
-	\item \texttt{GIF = "gif",}
-	\item \texttt{PNG = "png"}
-	\item \texttt{TXT = "txt"}
+	\item \texttt{GIF,}
+	\item \texttt{PNG,}
+	\item \texttt{TXT}
 \end{itemize}
 \texttt{\}Type;}\\\\
+\end{samepage}
+
 
 \noindent Struktura zawierająca ustawienia symulacji: \\\\
 
@@ -303,15 +305,46 @@ Testy zostaną podzielone na zestawy. Każdy zestaw będzie grupował testy doty
 
 \subsection{Planowane testy}
 
-\paragraph{Test zamiany planszy na ciąg znaków} będzie polegał na ręcznym utworzeniu struktury planszy o konkretym stanie komórek. Następnie zostanie utworzona reprezentacja tekstowa planszy przy pomocy funkcji \\ \texttt{char* boardToString(Board *Board)}. Powstały w ten sposób tekst zostanie porównany z ręcznie wpisaną spodziewaną wartością.
+\subsubsection{Test zamiany planszy na ciąg znaków} 
+Test ten będzie polegał na ręcznym utworzeniu struktury planszy o konkretym stanie komórek. Następnie zostanie utworzona reprezentacja tekstowa planszy przy pomocy funkcji \\ \texttt{char* boardToString(Board *Board)}. Powstały w ten sposób tekst zostanie porównany z ręcznie wpisaną spodziewaną wartością.
 
-\paragraph{Test parsowania planszy} będzie polegał na utworzeniu tymczasowego pliku zawierającego tekst w formacie pliku przechowującego stan planszy. Następnie zostanie wywołana funkcja \texttt{Board* load(char* path)}. Kolejnym krokiem będzie sprawdzenie czy szerokość, długość i wartości komórek wczytanej planszy są takie jak spodziewane. Jeśli te warunki zostaną spełnione wynik testu będzie pozytywny. Pod koniec testu usunięty zostanie plik tymczasowy.
+\paragraph{Przy danym obiekcie} Board board o wartościach sizeX = 3, sizeY = 2, \\ cells = {1, 1, 0, 0, 0, 1 }
+\paragraph{Po wywołaniu} boardToString(\&board)
+\paragraph{Zostanie zwrócony napis} \texttt{,,1 1 0\textbackslash{}n0 0 1\textbackslash{}n''}
 
-\paragraph{Test reguł} będzie weryfikował czy zasady generacji komórek następnego pokolenia przetwarzają poprawnie otrzymany obszar. W jego trakcie do modułu zasad zostanie przekazany obszar hipotetycznej planszy. Wynik realizacji reguł generacji następnego pokolenia na danym obszarze zostanie porównany ze spodziewanym obszarem. Jeśli wszystkie komórki będą miały identyczne stany test zakończy się pozytywnie.
 
-\paragraph{Test symulacji} ma za zadanie zweryfikować proces wytworzenia całego nowego pokolenia na podstawie poprzedniego. W tym celu zostanie utworzona plansza o znanym stanie komórek. Będzie ona przekazana funkcji \texttt{Board simulate\\(Board* b, Config* p)}. Nowa plansza powstała w wyniku działania funkcji symulującej zostanie porównana ze spodziewanym stanem planszy. Jeśli jakakolwiek z komórek będzie różna między wynikiem symulacji a wartością spodziewaną test zakończy się niepowodzeniem.
+\subsubsection{Test parsowania planszy}
+Ten test będzie polegał na utworzeniu tymczasowego pliku zawierającego tekst w formacie pliku przechowującego stan planszy. Następnie zostanie wywołana funkcja \texttt{Board* load(char* path)}. Kolejnym krokiem będzie sprawdzenie czy szerokość, długość i wartości komórek wczytanej planszy są takie jak spodziewane. Jeśli te warunki zostaną spełnione wynik testu będzie pozytywny. Pod koniec testu usunięty zostanie plik tymczasowy.
 
-\section{Test wczytania argumentów wsadowych} będzie polegał na utworzeniu napisu reprezentującego flagi podane przez użytkownika. Następnie zostanie wywołana funkcja \texttt{Config* parseArgs(int argc, char** argv)}. Zwrócona struktura ustawień zostanie porównana pole po polu ze spodziewanym wynikiem. Jeśli wszystkie pola spodziewanych ustawień będą takie same jak tych powstały w wyniku parsowania flag programu test zakończy się powodzeniem.
+\paragraph{Przy danym pliku} dane.txt \\
+3 3\\
+1 1 0\\
+1 0 1\\
+0 1 1\\
+\paragraph{Po wywołaniu} load("dane.txt")
+\paragraph{Zostanie zwrócony} wskaźnik na obiekt typu Board o wartościach \\ sizeX = 3, sizeY = 3, cells = {1, 1, 0, 1, 0, 1, 0, 1, 1 }
+
+\subsubsection{Test reguł} 
+Ten test będzie weryfikował czy zasady generacji komórek następnego pokolenia przetwarzają poprawnie otrzymany obszar. W jego trakcie do modułu zasad zostanie przekazany obszar hipotetycznej planszy. Wynik realizacji reguł generacji następnego pokolenia na danym obszarze zostanie porównany ze spodziewanym obszarem. Jeśli wszystkie komórki będą miały identyczne stany test zakończy się pozytywnie.
+
+\paragraph{Przy danym obszarze} CellState* area = {1, 1, 0, 1, 0, 1, 0, 1, 0}
+\paragraph{Po wywołaniu} nextState(area)
+\paragraph{Zostanie zwrócony} stan DEAD
+
+\subsubsection{Test symulacji pokolenia} 
+Ten test ma za zadanie zweryfikować proces wytworzenia całego nowego pokolenia na podstawie poprzedniego. W tym celu zostanie utworzona plansza o znanym stanie komórek. Będzie ona przekazana funkcji \texttt{Board* nextGen(Board* b)}. Nowa plansza powstała w wyniku działania funkcji symulującej zostanie porównana ze spodziewanym stanem planszy. Jeśli jakakolwiek z komórek będzie różna między wynikiem symulacji a wartością spodziewaną test zakończy się niepowodzeniem.
+
+\paragraph{Przy danej planszy} Board board z wartościami sizeX = 2 sizeY = 2 CellState* area = {1, 1, 0, 1,}
+\paragraph{Po wywołaniu} simulate(\&board)
+\paragraph{Zostanie zwrócony wskaźnik} na nowy obiekt typu Board z wartościami sizeX = 2 sizeY = 2 CellState* area = {1, 1, 1, 1,}
+
+\subsubsection{Test wczytania argumentów wsadowych}
+Ten test będzie polegał na utworzeniu napisu reprezentującego flagi wprowadzone przez użytkownika oraz przekazaniu go do funkcji \texttt{Config* parseArgs(int argc, char** argv)}. Zwrócona struktura ustawień zostanie porównana pole po polu ze spodziewanym wynikiem. Jeśli wszystkie pola spodziewanych ustawień będą takie same jak tych powstały w wyniku parsowania flag programu test zakończy się powodzeniem.
+
+%TODO: Opisać test
+\paragraph{Przy danym ciagu argumentów} 
+\paragraph{Po wywołaniu} parseArgs()
+\paragraph{Zostanie zwrócona struktura} 
 
 \section{Biblioteki zewnętrzne}
 Program będzie korzystał z bibliotek nie będących częścią standardu języka C. Umożliw to dostarczenie szerszej funkcjonalności.
