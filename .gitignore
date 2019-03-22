@@ -3,7 +3,7 @@
 
 ## Compilation artefacts
 *.o
-Program/main.exe.dSYM/Contents/Info.plist
+code/main.exe.dSYM/Contents/Info.plist
 
 *.exe
 
