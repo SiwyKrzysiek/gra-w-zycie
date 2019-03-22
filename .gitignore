@@ -1,4 +1,8 @@
+# Pliki systemu plików na OSX
 .DS_Store
+
+# Pliki konfiguracyjne VS Code
+.vscode/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
