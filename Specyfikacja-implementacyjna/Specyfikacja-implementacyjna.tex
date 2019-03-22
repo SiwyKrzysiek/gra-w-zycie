@@ -310,7 +310,7 @@ Test ten będzie polegał na ręcznym utworzeniu struktury planszy o konkretym s
 
 \paragraph{Przy danym obiekcie} Board board o wartościach sizeX = 3, sizeY = 2, \\ cells = {1, 1, 0, 0, 0, 1 }
 \paragraph{Po wywołaniu} boardToString(\&board)
-\paragraph{Zostanie zwrócony napis} \texttt{,,1 1 0\textbackslash{}n0 0 1\textbackslash{}n''}
+\paragraph{Zostanie zwrócony napis} \texttt{"1 1 0\textbackslash{}n0 0 1\textbackslash{}n"}
 
 
 \subsubsection{Test parsowania planszy}
@@ -332,7 +332,7 @@ Ten test będzie weryfikował czy zasady generacji komórek następnego pokoleni
 \paragraph{Zostanie zwrócony} stan DEAD
 
 \subsubsection{Test symulacji pokolenia} 
-Ten test ma za zadanie zweryfikować proces wytworzenia całego nowego pokolenia na podstawie poprzedniego. W tym celu zostanie utworzona plansza o znanym stanie komórek. Będzie ona przekazana funkcji \texttt{Board* nextGen(Board* b)}. Nowa plansza powstała w wyniku działania funkcji symulującej zostanie porównana ze spodziewanym stanem planszy. Jeśli jakakolwiek z komórek będzie różna między wynikiem symulacji a wartością spodziewaną test zakończy się niepowodzeniem.
+Ten test ma za zadanie zweryfikować proces wytworzenia całego nowego pokolenia na podstawie poprzedniego. W tym celu zostanie utworzona plansza o znanym stanie komórek. Będzie ona przekazana funkcji \\ \texttt{Board* nextGen(Board* b)}. Nowa plansza powstała w wyniku działania funkcji symulującej zostanie porównana ze spodziewanym stanem planszy. Jeśli jakakolwiek z komórek będzie różna między wynikiem symulacji a wartością spodziewaną test zakończy się niepowodzeniem.
 
 \paragraph{Przy danej planszy} Board board z wartościami sizeX = 2 sizeY = 2 CellState* area = {1, 1, 0, 1,}
 \paragraph{Po wywołaniu} simulate(\&board)
@@ -342,9 +342,9 @@ Ten test ma za zadanie zweryfikować proces wytworzenia całego nowego pokolenia
 Ten test będzie polegał na utworzeniu napisu reprezentującego flagi wprowadzone przez użytkownika oraz przekazaniu go do funkcji \texttt{Config* parseArgs(int argc, char** argv)}. Zwrócona struktura ustawień zostanie porównana pole po polu ze spodziewanym wynikiem. Jeśli wszystkie pola spodziewanych ustawień będą takie same jak tych powstały w wyniku parsowania flag programu test zakończy się powodzeniem.
 
 %TODO: Opisać test
-\paragraph{Przy danym ciagu argumentów} 
-\paragraph{Po wywołaniu} parseArgs()
-\paragraph{Zostanie zwrócona struktura} 
+\paragraph{Przy danym ciagu argumentów} argv = {"-f", "zapis.txt", "-o", "wyniki", "--number\textunderscore{}of\textunderscore{}generations", "8"} oraz argc = 6
+\paragraph{Po wywołaniu} parseArgs(argc, argv)
+\paragraph{Zostanie zwrócony wskaźnik na strukturę} typu Config o wartościach: \\ help = 0, file = "zapis.txt", output\textunderscore{}dest = "wyniki", type = GIF, \\ number\textunderscore{}of\textunderscore{}generations = 6, step = 1, delayMs = 0.
 
 \section{Biblioteki zewnętrzne}
 Program będzie korzystał z bibliotek nie będących częścią standardu języka C. Umożliw to dostarczenie szerszej funkcjonalności.
