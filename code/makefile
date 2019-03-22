@@ -1,15 +1,16 @@
 CC=clang
-DebugFlags=-std=c11 -Wall -g3 -D DEBUG
+DebugFlags=-std=c11 -Wall -g3 -D DEBUG -D TESTS
 ReleseFlags=-Ofast -std=c11 -g0
 Libraries=cunit
 
-Objects=board.o parser.o boardTest.o
+Objects=board.o parser.o
+TestObjects=boardTest.o
 
 NAME=main.exe
 
 development: CompileFlags=$(DebugFlags)
-development: $(Objects)
-	$(CC) $(DebugFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
+development: $(Objects) $(TestObjects)
+	$(CC) $(DebugFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) $(TestObjects) main.c
 
 release: CompileFlags=$(ReleseFlags)
 release: board.o parser.o

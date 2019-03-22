@@ -1,40 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <CUnit/Basic.h>
 
 #include "board.h"
 #include "parser.h"
-#include "boardTest.h"
-
-#define TESTS
 
 #ifdef TESTS
+#include <CUnit/Basic.h>
+#include "boardTest.h"
+
 void runTests();
 #endif
 
 int main()
 {
-    // Board board = {2, 3};
-    // board.cells = (CellState[]){0, 1, 1, 1, 0, 0};
-
-    // char *result = boardToString(&board);
-    // puts(result);
-
-    // free(result);
-    #ifdef TESTS
-        runTests();
-    #endif
-    
-
-    // Board board = loadBoardFromFile("input.txt");
-
-    // puts("--------------------------------------\n");
-    // char *serialized =  serializeBoard(&board);
-
-    // printf("%s\n", serialized);
-    // free(serialized);
-
-    // disposeBoard(&board);
+   #ifdef TESTS
+      runTests();
+   #endif
 
     return EXIT_SUCCESS;
 }
