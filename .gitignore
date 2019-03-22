@@ -1,4 +1,11 @@
+# OSX file system specific file
 .DS_Store
+
+## Compilation artefacts
+*.o
+code/main.exe.dSYM/Contents/Info.plist
+
+*.exe
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
