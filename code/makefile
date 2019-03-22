@@ -21,8 +21,11 @@ clean:
 	rm -rf main.exe.dSYM
 	rm -f *.o
 
+# boardTest.o : boardTest.c boardTest.h
+# 	$(CC) $(CompileFlags) `pkg-config --cflags --libs cunit` -c $< -o $@
+
 %.o : %.c %.h
-	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -c $< -o $@
+	$(CC) $(CompileFlags)  -c $< -o $@
 
 # % - dowolne znaki. Jak już zadanie zostanie uruchomione to nie zmienia wargości
 # $< - pierwsze wymaganie
