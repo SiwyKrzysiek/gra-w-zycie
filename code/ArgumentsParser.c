@@ -17,7 +17,7 @@ Config parseArgs(int argc, char** argv) {
 	int c;
 	int digit_optind = 0;
 
-	params args;
+	Config args;
 
 	args.help = 0;
 	args.file = "";
