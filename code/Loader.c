@@ -158,7 +158,7 @@ Board* load(const char *path)
     #ifdef DEBUG
         puts("Board parsed:");
 
-        char* boardString = boardToString(&parsedBoard);
+        char* boardString = boardToString(parsedBoard);
         printf("%s\n", boardString);
         free(boardString);
     #endif
