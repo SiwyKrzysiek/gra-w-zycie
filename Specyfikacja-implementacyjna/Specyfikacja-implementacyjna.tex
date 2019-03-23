@@ -270,7 +270,7 @@ Zwracać będzie wskaźnik na strukturę opisującą początkowy stan planszy.
 \begin{itemize}[label={}]
 	\item \texttt{char* path} -- ścieżka do pliku wejściowego,
 \end{itemize}
-Zwracać będzie dwuelementowy wektor zawierający rozmiary planszy początkowej.
+Zwracać będzie dwuelementowy wektor zawierający rozmiary planszy początkowej w kolejności X, Y.
 
 \section{Kompilacja}
 W celu automatyzacji procesu kompilacji wykorzystane zostanie narzędzie \textit{makefile}. Umożliwi ono przygotowanie scenariuszy kompilacji na różne środowiska.
@@ -341,7 +341,6 @@ Ten test ma za zadanie zweryfikować proces wytworzenia całego nowego pokolenia
 \subsubsection{Test wczytania argumentów wsadowych}
 Ten test będzie polegał na utworzeniu napisu reprezentującego flagi wprowadzone przez użytkownika oraz przekazaniu go do funkcji \texttt{Config* parseArgs(int argc, char** argv)}. Zwrócona struktura ustawień zostanie porównana pole po polu ze spodziewanym wynikiem. Jeśli wszystkie pola spodziewanych ustawień będą takie same jak tych powstały w wyniku parsowania flag programu test zakończy się powodzeniem.
 
-%TODO: Opisać test
 \paragraph{Przy danym ciagu argumentów} argv = {"-f", "zapis.txt", "-o", "wyniki", "--number\textunderscore{}of\textunderscore{}generations", "8"} oraz argc = 6
 \paragraph{Po wywołaniu} parseArgs(argc, argv)
 \paragraph{Zostanie zwrócony wskaźnik na strukturę} typu Config o wartościach: \\ help = 0, file = "zapis.txt", output\textunderscore{}dest = "wyniki", type = GIF, \\ number\textunderscore{}of\textunderscore{}generations = 6, step = 1, delayMs = 0.
