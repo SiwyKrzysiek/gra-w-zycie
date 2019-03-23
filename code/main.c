@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "board.h"
-#include "parser.h"
-
 #ifdef TESTS
 #include <CUnit/Basic.h>
 #include "boardTest.h"

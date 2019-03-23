@@ -62,9 +62,9 @@ Board loadBoardFromFile(const char *fileName)
     }
     PARSE_INFORMATION.lastLineReadNumber++;
 
-#ifdef DEBUG
+    #ifdef DEBUG
     printf("Board size parsed: %dx%d\n", x, y);
-#endif
+    #endif
 
     //---- Start reading lines ---- FIXME: This is getting to long
 

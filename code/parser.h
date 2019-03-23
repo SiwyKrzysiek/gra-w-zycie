@@ -2,7 +2,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "board.h"
+#include "Board.h"
+#include "BoardHandler.h"
 
 #define CELL_SEPARATOR ' '
 
