@@ -3,7 +3,10 @@ DebugFlags=-std=c11 -Wall -g3 -D DEBUG -D TESTS
 ReleseFlags=-Ofast -std=c11 -g0
 Libraries=cunit
 
-Objects=board.o parser.o
+## Here add names of modules (.h, .c) files that should be compiled (with .o extension)
+# It is assumed that each one has .h and .c file
+Objects=board.o parser.o ArgumentsParser.o
+## Here add names of test modules
 TestObjects=boardTest.o
 
 NAME=main.exe
@@ -21,9 +24,6 @@ rebuild: clean release
 clean:
 	rm -rf main.exe.dSYM
 	rm -f *.o
-
-# boardTest.o : boardTest.c boardTest.h
-# 	$(CC) $(CompileFlags) `pkg-config --cflags --libs cunit` -c $< -o $@
 
 %.o : %.c %.h
 	$(CC) $(CompileFlags)  -c $< -o $@
