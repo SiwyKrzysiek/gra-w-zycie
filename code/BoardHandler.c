@@ -1,5 +1,30 @@
 #include "BoardHandler.h"
 
+static inline void initializeRandomSeed()
+{
+    static bool alreadySet = false;
+    if (!alreadySet)
+        srand(time(NULL));
+}
+
+Board* createRandomBoard(const int x, const int y)
+{
+    Board* newBoard = malloc(sizeof(Board));
+
+    newBoard->sizeX = x;
+    newBoard->sizeY = y;
+    newBoard->cells = malloc(sizeof(CellState) * x * y);
+
+    initializeRandomSeed();
+    for (int i=0; i < x*y; i++)
+    {
+        CellState randomState = (CellState) (rand() % 2);
+        newBoard->cells[i] = randomState;
+    }
+
+    return newBoard;
+}
+
 void disposeBoard(Board *board)
 {
     free(board->cells);
