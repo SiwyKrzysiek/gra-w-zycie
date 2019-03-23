@@ -2,33 +2,21 @@
 
 void savePng(Board *board, char *outputFile)
 {
-    //Set up variables
-    int x, y;
+    //Set up setting
+    png_byte color_type = PNG_COLOR_TYPE_GRAY;
+    png_byte bit_depth = 8;
+    int number_of_passes = 7;
+    int width = board->sizeX;
+    int height = board->sizeY;
 
-    int width, height;
-    png_byte color_type;
-    png_byte bit_depth;
-
-    png_structp png_ptr;
-    png_infop info_ptr;
-    int number_of_passes;
-    png_bytep *row_pointers;
-
-    //Set settings
-    width = board->sizeX;
-    height = board->sizeY;
-    bit_depth = 8;
-    color_type = PNG_COLOR_TYPE_GRAY;
-
-    number_of_passes = 7;
-    row_pointers = (png_bytep *)malloc(sizeof(png_bytep) * height);
-    for (y = 0; y < height; y++)
+    png_bytep* row_pointers = (png_bytep *)malloc(sizeof(png_bytep) * height);
+    for (int y = 0; y < height; y++)
         row_pointers[y] = (png_byte *)malloc(sizeof(png_byte) * width);
 
-    for (y = 0; y < height; y++)
+    for (int y = 0; y < height; y++)
     {
         png_byte *row = row_pointers[y];
-        for (x = 0; x < width; x++)
+        for (int x = 0; x < width; x++)
         {
             CellState cell = board->cells[y * board->sizeX + x];
             row[x] = (cell == ALIVE) ? 255 : 0;
@@ -40,12 +28,12 @@ void savePng(Board *board, char *outputFile)
     if (!fp)
         printf("[write_png_file] File %s could not be opened for writing", outputFile);
 
-    png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 
     if (!png_ptr)
         printf("[write_png_file] png_create_write_struct failed");
 
-    info_ptr = png_create_info_struct(png_ptr);
+    png_infop info_ptr = png_create_info_struct(png_ptr);
     if (!info_ptr)
         printf("[write_png_file] png_create_info_struct failed");
 
@@ -73,7 +61,7 @@ void savePng(Board *board, char *outputFile)
 
     png_write_end(png_ptr, NULL);
 
-    for (y = 0; y < height; y++)
+    for (int y = 0; y < height; y++)
         free(row_pointers[y]);
     free(row_pointers);
 
