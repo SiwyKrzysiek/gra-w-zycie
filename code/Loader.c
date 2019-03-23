@@ -1,20 +1,17 @@
-#include "parser.h"
+#include "Loader.h"
 
-Board loadBoardFromFile(const char *fileName)
+Board* load(const char *path)
 {
     PARSE_INFORMATION = (ParseInformation){
         .lastLineReadNumber = 1,
         .lastCharacterReadNumber = -1};
-    FILE *file = fopen(fileName, "r");
+    FILE *file = fopen(path, "r");
 
     if (file == NULL)
     {
         fputs("Unable to open input file", stderr);
         exit(EXIT_FAILURE); //TODO: Throw exception
     }
-
-    //TODO: Not enough characters (in line or lines)
-    //TODO: Invalid dimensions (negative)
 
     int x, y;
     if (fscanf(file, "%d", &x) != 1) //Error checking
@@ -63,7 +60,7 @@ Board loadBoardFromFile(const char *fileName)
     PARSE_INFORMATION.lastLineReadNumber++;
 
     #ifdef DEBUG
-    printf("Board size parsed: %dx%d\n", x, y);
+        printf("Board size parsed: %dx%d\n", x, y);
     #endif
 
     //---- Start reading lines ---- FIXME: This is getting to long
@@ -153,10 +150,10 @@ Board loadBoardFromFile(const char *fileName)
         PARSE_INFORMATION.lastLineReadNumber++;
     }
 
-    Board parsedBoard;
-    parsedBoard.sizeX = x;
-    parsedBoard.sizeY = y;
-    parsedBoard.cells = cells;
+    Board* parsedBoard = malloc(sizeof(Board));
+    parsedBoard->sizeX = x;
+    parsedBoard->sizeY = y;
+    parsedBoard->cells = cells;
 
     #ifdef DEBUG
         puts("Board parsed:");
@@ -167,4 +164,66 @@ Board loadBoardFromFile(const char *fileName)
     #endif
 
     return parsedBoard;
+}
+
+int* getSize(char* path)
+{
+    FILE *file = fopen(path, "r");
+
+    if (file == NULL)
+    {
+        fputs("Unable to open input file", stderr);
+        exit(EXIT_FAILURE); //TODO: Throw exception
+    }
+
+    int x, y;
+    if (fscanf(file, "%d", &x) != 1) //Error checking
+    {
+        if (feof(file))
+        {
+            fputs("File is empty", stderr);
+            exit(EXIT_FAILURE); //TODO: Throw exception
+        }
+        else
+        {
+            fputs("Unable to read width of the board", stderr);
+            exit(EXIT_FAILURE); //TODO: Throw exception
+        }
+    }
+    if (x <= 0)
+    {
+        fprintf(stderr, "Width of the board must be greater then 0. Currently: %d", x);
+        exit(EXIT_FAILURE); //TODO: Throw exception
+    }
+
+    if (fscanf(file, "%d", &y) != 1) //Error checking
+    {
+        if (feof(file))
+        {
+            fputs("Board height is missing", stderr);
+            exit(EXIT_FAILURE); //TODO: Throw exception
+        }
+        else
+        {
+            fputs("Unable to read height of the board", stderr);
+            exit(EXIT_FAILURE); //TODO: Throw exception
+        }
+    }
+    if (y <= 0)
+    {
+        fprintf(stderr, "Height of the board must be greater then 0. Currently: %d", y);
+        exit(EXIT_FAILURE); //TODO: Throw exception
+    }
+
+    if (fgetc(file) != '\n')
+    {
+        fprintf(stderr, "Expected new line after board height.");
+        exit(EXIT_FAILURE); //TODO: Throw exception
+    }
+
+    int* sizes = malloc(sizeof(int) * 2);
+    sizes[0] = x;
+    sizes[1] = y;
+
+    return sizes;
 }
