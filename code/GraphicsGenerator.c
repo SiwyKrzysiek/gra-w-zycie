@@ -5,7 +5,6 @@ void savePng(Board *board, char *outputFile)
     //Set up setting
     png_byte color_type = PNG_COLOR_TYPE_GRAY;
     png_byte bit_depth = 8;
-    int number_of_passes = 7;
     int width = board->sizeX;
     int height = board->sizeY;
 
