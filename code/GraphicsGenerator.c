@@ -67,3 +67,45 @@ void savePng(Board *board, char *outputFile)
 
     fclose(fp);
 }
+
+void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile)
+{
+    if (numberOfBoards < 1)
+        return;
+
+    int width = boards[0]->sizeX;
+    int heigth = boards[0]->sizeY;
+
+    //Create gif
+    ge_GIF* gif = ge_new_gif(
+        outputFile,     //File name
+        width, heigth,  //Gif size
+        (uint8_t []) {  //Color palet
+            0x00, 0x00, 0x00, // 0 -> black
+            0xFF, 0xFF, 0xFF, // 1 -> white
+        },
+        1,      //Palette depth = Log2(colors)
+        1       //How many times to loop. 0 = infinite
+    );
+    
+    //Save each board
+    for (int n = 0; n < numberOfBoards; n++)
+    {
+        Board* currentBoard = boards[n];
+
+        //Set pixels of next frame
+        for (int i = 0; i < heigth; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                int index = i * width + j;
+                CellState state = currentBoard->cells[index];
+                gif->frame[index] = (state == DEAD) ? 0 : 1;
+            }
+        }
+        //Save frame
+        ge_add_frame(gif, DELAY_IN_MS_BETWEEN_GIF_FRAMES);
+    }
+
+    ge_close_gif(gif); //Free memory
+}
