@@ -25,24 +25,46 @@ void savePng(Board *board, char *outputFile)
     //Writing to file
     FILE *fp = fopen(outputFile, "wb");
     if (!fp)
+    {
         printf("[write_png_file] File %s could not be opened for writing", outputFile);
+        exit(EXIT_FAILURE);
+    }
 
     png_structp png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 
     if (!png_ptr)
+    {
         printf("[write_png_file] png_create_write_struct failed");
+        fclose(fp);
+        exit(EXIT_FAILURE);
+    }
 
     png_infop info_ptr = png_create_info_struct(png_ptr);
     if (!info_ptr)
+    {
         printf("[write_png_file] png_create_info_struct failed");
+        png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
+        fclose(fp);
+        exit(EXIT_FAILURE);
+    }
 
     if (setjmp(png_jmpbuf(png_ptr)))
-        printf("[write_png_file] Error during init_io");
+    {
+        printf("[write_png_file] Error during init_io");        
+        fclose(fp);
+        png_destroy_write_struct(&png_ptr, &info_ptr);
+        exit(EXIT_FAILURE);
+    }
 
     png_init_io(png_ptr, fp);
 
     if (setjmp(png_jmpbuf(png_ptr)))
+    {
         printf("[write_png_file] Error during writing header");
+        fclose(fp);
+        png_destroy_write_struct(&png_ptr, &info_ptr);
+        exit(EXIT_FAILURE);
+    }
 
     png_set_IHDR(png_ptr, info_ptr, width, height,
                  bit_depth, color_type, PNG_INTERLACE_NONE,
@@ -51,12 +73,22 @@ void savePng(Board *board, char *outputFile)
     png_write_info(png_ptr, info_ptr);
 
     if (setjmp(png_jmpbuf(png_ptr)))
+    {
         printf("[write_png_file] Error during writing bytes");
+        fclose(fp);
+        png_destroy_write_struct(&png_ptr, &info_ptr);
+        exit(EXIT_FAILURE);
+    }
 
     png_write_image(png_ptr, row_pointers);
 
     if (setjmp(png_jmpbuf(png_ptr)))
+    {
         printf("[write_png_file] Error during end of write");
+        fclose(fp);
+        png_destroy_write_struct(&png_ptr, &info_ptr);
+        exit(EXIT_FAILURE);
+    }
 
     png_write_end(png_ptr, NULL);
 
@@ -64,7 +96,7 @@ void savePng(Board *board, char *outputFile)
         free(row_pointers[y]);
     free(row_pointers);
 
-    png_destroy_info_struct(png_ptr, &info_ptr);
+    png_destroy_write_struct(&png_ptr, &info_ptr);
 
     fclose(fp);
 }
