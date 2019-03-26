@@ -2,7 +2,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "board.h"
+#include "Board.h"
+#include "BoardHandler.h"
 
 #define CELL_SEPARATOR ' '
 
@@ -16,4 +17,7 @@ typedef struct
 ParseInformation PARSE_INFORMATION;
 
 //Parses a file to a Board struct
-Board loadBoardFromFile(const char* fileName);
+Board* load(const char* path);
+
+//Reads size of board saved to a file
+int* getSize(char* path);

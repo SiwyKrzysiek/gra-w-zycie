@@ -3,15 +3,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "states.h"
+#include <time.h>
+#include <stdbool.h>
+#include "Board.h"
 
-typedef struct
-{
-    int sizeX;
-    int sizeY;
-
-    CellState *cells;
-} Board;
+// Creates board with given dimensions with random cell states
+Board* createRandomBoard(const int x, const int y);
 
 //Clears dynamically allocated memory used for board
 //Object becomes no longer usable!

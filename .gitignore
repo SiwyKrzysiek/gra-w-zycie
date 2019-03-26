@@ -1,6 +1,9 @@
 # OSX file system specific file
 .DS_Store
 
+# Visual Studio Code config folder
+.vscode/
+
 ## Compilation artefacts
 *.o
 code/main.exe.dSYM/Contents/Info.plist

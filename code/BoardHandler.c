@@ -1,4 +1,32 @@
-#include "board.h"
+#include "BoardHandler.h"
+
+static inline void initializeRandomSeed()
+{
+    static bool alreadySet = false;
+    if (!alreadySet)
+    {
+        alreadySet = true;
+        srand(time(NULL));
+    }
+}
+
+Board* createRandomBoard(const int x, const int y)
+{
+    Board* newBoard = malloc(sizeof(Board));
+
+    newBoard->sizeX = x;
+    newBoard->sizeY = y;
+    newBoard->cells = malloc(sizeof(CellState) * x * y);
+
+    initializeRandomSeed();
+    for (int i=0; i < x*y; i++)
+    {
+        CellState randomState = (CellState) (rand() % 2);
+        newBoard->cells[i] = randomState;
+    }
+
+    return newBoard;
+}
 
 void disposeBoard(Board *board)
 {
@@ -46,11 +74,11 @@ char *serializeBoard(Board *board)
     sprintf(buffor, "%d", board->sizeY);
     int yLenght = strlen(buffor);
 
-#ifdef DEBUG
+    #ifdef DEBUG
     printf("Serializing board of size %dx%d\nDimensions characters lengths are: x=%d y=%d\n",
            board->sizeX, board->sizeY,
            xLenght, yLenght);
-#endif
+    #endif
 
     const int firstLineLenght = xLenght + 1 + yLenght + 1;
     const int bodyLenght = board->sizeX * 2 * board->sizeY;
