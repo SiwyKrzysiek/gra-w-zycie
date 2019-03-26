@@ -4,7 +4,10 @@ static inline void initializeRandomSeed()
 {
     static bool alreadySet = false;
     if (!alreadySet)
+    {
+        alreadySet = true;
         srand(time(NULL));
+    }
 }
 
 Board* createRandomBoard(const int x, const int y)
