@@ -64,6 +64,8 @@ void savePng(Board *board, char *outputFile)
         free(row_pointers[y]);
     free(row_pointers);
 
+    png_destroy_info_struct(png_ptr, &info_ptr);
+
     fclose(fp);
 }
 
