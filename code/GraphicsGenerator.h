@@ -8,4 +8,5 @@
 #include <png.h>
 #include "Board.h"
 
+// Saves image representation of given board to specified file
 void savePng(Board* board, char* outputFile);
