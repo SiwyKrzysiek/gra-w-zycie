@@ -15,7 +15,6 @@ typedef struct{
 Config parseArgs(int argc, char** argv) {
 
 	int c;
-	int digit_optind = 0;
 
 	Config args;
 
