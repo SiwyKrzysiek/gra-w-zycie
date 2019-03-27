@@ -1,11 +1,11 @@
 CC=clang
 DebugFlags=-std=c11 -Wall -g3 -D DEBUG -D TESTS
 ReleseFlags=-Ofast -std=c11 -g0
-Libraries=cunit
+Libraries=cunit libpng
 
 ## Here add names of modules (.h, .c) files that should be compiled (with .o extension)
 # It is assumed that each one has .h and .c file
-Objects=BoardHandler.o Loader.o ArgumentsParser.o
+Objects=BoardHandler.o Loader.o ArgumentsParser.o GraphicsGenerator.o gifenc.o
 ## Here add names of test modules
 TestObjects=boardTest.o
 
@@ -16,7 +16,7 @@ development: $(Objects) $(TestObjects)
 	$(CC) $(DebugFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) $(TestObjects) main.c
 
 release: CompileFlags=$(ReleseFlags)
-release: board.o parser.o
+release: $(Objects)
 	$(CC) $(ReleseFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
 
 rebuild: clean release
