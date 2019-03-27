@@ -1,11 +1,11 @@
 #include "LoaderTest.h"
 
-static const char *smallFileName = "smallTmpBoard.txt";
+static const char *SMALL_FILE_NAME = "smallTmpBoard.txt";
 static FILE *smallFile = NULL;
 
 static void createSmallFile()
 {
-    smallFile = fopen(smallFileName, "w");
+    smallFile = fopen(SMALL_FILE_NAME, "w");
     CU_ASSERT_PTR_NOT_NULL(smallFile);
 
     int x = 3, y = 3;
@@ -22,12 +22,32 @@ static void createSmallFile()
 }
 static void deleteSmallFile()
 {
-    CU_ASSERT(remove(smallFileName) == 0); //File removed correctly
+    CU_ASSERT(remove(SMALL_FILE_NAME) == 0); //File removed correctly
 }
 
 void testParseSmallFile()
 {
+    //Given
     createSmallFile();
 
+    //When
+    Board *parsedBoard = load(SMALL_FILE_NAME);
+
+    //Expected
+    int x = 3, y = 3;
+    CellState expectedStates[] =
+        {
+            ALIVE, ALIVE, DEAD,
+            ALIVE, DEAD, ALIVE,
+            DEAD, ALIVE, ALIVE};
+
+    CU_ASSERT_EQUAL(parsedBoard->sizeX, x);
+    CU_ASSERT_EQUAL(parsedBoard->sizeY, y);
+    for (int i = 0; i < 9; i++)
+    {
+        CU_ASSERT_EQUAL(parsedBoard->cells[i], expectedStates[i]);
+    }
+
+    disposeBoard(parsedBoard);
     deleteSmallFile();
 }
