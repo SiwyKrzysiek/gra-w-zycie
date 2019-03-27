@@ -10,3 +10,6 @@ Zamiast tekstu `char* data` jako pierwszy argument przyjmuje strukturę planszy.
 ### saveGif
 Zmiana nazwy metody na `saveHistoryAsGif` ponieważ w bibliotece do gifów istniej funkcja `saveGif`.
 Zmiana argumentów z tego samego powodu co przy [savePng](###savePng).
+
+## Rules
+Modół potrzebuję połączenia z modułem ###Board, bo używa struktury CellState.
