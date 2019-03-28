@@ -1,0 +1,14 @@
+#pragma once
+
+#include <math.h>
+
+#include "Board.h"
+#include "Rules.h"
+#include "ArgumentsParser.h"
+
+Board* simulate(Board* b, Config* p);
+
+Board* nextGen(Board* b);
+
+CellState* getArea(Board* b, int x, int y);
+
