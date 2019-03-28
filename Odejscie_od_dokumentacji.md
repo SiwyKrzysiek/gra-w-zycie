@@ -12,4 +12,4 @@ Zmiana nazwy metody na `saveHistoryAsGif` ponieważ w bibliotece do gifów istni
 Zmiana argumentów z tego samego powodu co przy [savePng](###savePng).
 
 ## Rules
-Modół potrzebuję połączenia z modułem `Board`, bo używa struktury `CellState`. Funkcja `nextState` nie musi zwracać tablicy stanów komórek, wystarczy stan aktualnie rozpratywanej komórki.
+Modół potrzebuję połączenia z modułem `Board`, bo używa struktury `CellState`. Dodano funkcję `countALive` zliczającą żywe komórki w otoczeniu. Funkcja `nextState` nie musi zwracać tablicy stanów komórek, wystarczy stan aktualnie rozpratywanej komórki.
