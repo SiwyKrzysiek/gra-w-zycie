@@ -1,7 +1,6 @@
 #pragma once
 
 #include <math.h>
-#include <unistd.h>
 
 #include "Board.h"
 #include "Rules.h"
@@ -10,7 +9,7 @@
 
 #define clear() printf("\033[H\033[J") //clearing terminal
 
-Board* simulate(Board* b, Config* p);
+Board** simulate(Board* b, Config* p);
 
 Board* nextGen(Board* b);
 

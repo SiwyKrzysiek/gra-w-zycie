@@ -34,8 +34,8 @@ CellState* getArea(Board* b, int x, int y){
 }
 
 Board* nextGen(Board* b){
-
-	Board* result = malloc (sizeof (Board*));
+	printf("aaa\n");
+	Board* result = malloc (sizeof (Board*)); //tu wywale incorrect checksum
 	result->sizeX = b->sizeX;
 	result->sizeY = b->sizeY;
 	result->cells = malloc(SIZE * sizeof(CellState*));
@@ -65,14 +65,14 @@ Board** simulate(Board* b, Config* p){
 int main(){
 
 	Board* b = malloc (sizeof (Board*));
-	b->sizeX = 5;
-	b->sizeY = 5;
-	CellState x[5*5] = {DEAD, ALIVE, DEAD, DEAD, DEAD, 
+	b->sizeX = 10;
+	b->sizeY = 10;
+	/*CellState x[5*5] = {DEAD, ALIVE, DEAD, DEAD, DEAD, 
 						DEAD, DEAD, ALIVE, DEAD, DEAD, 
 						ALIVE, ALIVE, ALIVE, DEAD, DEAD,
 						DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD};
-	/*CellState x[10*10] = {DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD};*/
+	CellState x[10*10] = {DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
 						DEAD, DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
 						ALIVE, ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
 						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
@@ -81,22 +81,17 @@ int main(){
 						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
 						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
 						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD};*/
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD};
 	b->cells = x;
 	Config* p = malloc(sizeof (Config*));
-	p->number_of_generations = 10;
-	p->step = 1;
-	p->delay = 200;
+	p->number_of_generations = 35;
 
 	Board** boards = simulate(b, p);
-	printf("%d\n", p->number_of_generations);
-	display(boards, 10);
+	display(boards, p->number_of_generations);
 
 	free(p);
 	free(b);
 	free(boards);
-
-
 
 	return 0;
 }
