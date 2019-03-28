@@ -9,6 +9,8 @@
 
 #define clear() printf("\033[H\033[J") //clearing terminal
 
+void display(Board** b, int gens);
+
 Board** simulate(Board* b, Config* p);
 
 Board* nextGen(Board* b);

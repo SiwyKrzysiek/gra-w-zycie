@@ -16,7 +16,7 @@ void display(Board** b, int gens){
 
 CellState* getArea(Board* b, int x, int y){
 
-	CellState* area = malloc (SIZE * sizeof (CellState*));
+	CellState* area = malloc (SIZE * sizeof (*area));
 
 	int border = (sqrt(SIZE) - 1) / 2;
 	int iterator = 0;
@@ -34,11 +34,10 @@ CellState* getArea(Board* b, int x, int y){
 }
 
 Board* nextGen(Board* b){
-	printf("aaa\n");
-	Board* result = malloc (sizeof (Board*)); //tu wywale incorrect checksum
+	Board* result = malloc (sizeof(*result));
 	result->sizeX = b->sizeX;
 	result->sizeY = b->sizeY;
-	result->cells = malloc(SIZE * sizeof(CellState*));
+	result->cells = malloc(SIZE * sizeof(CellState));
 
 	int iterator = 0;
 
@@ -52,46 +51,11 @@ Board* nextGen(Board* b){
 }
 
 Board** simulate(Board* b, Config* p){
-	Board** boardArray = malloc (p->number_of_generations * sizeof(Board*));
+	Board** boardArray = malloc (p->number_of_generations * sizeof(*boardArray));
 	for(int i = 0; i < p->number_of_generations; i++){
-		b = nextGen(b);
 		boardArray[i] = b;
+		b = nextGen(b);
 	}
+	boardArray[p->number_of_generations - 1] = b;
 	return boardArray;
-}
-
-//testing
-
-int main(){
-
-	Board* b = malloc (sizeof (Board*));
-	b->sizeX = 10;
-	b->sizeY = 10;
-	/*CellState x[5*5] = {DEAD, ALIVE, DEAD, DEAD, DEAD, 
-						DEAD, DEAD, ALIVE, DEAD, DEAD, 
-						ALIVE, ALIVE, ALIVE, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD};*/
-	CellState x[10*10] = {DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						ALIVE, ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD};
-	b->cells = x;
-	Config* p = malloc(sizeof (Config*));
-	p->number_of_generations = 35;
-
-	Board** boards = simulate(b, p);
-	display(boards, p->number_of_generations);
-
-	free(p);
-	free(b);
-	free(boards);
-
-	return 0;
 }
