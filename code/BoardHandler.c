@@ -31,6 +31,7 @@ Board* createRandomBoard(const int x, const int y)
 void disposeBoard(Board *board)
 {
     free(board->cells);
+    free(board);
 }
 
 char *boardToString(Board *board)
