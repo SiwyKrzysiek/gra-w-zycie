@@ -1,10 +1,14 @@
 #pragma once
 
 #include <math.h>
+#include <unistd.h>
 
 #include "Board.h"
 #include "Rules.h"
 #include "ArgumentsParser.h"
+
+
+#define clear() printf("\033[H\033[J") //clearing terminal
 
 Board* simulate(Board* b, Config* p);
 

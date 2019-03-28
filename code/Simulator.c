@@ -1,11 +1,22 @@
 #include "Simulator.h"
 
+//temporary function for testing
+void display(Board* b){
+	printf("\n\n\n");
+	for(int i = 0; i < b->sizeY; i++){
+		for(int j = 0; j < b->sizeX; j++){
+			printf("%d ", b->cells[i * b->sizeX + j]);
+		}
+		printf("\n");
+	}
+}
+
 
 CellState* getArea(Board* b, int x, int y){
 
 	CellState* area = malloc (SIZE * sizeof (CellState*));
 
-	int border = (sqrt(SIZE) - 1) / 2; // border = 1, x = 3, y = 0
+	int border = (sqrt(SIZE) - 1) / 2;
 	int iterator = 0;
 
 	for(int i = y - border; i <= y + border; i++){
@@ -39,47 +50,41 @@ Board* nextGen(Board* b){
 	return result;
 }
 
+Board* simulate(Board* b, Config* p){
+	for(int i = 0; i < p->number_of_generations; i++){
+		clear();
+		if(i % p->step == 0) display(b);
+		b = nextGen(b);
+		usleep(p->delay * 1000);
+	}
+	return b;
+}
+
+//testing
+
 int main(){
 
 	Board* b = malloc (sizeof (Board*));
-	b->sizeX = 5;
-	b->sizeY = 4;
-	CellState x[20] = {ALIVE, DEAD, ALIVE, DEAD, DEAD,
-					   DEAD, DEAD, ALIVE, DEAD, ALIVE,
-					   DEAD, ALIVE, ALIVE, DEAD, ALIVE,
-					   DEAD, DEAD, DEAD, DEAD, DEAD};
+	b->sizeX = 7;
+	b->sizeY = 7;
+	CellState x[7*7] = {DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, 
+						DEAD, DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, 
+						ALIVE, ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, 
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD};
 	b->cells = x;
 
-	//testing getArea
-	/*printf("\ngetArea:\n");	
+	Config* p = malloc(sizeof (Config*));
+	p->number_of_generations = 20;
+	p->step = 1;
+	p->delay = 200;
 
-	CellState* y = malloc (SIZE * sizeof (CellState*));
-	y = getArea(b, 2, 0);
+	simulate(b, p);
 
-	for(int i = 0; i < SIZE; i++)
-		printf("%d\n", y[i]);*/
-
-	//testing nextGen
-	/*printf("\nnextGen:\n");
-
-	Board* b2 = malloc (sizeof (Board*));
-	b2 = nextGen(b);
-
-	for(int i = 0; i < b2->sizeX * b2->sizeY; i++){
-		printf("%d\n", b2->cells[i]);
-	}*/
-
-	//testing
-	/*CellState* a = getArea(b, 3, 0);
-	for(int i = 0; i < SIZE; i++){
-		printf("%d: %d\n", i, a[i]);
-	}
-
-	printf("alive: %d\n", countAlive(a));
-
-	printf("%d\n", nextState(getArea(b,3,0)));*/
-
-
+	free(p);
+	free(b);
 
 
 
