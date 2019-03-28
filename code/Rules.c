@@ -8,9 +8,9 @@ int countAlive(CellState* area){
 	return counter;
 }
 
-CellState* nextState(CellState* area){
+CellState nextState(CellState* area){
 	int alive = countAlive(area);
-	if (area[MIDDLE_INDEX] == DEAD && alive == 3) area[MIDDLE_INDEX] = ALIVE;
-	else if (area[MIDDLE_INDEX] == ALIVE && (alive != 3 || alive != 2)) area[MIDDLE_INDEX] = DEAD;
-	return area;
+	if (area[MIDDLE_INDEX] == DEAD && alive == 3) return ALIVE;
+	else if (area[MIDDLE_INDEX] == ALIVE && (alive != 3 || alive != 2)) return DEAD;
+	return area[MIDDLE_INDEX];
 }
