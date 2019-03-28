@@ -1,13 +1,15 @@
 #include "Simulator.h"
 
 //temporary function for testing
-void display(Board* b){
-	printf("\n\n\n");
-	for(int i = 0; i < b->sizeY; i++){
-		for(int j = 0; j < b->sizeX; j++){
-			printf("%d ", b->cells[i * b->sizeX + j]);
+void display(Board** b, int gens){
+	for(int i = 0; i < gens; i++){
+		printf("Gen %d:\n", i);
+		for(int j = 0; j < b[i]->sizeY; j++){
+			for(int k = 0; k < b[i]->sizeX; k++){
+				printf("%d ", b[i]->cells[j * b[i]->sizeX + k]);
+			}
+			printf("\n");
 		}
-		printf("\n");
 	}
 }
 
@@ -45,19 +47,17 @@ Board* nextGen(Board* b){
 			result->cells[iterator] = nextState(getArea(b, i, j));
 			iterator++;
 		}
-		printf("\n");
 	}
 	return result;
 }
 
-Board* simulate(Board* b, Config* p){
+Board** simulate(Board* b, Config* p){
+	Board** boardArray = malloc (p->number_of_generations * sizeof(Board*));
 	for(int i = 0; i < p->number_of_generations; i++){
-		clear();
-		if(i % p->step == 0) display(b);
 		b = nextGen(b);
-		usleep(p->delay * 1000);
+		boardArray[i] = b;
 	}
-	return b;
+	return boardArray;
 }
 
 //testing
@@ -65,26 +65,36 @@ Board* simulate(Board* b, Config* p){
 int main(){
 
 	Board* b = malloc (sizeof (Board*));
-	b->sizeX = 7;
-	b->sizeY = 7;
-	CellState x[7*7] = {DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, 
-						DEAD, DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, 
-						ALIVE, ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, 
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
-						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD};
+	b->sizeX = 5;
+	b->sizeY = 5;
+	CellState x[5*5] = {DEAD, ALIVE, DEAD, DEAD, DEAD, 
+						DEAD, DEAD, ALIVE, DEAD, DEAD, 
+						ALIVE, ALIVE, ALIVE, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD};
+	/*CellState x[10*10] = {DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						ALIVE, ALIVE, ALIVE, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD,
+						DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD, DEAD};*/
 	b->cells = x;
-
 	Config* p = malloc(sizeof (Config*));
-	p->number_of_generations = 20;
+	p->number_of_generations = 10;
 	p->step = 1;
 	p->delay = 200;
 
-	simulate(b, p);
+	Board** boards = simulate(b, p);
+	printf("%d\n", p->number_of_generations);
+	display(boards, 10);
 
 	free(p);
 	free(b);
+	free(boards);
 
 
 
