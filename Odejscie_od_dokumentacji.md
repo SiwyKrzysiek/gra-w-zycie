@@ -13,3 +13,6 @@ Zmiana argumentów z tego samego powodu co przy [savePng](###savePng).
 
 ## Rules
 Modół potrzebuję połączenia z modułem `Board`, bo używa struktury `CellState`. Dodano funkcję `countALive` zliczającą żywe komórki w otoczeniu. Funkcja `nextState` nie musi zwracać tablicy stanów komórek, wystarczy stan aktualnie rozpratywanej komórki.
+
+## Simulator
+Funkcja `getArea`, nie potrzebuje rozmiaru planszy, może go pobierać ze stałej `SIZE` w Rules.
