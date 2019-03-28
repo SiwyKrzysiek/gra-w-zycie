@@ -8,4 +8,4 @@
 #define SIZE 9
 #define MIDDLE_INDEX 4
 
-CellState* nextState(CellState* area);
+CellState nextState(CellState* area);
