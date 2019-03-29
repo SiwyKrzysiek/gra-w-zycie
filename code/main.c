@@ -7,6 +7,7 @@
 #ifdef TESTS
 #include <CUnit/Basic.h>
 #include "boardTest.h"
+#include "LoaderTest.h"
 
 
 
@@ -49,6 +50,19 @@ void runTests()
 
    /* add the tests to the suite */
    if (NULL == CU_add_test(boardSuite, "To string test", testBoardToString))
+   {
+      CU_cleanup_registry();
+      exit(CU_get_error());
+   }
+
+   CU_pSuite loaderSuite = CU_add_suite("Loader tests", NULL, NULL);
+   if (loaderSuite == NULL)
+   {
+      CU_cleanup_registry();
+      exit(CU_get_error());
+   }
+
+   if (CU_add_test(loaderSuite, "Parse small file test", testParseSmallFile) == NULL)
    {
       CU_cleanup_registry();
       exit(CU_get_error());
