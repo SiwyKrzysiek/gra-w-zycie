@@ -1,7 +1,8 @@
 #include "Simulator.h"
 
 //temporary function for testing
-void display(Board** b, int gens){
+void display(Board** b, Config* p){
+	int gens = (p->number_of_generations % p->step == 0) ? p->number_of_generations / p->step : p->number_of_generations / p->step + 1;
 	for(int i = 0; i < gens; i++){
 		printf("Gen %d:\n", i);
 		for(int j = 0; j < b[i]->sizeY; j++){
@@ -51,10 +52,15 @@ Board* nextGen(Board* b){
 }
 
 Board** simulate(Board* b, Config* p){
-	Board** boardArray = malloc (p->number_of_generations * sizeof(*boardArray));
+	int iterator = 0;
+	int arraySize = (p->number_of_generations % p->step == 0) ? p->number_of_generations / p->step : p->number_of_generations / p->step + 1;
+	Board** boardArray = malloc (sizeof(*boardArray) * arraySize);
 	for(int i = 0; i < p->number_of_generations; i++){
-		boardArray[i] = b;
-		b = nextGen(b);
+		if(i % p->step == 0){
+			boardArray[iterator] = b;
+			b = nextGen(b);
+			iterator++;
+		}
 	}
 	boardArray[p->number_of_generations - 1] = b;
 	return boardArray;
