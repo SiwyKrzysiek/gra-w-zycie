@@ -4,6 +4,12 @@
 #include <stdlib.h>    
 #include <getopt.h>
 
+typedef enum{
+	GIF = 2,
+	PNG = 1,
+	TXT = 0
+}FileType;
+
 typedef struct{
 	int help;
 	char* file;
@@ -14,4 +20,4 @@ typedef struct{
 	int delay;
 }Config;
 
-Config parseArgs(int argc, char** argv);
+Config* parseArgs(int argc, char** argv);

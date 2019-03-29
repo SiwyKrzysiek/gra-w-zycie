@@ -12,19 +12,19 @@ typedef struct{
 	int delay;
 }Config;
 
-Config parseArgs(int argc, char** argv) {
+Config* parseArgs(int argc, char** argv) {
 
 	int c;
 
-	Config args;
+	Config* args = malloc(sizeof(*args));
 
-	args.help = 0;
-	args.file = "";
-	args.output_dest = "";
-	args.type = "";
-	args.amount_of_generations = 15;
-	args.step = 1;
-	args.delay = 1000;
+	args->help = 0;
+	args->file = "";
+	args->output_dest = "";
+	args->type = GIF;
+	args->amount_of_generations = 15;
+	args->step = 1;
+	args->delay = 1000;
 
 	if (argc == 1){
 		printf("To view help, call the program with -h / --help flag\n");
@@ -56,31 +56,37 @@ Config parseArgs(int argc, char** argv) {
 				exit(1);
 
 			case 'h':
-				args.help = 1;
+				args->help = 1;
 				break;
 
 			case 'f':
-				args.file = optarg;
+				args->file = optarg;
 				break;
 
 			case 'o':
-				args.output_dest = optarg;
+				args->output_dest = optarg;
 				break;
 
 			case 't':
-				args.type = optarg;
+				if(strcmp(args->type, "txt")) args->type = TXT;
+				else if(strcmp(args->type, "png")) args->type = PNG;
+				else if(strcmp(args->type, "gif")) args->type = GIF;
+				else{
+					printf("\nNierozpoznany typ pliku wyjściowego, wybrany domyślny - .gif\n");
+				}
+
 				break;
 
 			case 'n':
-				args.amount_of_generations = atoi(optarg);
+				args->amount_of_generations = atoi(optarg);
 				break;
 
 			case 'p':
-				args.step = atoi(optarg);	
+				args->step = atoi(optarg);	
 				break;
 
 			case 'd':
-				args.delay = atoi(optarg);
+				args->delay = atoi(optarg);
 				break;
 		}
 	}
