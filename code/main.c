@@ -1,15 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "Simulator.h"
+#include "Loader.h"
+
 #ifdef TESTS
 #include <CUnit/Basic.h>
 #include "boardTest.h"
+
+
 
 void runTests();
 #endif
 
 int main()
 {
+   #ifdef DEBUG
+      Config* p = malloc (sizeof(*p));
+      p->number_of_generations = 10;
+      p->step = 2;
+      Board* b = load("input.txt");
+      Board** bArray = simulate(b, p);
+      display(bArray, p);
+   #endif
+
    #ifdef TESTS
       runTests();
    #endif
