@@ -16,6 +16,9 @@ void runTests();
 
 int main()
 {
+
+   //argumenty   
+
    #ifdef DEBUG
       Config* p = malloc (sizeof(*p));
       p->number_of_generations = 10;
