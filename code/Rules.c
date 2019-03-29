@@ -11,6 +11,6 @@ int countAlive(CellState* area){
 CellState nextState(CellState* area){
 	int alive = countAlive(area);
 	if (area[MIDDLE_INDEX] == DEAD && alive == 3) return ALIVE;
-	else if (area[MIDDLE_INDEX] == ALIVE && (alive != 3 || alive != 2)) return DEAD;
+	else if (area[MIDDLE_INDEX] == ALIVE && alive != 3 && alive != 2) return DEAD;
 	return area[MIDDLE_INDEX];
 }
