@@ -8,6 +8,7 @@
 #include <sys/types.h>
 
 typedef enum{
+	OUT = 3,
 	GIF = 2,
 	PNG = 1,
 	TXT = 0

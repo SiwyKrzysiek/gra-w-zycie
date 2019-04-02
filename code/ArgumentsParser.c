@@ -84,6 +84,7 @@ Config* parseArgs(int argc, char** argv) {
 				if(strcmp(optarg, "txt") == 0) args->type = TXT;
 				else if(strcmp(optarg, "png") == 0) args->type = PNG;
 				else if(strcmp(optarg, "gif") == 0) args->type = GIF;
+				else if(strcmp(optarg, "out") == 0) args->type = OUT;
 				else{
 					printf("\nNierozpoznany typ pliku wyjściowego, wybrany domyślny - .gif\n");
 				}
