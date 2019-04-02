@@ -143,7 +143,7 @@ void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile, int 
     ge_close_gif(gif); //Free memory
 }
 
-Pixel* upscaleImage(const Pixel* original, int imageX, int imageY)
+Pixel* upscaleImage(const Pixel* original, int imageX, int imageY, int* newX, int* newY)
 {
     int max = (imageX > imageY) ? imageX : imageY;
 
@@ -151,21 +151,23 @@ Pixel* upscaleImage(const Pixel* original, int imageX, int imageY)
     if (max >= MIN_IMAGE_SIZE)
         multiplier = 1;
 
-    int newX = imageX*multiplier;
-    int newY = imageY*multiplier;
+    int newXdim = imageX*multiplier;
+    int newYdim = imageY*multiplier;
 
-    Pixel* resizedImage = malloc(newX * newY * sizeof(*resizedImage));
-    for(int i = 0; i < newY; i++)
+    Pixel* resizedImage = malloc(newXdim * newYdim * sizeof(*resizedImage));
+    for(int i = 0; i < newYdim; i++)
     {
-        for(int j = 0; j < newX; j++)
+        for(int j = 0; j < newXdim; j++)
         {
-            int xIndex = j*imageX/newX;
-            int yIndex = i*imageY/newY;
+            int xIndex = j*imageX/newXdim;
+            int yIndex = i*imageY/newYdim;
 
-            resizedImage[i*newX + j] = original[yIndex*imageX + xIndex];
+            resizedImage[i*newXdim + j] = original[yIndex*imageX + xIndex];
         }
-        
     }
+
+    *newX = newXdim;
+    *newY = newYdim;
 
     return resizedImage;
 }

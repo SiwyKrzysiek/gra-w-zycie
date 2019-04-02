@@ -21,6 +21,7 @@ void savePng(Board* board, char* outputFile);
 void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile, int delay);
 
 // Creates upscaled version of given image
-// At the longest dimension 
+// At the longest dimension
+// Upscaled image size is written to newX and newY arguents
 // Returned array must be feed
-Pixel* upscaleImage(const Pixel* original, int imageX, int imageY);
+Pixel* upscaleImage(const Pixel* original, int imageX, int imageY, int* newX, int* newY);
