@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "Simulator.h"
 #include "Loader.h"
@@ -62,18 +63,20 @@ void runProgram(int argc, char **args)
    Board **history = simulate(initialBoard, config);
    int historySize = (config->number_of_generations % config->step == 0) ? config->number_of_generations / config->step : config->number_of_generations / config->step + 1;
    //TODO: Maybe fix
-   char* fileName;
-   char* gifEnding = "history.gif";
+   char* path;
+   time_t myTime = time(NULL);
+   char* fileName = ctime(&myTime);
    switch (config->type)
    {
       case GIF:
-      
-         fileName = malloc(strlen(config->output_dest) + strlen(gifEnding) + 1);
-         strcpy(fileName, config->output_dest);
-         strcat(fileName, gifEnding);
-         saveHistoryAsGif(history, historySize, fileName);
 
-         free(fileName);
+         path = malloc(strlen(config->output_dest) + strlen(fileName) + 5);
+         strcpy(path, config->output_dest);
+         strcat(path, fileName);
+         strcat(path, ".gif");
+         saveHistoryAsGif(history, historySize, path);
+         free(path);
+
          break;
       case PNG:
          break;
