@@ -12,7 +12,7 @@ Config* parseArgs(int argc, char** argv) {
 	args->type = GIF;
 	args->number_of_generations = 15;
 	args->step = 1;
-	args->delay = 1000;
+	args->delay = 500;
 
 	if (argc == 1){
 		printf("To view help, call the program with -h / --help flag\n");
@@ -67,14 +67,32 @@ Config* parseArgs(int argc, char** argv) {
 
 			case 'n':
 				args->number_of_generations = atoi(optarg);
+				if (args->number_of_generations == 0)
+				{
+					args->number_of_generations = 15;
+					printf("Invalid number of generations\nSet to default - 15\n");
+				}
+
 				break;
 
 			case 'p':
 				args->step = atoi(optarg);	
+				if (args->step == 0)
+				{
+					args->step = 1;
+					printf("Invalid value of steps\nSet to default - 1\n");
+				}
+
 				break;
 
 			case 'd':
 				args->delay = atoi(optarg);
+				if (args->delay == 0)
+				{
+					args->delay = 500;
+					printf("Invalid delay\nSet to default - 500\n");
+				}
+
 				break;
 		}
 	}
