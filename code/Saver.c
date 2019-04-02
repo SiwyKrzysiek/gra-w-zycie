@@ -30,7 +30,12 @@ void saveCommon(Board** history, Config* config, int i, char* extension){
     strcat(path, tempString);
     strcat(path, ".");
     strcat(path, extension);
-    savePng(history[i], path);
+    if(strcmp(extension, "png") == 0) savePng(history[i], path);
+    else{
+        FILE* f = fopen(path, "w");
+        fprintf(f, "%s", serializeBoard(history[i]));
+        fclose(f);
+    }
     free(tempString);
     free(path);
 }
@@ -42,7 +47,6 @@ void saveAsGif(Board** history, Config* config, int historySize){
 	strcat(path, dirName);
 	strcat(path, ".gif");
 	saveHistoryAsGif(history, historySize, path, config->delay);
-	printf("%s\n", path);
 	free(path);
 }
 
