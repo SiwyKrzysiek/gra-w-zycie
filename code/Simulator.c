@@ -58,10 +58,10 @@ Board** simulate(Board* b, Config* p){
 	for(int i = 0; i < p->number_of_generations; i++){
 		if(i % p->step == 0){
 			boardArray[iterator] = b;
-			b = nextGen(b);
 			iterator++;
 		}
+		b = nextGen(b);
 	}
-	boardArray[p->number_of_generations - 1] = b;
+	boardArray[arraySize - 1] = b;
 	return boardArray;
 }
