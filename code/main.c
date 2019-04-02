@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "Simulator.h"
 #include "Loader.h"
@@ -73,7 +75,7 @@ void runProgram(int argc, char **args)
    switch (config->type)
    {
       case GIF:
-         path = malloc(strlen(config->output_dest) + strlen(fileName) + 5);
+         path = malloc(strlen(config->output_dest) + strlen(fileName) + 4);
          strcpy(path, config->output_dest);
          strcat(path, fileName);
          strcat(path, ".gif");
@@ -94,6 +96,9 @@ void runProgram(int argc, char **args)
             strcpy(path, config->output_dest);
             tempString = malloc(counter);
             sprintf(tempString, "%d", i);
+            strcat(path, fileName);
+            strcat(path, "/");
+            mkdir(path, 0777);
             strcat(path, tempString);
             strcat(path, ".png");
             savePng(history[i], path);
@@ -103,7 +108,38 @@ void runProgram(int argc, char **args)
          break;
 
       case TXT:
-      default:
+         for(int i = 0; i < historySize; i++){
+            temp = i;
+            counter = 0;
+            while (temp != 0){
+               temp /= 10;
+               counter++;
+            }
+            if (counter == 0) counter  = 1;
+            temp = config->number_of_generations;
+            path = malloc(strlen(config->output_dest) + strlen(fileName) + counter + 5);
+            strcpy(path, config->output_dest);
+            tempString = malloc(counter);
+            sprintf(tempString, "%d", i);
+            strcat(path, fileName);
+            strcat(path, "/");
+            mkdir(path, 0777);
+            strcat(path, tempString);
+            strcat(path, ".txt");
+            FILE* f = fopen(path, "w");
+            fprintf(f, "%s\n\n",serializeBoard(history[i]));
+            fclose(f);
+            free(tempString);
+            free(path);
+         }
+         break;
+      case OUT:
+         clear();
+         for(int i = 0; i < historySize; i++){
+            printf("%s", serializeBoard(history[i]));
+            usleep(config->delay * 1000);
+            clear();
+         }
          break;
    }
    disposeConfig(config);
