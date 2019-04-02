@@ -3,6 +3,7 @@
 void setup(){
 	myTime = time(NULL);
 	dirName = ctime(&myTime);
+	dirName[strlen(dirName) - 1] = '\0';
 	counter = 1;
 	tempString = NULL;
 }
@@ -41,6 +42,7 @@ void saveAsGif(Board** history, Config* config, int historySize){
 	strcat(path, dirName);
 	strcat(path, ".gif");
 	saveHistoryAsGif(history, historySize, path, config->delay);
+	printf("%s\n", path);
 	free(path);
 }
 
