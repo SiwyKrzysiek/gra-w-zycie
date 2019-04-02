@@ -46,7 +46,7 @@ void saveAsGif(Board** history, Config* config, int historySize){
 	strcpy(path, config->output_dest);
 	strcat(path, dirName);
 	strcat(path, ".gif");
-	saveHistoryAsGif(history, historySize, path, config->delay);
+	saveHistoryAsGif(history, historySize, path, config->delay / 10);
 	free(path);
 }
 
