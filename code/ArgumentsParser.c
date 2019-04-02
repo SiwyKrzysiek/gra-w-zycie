@@ -1,16 +1,24 @@
 #include "ArgumentsParser.h"
 
+void disposeConfig(Config* c){
+	free(c->output_dest);
+	free(c);
+}
+
 Config* parseArgs(int argc, char** argv) {
 
 	int c;
 	char ch;
 	int read;
+	char* defualtOutput = "result/";
+
 
 	Config* args = malloc(sizeof(*args));
 
 	args->help = 0;
-	args->file = "";
-	args->output_dest = "";
+	args->file = "input.txt";
+	args->output_dest = malloc(strlen(defualtOutput) + 1);
+	strcpy(args->output_dest, defualtOutput);
 	args->type = GIF;
 	args->number_of_generations = 15;
 	args->step = 1;
@@ -56,7 +64,14 @@ Config* parseArgs(int argc, char** argv) {
 				break;
 
 			case 'o':
-				args->output_dest = optarg;
+				if(optarg[strlen(optarg) - 1] != '/'){
+					realloc(args->output_dest, strlen(optarg) + 2);
+					strcpy(args->output_dest, optarg);
+					strcat(args->output_dest, "/");
+				}else{
+					realloc(args->output_dest, strlen(optarg) + 1);
+					strcpy(args->output_dest, optarg);
+				}
 				break;
 
 			case 't':
@@ -113,5 +128,6 @@ Config* parseArgs(int argc, char** argv) {
 		 printf("To view help call the program with -h / --help flag\n");
          exit(EXIT_FAILURE);
 	}
+	mkdir(args->output_dest, 0777);
 	return args;
 }

@@ -4,6 +4,8 @@
 #include <stdlib.h>    
 #include <getopt.h>
 #include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 typedef enum{
 	GIF = 2,
