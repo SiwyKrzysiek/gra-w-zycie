@@ -19,6 +19,8 @@ typedef struct{
 	int number_of_generations;
 	int step;
 	int delay;
+	int sizeX;
+	int sizeY;
 }Config;
 
 Config* parseArgs(int argc, char** argv);

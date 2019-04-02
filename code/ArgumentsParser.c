@@ -3,6 +3,8 @@
 Config* parseArgs(int argc, char** argv) {
 
 	int c;
+	char ch;
+	int read;
 
 	Config* args = malloc(sizeof(*args));
 
@@ -13,12 +15,13 @@ Config* parseArgs(int argc, char** argv) {
 	args->number_of_generations = 15;
 	args->step = 1;
 	args->delay = 500;
+	args->sizeX = 10;
+	args->sizeY = 10;
 
 	if (argc == 1){
 		printf("To view help, call the program with -h / --help flag\n");
 		exit(EXIT_FAILURE);
 	}
-
 	while (1) {
 		int option_index = 0;
 		static struct option long_options[] = {
@@ -29,9 +32,10 @@ Config* parseArgs(int argc, char** argv) {
                 {"number_of_generations",  required_argument,       0,  'n' },
                 {"step",  required_argument,       0,  'p' },
                 {"delay",  required_argument,       0,  'd' },
+                {"size",  required_argument,       0,  's' }
                };
 
-		c = getopt_long(argc, argv, "hf:o:t:n:p:d:",
+		c = getopt_long(argc, argv, "hf:o:t:n:p:d:s:",
 			long_options, &option_index);
 
 		if (c == -1)
@@ -93,6 +97,14 @@ Config* parseArgs(int argc, char** argv) {
 					printf("Invalid delay\nSet to default - 500\n");
 				}
 
+				break;
+			case 's':
+				read = sscanf(optarg, "%d%c%d", &(args->sizeX), &ch, &(args->sizeY));
+				if (read != 3 || ch != 'x'){
+					printf("Invalid size\nSet to default - 10x10");
+					args->sizeX = 10;
+					args->sizeY = 10;
+				}
 				break;
 		}
 	}
