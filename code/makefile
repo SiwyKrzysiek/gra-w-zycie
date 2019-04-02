@@ -33,7 +33,7 @@ GraphicsGenerator.o: GraphicsGenerator.c GraphicsGenerator.h
 	$(CC) $(CompileFlags)  `pkg-config --cflags cunit` -c $< -o $@
 
 %.o : %.c %.h
-	$(CC) $(CompileFlags)  `pkg-config --cflags --libs $(Libraries)` -c $< -o $@
+	$(CC) $(CompileFlags)  `pkg-config --cflags $(Libraries)` -c $< -o $@
 
 # % - dowolne znaki. Jak już zadanie zostanie uruchomione to nie zmienia wargości
 # $< - pierwsze wymaganie
