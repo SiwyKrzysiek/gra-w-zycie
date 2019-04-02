@@ -1,16 +1,4 @@
-#include <stdio.h> 
-#include <stdlib.h>    
-#include <getopt.h>
-
-typedef struct{
-	int help;
-	char* file;
-	char* output_dest;
-	char* type;
-	int amount_of_generations;
-	int step;
-	int delay;
-}Config;
+#include "ArgumentsParser.h"
 
 Config* parseArgs(int argc, char** argv) {
 
@@ -22,7 +10,7 @@ Config* parseArgs(int argc, char** argv) {
 	args->file = "";
 	args->output_dest = "";
 	args->type = GIF;
-	args->amount_of_generations = 15;
+	args->number_of_generations = 15;
 	args->step = 1;
 	args->delay = 1000;
 
@@ -38,7 +26,7 @@ Config* parseArgs(int argc, char** argv) {
                 {"file",  required_argument, 0,  'f' },
                 {"output_dest",  required_argument,       0,  'o' },
                 {"type",  required_argument,       0,  't' },
-                {"amount_of_generations",  required_argument,       0,  'n' },
+                {"number_of_generations",  required_argument,       0,  'n' },
                 {"step",  required_argument,       0,  'p' },
                 {"delay",  required_argument,       0,  'd' },
                };
@@ -68,9 +56,9 @@ Config* parseArgs(int argc, char** argv) {
 				break;
 
 			case 't':
-				if(strcmp(args->type, "txt")) args->type = TXT;
-				else if(strcmp(args->type, "png")) args->type = PNG;
-				else if(strcmp(args->type, "gif")) args->type = GIF;
+				if(strcmp(optarg, "txt")) args->type = TXT;
+				else if(strcmp(optarg, "png")) args->type = PNG;
+				else if(strcmp(optarg, "gif")) args->type = GIF;
 				else{
 					printf("\nNierozpoznany typ pliku wyjściowego, wybrany domyślny - .gif\n");
 				}
@@ -78,7 +66,7 @@ Config* parseArgs(int argc, char** argv) {
 				break;
 
 			case 'n':
-				args->amount_of_generations = atoi(optarg);
+				args->number_of_generations = atoi(optarg);
 				break;
 
 			case 'p':

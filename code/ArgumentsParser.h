@@ -3,6 +3,7 @@
 #include <stdio.h> 
 #include <stdlib.h>    
 #include <getopt.h>
+#include <string.h>
 
 typedef enum{
 	GIF = 2,
@@ -14,7 +15,7 @@ typedef struct{
 	int help;
 	char* file;
 	char* output_dest;
-	char* type;
+	FileType type;
 	int number_of_generations;
 	int step;
 	int delay;
