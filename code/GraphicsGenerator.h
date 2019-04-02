@@ -16,4 +16,4 @@ void savePng(Board* board, char* outputFile);
 
 // Saves series of board states into one .gif file
 // Each board must have the same size
-void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile);
+void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile, int delay);
