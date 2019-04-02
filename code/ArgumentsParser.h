@@ -25,4 +25,6 @@ typedef struct{
 	int sizeY;
 }Config;
 
+void disposeConfig(Config* config);
+
 Config* parseArgs(int argc, char** argv);
