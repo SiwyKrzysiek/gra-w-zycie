@@ -59,13 +59,8 @@ void runProgram(int argc, char **args)
       initialBoard = load(config->file);
    }
 
-   char* string = serializeBoard(initialBoard);
-        puts(string);
-        free(string);
-
    Board **history = simulate(initialBoard, config);
    int historySize = (config->number_of_generations % config->step == 0) ? config->number_of_generations / config->step : config->number_of_generations / config->step + 1;
-
    //TODO: Maybe fix
    char* fileName;
    char* gifEnding = "/history.gif";
@@ -77,18 +72,16 @@ void runProgram(int argc, char **args)
 
             fileName = malloc(strlen(config->output_dest) + strlen(gifEnding) + 1);
             strcpy(fileName, config->output_dest);
-            strcat(config->output_dest, gifEnding);
-            saveHistoryAsGif(history, historySize, fileName);
+            strcat(fileName, gifEnding);
+            //saveHistoryAsGif(history, historySize, fileName);
 
             free(fileName);
             break;
          case PNG:
-            /* code */
             break;
 
          case TXT:
          default:
-            /* code */
             break;
       }
    }
