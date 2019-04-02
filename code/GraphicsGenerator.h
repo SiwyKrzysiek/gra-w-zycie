@@ -20,6 +20,9 @@ void savePng(Board* board, char* outputFile);
 // Each board must have the same size
 void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile, int delay);
 
+// Calculates size of upscaled image
+void getUpscaledImageSize(int orginalX, int orginalY, int* newX, int* newY);
+
 // Creates upscaled version of given image
 // At the longest dimension
 // Upscaled image size is written to newX and newY arguents

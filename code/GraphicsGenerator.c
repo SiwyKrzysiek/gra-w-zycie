@@ -106,8 +106,9 @@ void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile, int 
     if (numberOfBoards < 1)
         return;
 
-    int width = boards[0]->sizeX;
-    int heigth = boards[0]->sizeY;
+    int width;
+    int heigth;
+    getUpscaledImageSize(boards[0]->sizeX, boards[0]->sizeY, &width, &heigth);
 
     //Create gif
     ge_GIF* gif = ge_new_gif(
@@ -125,22 +126,51 @@ void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile, int 
     for (int n = 0; n < numberOfBoards; n++)
     {
         Board* currentBoard = boards[n];
+        Pixel normalImage[currentBoard->sizeX * currentBoard->sizeY];
 
-        //Set pixels of next frame
-        for (int i = 0; i < heigth; i++)
+        //Set pixels of normal image
+        for (int i = 0; i < currentBoard->sizeY; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < currentBoard->sizeX; j++)
             {
-                int index = i * width + j;
+                int index = i * currentBoard->sizeX + j;
                 CellState state = currentBoard->cells[index];
-                gif->frame[index] = (state == DEAD) ? 0 : 1;
+                normalImage[index] = (state == DEAD) ? 0 : 1;
             }
         }
+
+        int x, y;
+        Pixel* scaledImage = upscaleImage(normalImage, currentBoard->sizeX, currentBoard->sizeY, &x, &y);
+
+        // Set frame pixels
+        for (int i = 0; i < y; i++)
+        {
+            for (int j = 0; j < x; j++)
+            {
+                int index = i * width + j;
+                gif->frame[index] = scaledImage[index];
+            }
+        }
+
+        free(scaledImage);
+
         //Save frame
         ge_add_frame(gif, delay);
     }
 
     ge_close_gif(gif); //Free memory
+}
+
+void getUpscaledImageSize(int orginalX, int orginalY, int* newX, int* newY)
+{
+    int max = (orginalX > orginalY) ? orginalX : orginalY;
+
+    int multiplier = ceil((double) MIN_IMAGE_SIZE / (double) max);
+    if (max >= MIN_IMAGE_SIZE)
+        multiplier = 1;
+
+    *newX = orginalX*multiplier;
+    *newY = orginalY*multiplier;
 }
 
 Pixel* upscaleImage(const Pixel* original, int imageX, int imageY, int* newX, int* newY)
