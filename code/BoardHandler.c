@@ -108,3 +108,10 @@ char *serializeBoard(Board *board)
     result[resultLenght - 1] = '\0';
     return result;
 }
+
+void printBoardToStdout(Board *board)
+{
+    char* string = serializeBoard(board);
+    puts(string);
+    free(string);
+}
