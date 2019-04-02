@@ -53,7 +53,6 @@ void runProgram(int argc, char **args)
    Board *initialBoard;
    if (strlen(config->file) == 0)
    {
-      puts("Teraz bedzie losowo!");
       initialBoard = createRandomBoard(config->sizeX, config->sizeY);
    }
    else
@@ -67,6 +66,10 @@ void runProgram(int argc, char **args)
    char* path;
    time_t myTime = time(NULL);
    char* fileName = ctime(&myTime);
+   int temp;
+   int counter = 1;
+   char* tempString = NULL;
+   printf("config: %d\n", config->type);
    switch (config->type)
    {
       case GIF:
@@ -74,11 +77,29 @@ void runProgram(int argc, char **args)
          strcpy(path, config->output_dest);
          strcat(path, fileName);
          strcat(path, ".gif");
-         saveHistoryAsGif(history, historySize, path);
+         saveHistoryAsGif(history, historySize, path, config->delay);
          free(path);
-
          break;
       case PNG:
+         for(int i = 0; i < historySize; i++){
+            temp = i;
+            counter = 0;
+            while (temp != 0){
+               temp /= 10;
+               counter++;
+            }
+            if (counter == 0) counter  = 1;
+            temp = config->number_of_generations;
+            path = malloc(strlen(config->output_dest) + strlen(fileName) + counter + 5);
+            strcpy(path, config->output_dest);
+            tempString = malloc(counter);
+            sprintf(tempString, "%d", i);
+            strcat(path, tempString);
+            strcat(path, ".png");
+            savePng(history[i], path);
+            free(tempString);
+            free(path);
+         }
          break;
 
       case TXT:
