@@ -9,6 +9,7 @@
 #include "Loader.h"
 #include "ArgumentsParser.h"
 #include "GraphicsGenerator.h"
+#include "Saver.h"
 
 #ifdef TESTS
 #include <CUnit/Basic.h>
@@ -64,81 +65,26 @@ void runProgram(int argc, char **args)
 
    Board **history = simulate(initialBoard, config);
    int historySize = (config->number_of_generations % config->step == 0) ? config->number_of_generations / config->step : config->number_of_generations / config->step + 1;
-   //TODO: Maybe fix
-   char* path;
-   time_t myTime = time(NULL);
-   char* fileName = ctime(&myTime);
-   int temp;
-   int counter = 1;
-   char* tempString = NULL;
-   printf("config: %d\n", config->type);
+
    switch (config->type)
    {
       case GIF:
-         path = malloc(strlen(config->output_dest) + strlen(fileName) + 4);
-         strcpy(path, config->output_dest);
-         strcat(path, fileName);
-         strcat(path, ".gif");
-         saveHistoryAsGif(history, historySize, path, config->delay);
-         free(path);
+         saveAsGif(history, config, historySize);
          break;
       case PNG:
          for(int i = 0; i < historySize; i++){
-            temp = i;
-            counter = 0;
-            while (temp != 0){
-               temp /= 10;
-               counter++;
-            }
-            if (counter == 0) counter  = 1;
-            temp = config->number_of_generations;
-            path = malloc(strlen(config->output_dest) + strlen(fileName) + counter + 5);
-            strcpy(path, config->output_dest);
-            tempString = malloc(counter);
-            sprintf(tempString, "%d", i);
-            strcat(path, fileName);
-            strcat(path, "/");
-            mkdir(path, 0777);
-            strcat(path, tempString);
-            strcat(path, ".png");
-            savePng(history[i], path);
-            free(tempString);
-            free(path);
+            saveAsPng(history, config, i);
          }
          break;
 
       case TXT:
          for(int i = 0; i < historySize; i++){
-            temp = i;
-            counter = 0;
-            while (temp != 0){
-               temp /= 10;
-               counter++;
-            }
-            if (counter == 0) counter  = 1;
-            temp = config->number_of_generations;
-            path = malloc(strlen(config->output_dest) + strlen(fileName) + counter + 5);
-            strcpy(path, config->output_dest);
-            tempString = malloc(counter);
-            sprintf(tempString, "%d", i);
-            strcat(path, fileName);
-            strcat(path, "/");
-            mkdir(path, 0777);
-            strcat(path, tempString);
-            strcat(path, ".txt");
-            FILE* f = fopen(path, "w");
-            fprintf(f, "%s\n\n",serializeBoard(history[i]));
-            fclose(f);
-            free(tempString);
-            free(path);
+            saveAsTxt(history, config, i);
          }
          break;
       case OUT:
-         clear();
          for(int i = 0; i < historySize; i++){
-            printf("%s", serializeBoard(history[i]));
-            usleep(config->delay * 1000);
-            clear();
+            printToStdout(history, config, i);
          }
          break;
    }

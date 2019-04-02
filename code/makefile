@@ -5,7 +5,7 @@ Libraries=cunit libpng
 
 ## Here add names of modules (.h, .c) files that should be compiled (with .o extension)
 # It is assumed that each one has .h and .c file
-Objects=BoardHandler.o Loader.o ArgumentsParser.o GraphicsGenerator.o gifenc.o Rules.o Simulator.o
+Objects=BoardHandler.o Loader.o ArgumentsParser.o GraphicsGenerator.o gifenc.o Rules.o Simulator.o Saver.o
 ## Here add names of test modules
 TestObjects=boardTest.o LoaderTest.o
 
@@ -28,11 +28,12 @@ clean:
 GraphicsGenerator.o: GraphicsGenerator.c GraphicsGenerator.h
 	$(CC) $(CompileFlags)  `pkg-config --cflags libpng` -c $< -o $@
 
+
 %Test.o : %Test.c %Test.h
 	$(CC) $(CompileFlags)  `pkg-config --cflags cunit` -c $< -o $@
 
 %.o : %.c %.h
-	$(CC) $(CompileFlags)  -c $< -o $@
+	$(CC) $(CompileFlags)  `pkg-config --cflags --libs $(Libraries)` -c $< -o $@
 
 # % - dowolne znaki. Jak już zadanie zostanie uruchomione to nie zmienia wargości
 # $< - pierwsze wymaganie
