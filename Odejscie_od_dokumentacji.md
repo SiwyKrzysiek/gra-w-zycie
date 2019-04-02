@@ -16,3 +16,12 @@ Modół potrzebuję połączenia z modułem `Board`, bo używa struktury `CellSt
 
 ## Simulator
 Funkcja `getArea`, nie potrzebuje rozmiaru planszy, może go pobierać ze stałej `SIZE` w Rules.
+
+## Saver
+Nowy moduł organizujący zapisywanie/wyświetlanie wyników. Funkcje:  
+`void setup()`  
+`void saveCommon(Board** history, Config* config, int i, char* extension)` - wspólna część zapisywanie do png i txt,  
+`void saveAsPng(Board** history, Config* config, int i)` - zapisywanie do png,  
+`void saveAsTxt(Board** history, Config* config, int i)` - zapisywanie do txt,  
+`void saveAsGif(Board** history, Config* config, int historySize)` - zapisywanie do gif,  
+`void printToStdout(Board** history, Config* config, int i)` - wyświetlanie w terminalu.  
