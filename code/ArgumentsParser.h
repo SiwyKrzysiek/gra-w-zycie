@@ -3,15 +3,29 @@
 #include <stdio.h> 
 #include <stdlib.h>    
 #include <getopt.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+typedef enum{
+	OUT = 3,
+	GIF = 2,
+	PNG = 1,
+	TXT = 0
+}FileType;
 
 typedef struct{
 	int help;
 	char* file;
 	char* output_dest;
-	char* type;
+	FileType type;
 	int number_of_generations;
 	int step;
 	int delay;
+	int sizeX;
+	int sizeY;
 }Config;
 
-Config parseArgs(int argc, char** argv);
+void disposeConfig(Config* config);
+
+Config* parseArgs(int argc, char** argv);

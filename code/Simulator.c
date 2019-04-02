@@ -38,7 +38,7 @@ Board* nextGen(Board* b){
 	Board* result = malloc (sizeof(*result));
 	result->sizeX = b->sizeX;
 	result->sizeY = b->sizeY;
-	result->cells = malloc(SIZE * sizeof(CellState));
+	result->cells = malloc(result->sizeY * result->sizeX  * sizeof(CellState));
 
 	int iterator = 0;
 
@@ -58,10 +58,10 @@ Board** simulate(Board* b, Config* p){
 	for(int i = 0; i < p->number_of_generations; i++){
 		if(i % p->step == 0){
 			boardArray[iterator] = b;
-			b = nextGen(b);
 			iterator++;
 		}
+		b = nextGen(b);
 	}
-	boardArray[p->number_of_generations - 1] = b;
+	boardArray[arraySize - 1] = b;
 	return boardArray;
 }

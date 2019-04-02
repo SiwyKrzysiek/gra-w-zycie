@@ -22,3 +22,5 @@ char* boardToString(Board *board);
 //Can be used to save board in file
 //Returned string must be freed
 char* serializeBoard(Board *board);
+
+void printBoardToStdout(Board *board);

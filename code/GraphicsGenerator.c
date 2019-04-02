@@ -101,7 +101,7 @@ void savePng(Board *board, char *outputFile)
     fclose(fp);
 }
 
-void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile)
+void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile, int delay)
 {
     if (numberOfBoards < 1)
         return;
@@ -137,7 +137,7 @@ void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile)
             }
         }
         //Save frame
-        ge_add_frame(gif, DELAY_IN_MS_BETWEEN_GIF_FRAMES);
+        ge_add_frame(gif, delay);
     }
 
     ge_close_gif(gif); //Free memory

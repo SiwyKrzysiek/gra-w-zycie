@@ -1,41 +1,104 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "Simulator.h"
 #include "Loader.h"
+#include "ArgumentsParser.h"
+#include "GraphicsGenerator.h"
+#include "Saver.h"
 
 #ifdef TESTS
 #include <CUnit/Basic.h>
 #include "boardTest.h"
 #include "LoaderTest.h"
 
-
-
 void runTests();
 #endif
 
-int main()
+void runProgram(int argc, char **args);
+
+int main(int argc, char **args)
 {
-   #ifdef DEBUG
-      Config* p = malloc (sizeof(*p));
-      p->number_of_generations = 10;
-      p->step = 2;
-      Board* b = load("input.txt");
-      Board** bArray = simulate(b, p);
-      display(bArray, p);
-   #endif
+   //argumenty
+   runProgram(argc, args);
 
-   #ifdef TESTS
-      runTests();
-   #endif
+// #ifdef DEBUG
+//    Config *p = malloc(sizeof(*p));
+//    p->number_of_generations = 20;
+//    p->step = 2;
+//    Board *b = load("input.txt");
+//    Board **bArray = simulate(b, p);
+//    display(bArray, p);
+// #endif
 
-    return EXIT_SUCCESS;
+#ifdef TESTS
+   runTests();
+#endif
+
+   return EXIT_SUCCESS;
+}
+
+void runProgram(int argc, char **args)
+{
+   Config *config = parseArgs(argc, args);
+
+   if (config->help)
+   {
+      //TODO: Display Help
+      //displayHelp();
+      return;
+   }
+
+   Board *initialBoard;
+   if (strlen(config->file) == 0)
+   {
+      initialBoard = createRandomBoard(config->sizeX, config->sizeY);
+   }
+   else
+   {
+      initialBoard = load(config->file);
+   }
+
+   Board **history = simulate(initialBoard, config);
+   int historySize = (config->number_of_generations % config->step == 0) ? config->number_of_generations / config->step : config->number_of_generations / config->step + 1;
+
+   switch (config->type)
+   {
+      case GIF:
+         saveAsGif(history, config, historySize);
+         break;
+      case PNG:
+         for(int i = 0; i < historySize; i++){
+            saveAsPng(history, config, i);
+         }
+         break;
+
+      case TXT:
+         for(int i = 0; i < historySize; i++){
+            saveAsTxt(history, config, i);
+         }
+         break;
+      case OUT:
+         for(int i = 0; i < historySize; i++){
+            printToStdout(history, config, i);
+         }
+         break;
+   }
+   disposeConfig(config);
+
+   for (int i=0; i<historySize; i++)
+      disposeBoard(history[i]);
+   free(history);
 }
 
 #ifdef TESTS
 void runTests()
 {
-    CU_pSuite boardSuite = NULL;
+   CU_pSuite boardSuite = NULL;
 
    /* initialize the CUnit test registry */
    if (CUE_SUCCESS != CU_initialize_registry())
@@ -43,7 +106,8 @@ void runTests()
 
    /* add a suite to the registry */
    boardSuite = CU_add_suite("Board tests", NULL, NULL);
-   if (NULL == boardSuite) {
+   if (NULL == boardSuite)
+   {
       CU_cleanup_registry();
       exit(CU_get_error());
    }
