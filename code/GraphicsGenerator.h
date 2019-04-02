@@ -9,8 +9,6 @@
 #include "Board.h"
 #include "gifenc.h"
 
-#define DELAY_IN_MS_BETWEEN_GIF_FRAMES 200
-
 // Saves image representation of given board to specified file
 void savePng(Board* board, char* outputFile);
 
