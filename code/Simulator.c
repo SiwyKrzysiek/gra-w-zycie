@@ -38,7 +38,7 @@ Board* nextGen(Board* b){
 	Board* result = malloc (sizeof(*result));
 	result->sizeX = b->sizeX;
 	result->sizeY = b->sizeY;
-	result->cells = malloc(SIZE * sizeof(CellState));
+	result->cells = malloc(result->sizeY * result->sizeX  * sizeof(CellState));
 
 	int iterator = 0;
 
