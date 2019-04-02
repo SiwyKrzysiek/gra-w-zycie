@@ -5,6 +5,7 @@
 #include "Simulator.h"
 #include "Loader.h"
 #include "ArgumentsParser.h"
+#include "GraphicsGenerator.h"
 
 #ifdef TESTS
 #include <CUnit/Basic.h>
@@ -21,14 +22,14 @@ int main(int argc, char **args)
    //argumenty
    runProgram(argc, args);
 
-#ifdef DEBUG
-   Config *p = malloc(sizeof(*p));
-   p->number_of_generations = 10;
-   p->step = 2;
-   Board *b = load("input.txt");
-   Board **bArray = simulate(b, p);
-   display(bArray, p);
-#endif
+// #ifdef DEBUG
+//    Config *p = malloc(sizeof(*p));
+//    p->number_of_generations = 20;
+//    p->step = 2;
+//    Board *b = load("input.txt");
+//    Board **bArray = simulate(b, p);
+//    display(bArray, p);
+// #endif
 
 #ifdef TESTS
    runTests();
@@ -48,7 +49,7 @@ void runProgram(int argc, char **args)
       return;
    }
 
-   Board* initialBoard;
+   Board *initialBoard;
    if (strlen(config->file) == 0)
    {
       initialBoard = createRandomBoard(config->sizeX, config->sizeY);
@@ -57,9 +58,40 @@ void runProgram(int argc, char **args)
    {
       initialBoard = load(config->file);
    }
-   
-   
 
+   char* string = serializeBoard(initialBoard);
+        puts(string);
+        free(string);
+
+   Board **history = simulate(initialBoard, config);
+   int historySize = (config->number_of_generations % config->step == 0) ? config->number_of_generations / config->step : config->number_of_generations / config->step + 1;
+
+   //TODO: Maybe fix
+   char* fileName;
+   char* gifEnding = "/history.gif";
+   for (int i = 0; i < historySize; i++)
+   {
+      switch (config->type)
+      {
+         case GIF:
+
+            fileName = malloc(strlen(config->output_dest) + strlen(gifEnding) + 1);
+            strcpy(fileName, config->output_dest);
+            strcat(config->output_dest, gifEnding);
+            saveHistoryAsGif(history, historySize, fileName);
+
+            free(fileName);
+            break;
+         case PNG:
+            /* code */
+            break;
+
+         case TXT:
+         default:
+            /* code */
+            break;
+      }
+   }
 }
 
 #ifdef TESTS
