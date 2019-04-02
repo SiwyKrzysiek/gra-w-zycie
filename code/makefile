@@ -25,7 +25,7 @@ clean:
 	rm -rf main.exe.dSYM
 	rm -f *.o
 
-GraphicsGenerator.o: GraphicsGenerator.h GraphicsGenerator.c
+GraphicsGenerator.o: GraphicsGenerator.c GraphicsGenerator.h
 	$(CC) $(CompileFlags)  `pkg-config --cflags libpng` -c $< -o $@
 
 %Test.o : %Test.c %Test.h
