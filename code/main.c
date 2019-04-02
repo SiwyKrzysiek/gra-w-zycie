@@ -1,44 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "Simulator.h"
 #include "Loader.h"
+#include "ArgumentsParser.h"
 
 #ifdef TESTS
 #include <CUnit/Basic.h>
 #include "boardTest.h"
 #include "LoaderTest.h"
 
-
-
 void runTests();
 #endif
 
-int main()
+void runProgram(int argc, char **args);
+
+int main(int argc, char **args)
 {
+   //argumenty
+   runProgram(argc, args);
 
-   //argumenty   
+#ifdef DEBUG
+   Config *p = malloc(sizeof(*p));
+   p->number_of_generations = 10;
+   p->step = 2;
+   Board *b = load("input.txt");
+   Board **bArray = simulate(b, p);
+   display(bArray, p);
+#endif
 
-   #ifdef DEBUG
-      Config* p = malloc (sizeof(*p));
-      p->number_of_generations = 10;
-      p->step = 2;
-      Board* b = load("input.txt");
-      Board** bArray = simulate(b, p);
-      display(bArray, p);
-   #endif
+#ifdef TESTS
+   runTests();
+#endif
 
-   #ifdef TESTS
-      runTests();
-   #endif
+   return EXIT_SUCCESS;
+}
 
-    return EXIT_SUCCESS;
+void runProgram(int argc, char **args)
+{
+   Config *config = parseArgs(argc, args);
+
+   if (config->help)
+   {
+      //TODO: Display Help
+      //displayHelp();
+      return;
+   }
+
+   Board* initialBoard;
+   if (strlen(config->file) == 0)
+   {
+      initialBoard = createRandomBoard(config->sizeX, config->sizeY);
+   }
+   else
+   {
+      initialBoard = load(config->file);
+   }
+   
+   
+
 }
 
 #ifdef TESTS
 void runTests()
 {
-    CU_pSuite boardSuite = NULL;
+   CU_pSuite boardSuite = NULL;
 
    /* initialize the CUnit test registry */
    if (CUE_SUCCESS != CU_initialize_registry())
@@ -46,7 +73,8 @@ void runTests()
 
    /* add a suite to the registry */
    boardSuite = CU_add_suite("Board tests", NULL, NULL);
-   if (NULL == boardSuite) {
+   if (NULL == boardSuite)
+   {
       CU_cleanup_registry();
       exit(CU_get_error());
    }
