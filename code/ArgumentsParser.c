@@ -16,7 +16,7 @@ Config* parseArgs(int argc, char** argv) {
 	Config* args = malloc(sizeof(*args));
 
 	args->help = 0;
-	args->file = "input.txt";
+	args->file = "";
 	args->output_dest = malloc(strlen(defualtOutput) + 1);
 	strcpy(args->output_dest, defualtOutput);
 	args->type = GIF;
@@ -65,14 +65,14 @@ Config* parseArgs(int argc, char** argv) {
 
 			case 'o':
 				if(optarg[strlen(optarg) - 1] != '/'){
-					if(realloc(args->output_dest, strlen(optarg) + 2) != NULL){
+					if(realloc(args->output_dest, strlen(optarg) + 2) == NULL){
 						printf("Memory error");
 						exit(EXIT_FAILURE);
 					}
 					strcpy(args->output_dest, optarg);
 					strcat(args->output_dest, "/");
 				}else{
-					if(realloc(args->output_dest, strlen(optarg) + 1) != NULL){
+					if(realloc(args->output_dest, strlen(optarg) + 1) == NULL){
 						printf("Memory error");
 						exit(EXIT_FAILURE);
 					}

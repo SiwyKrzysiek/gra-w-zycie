@@ -53,6 +53,7 @@ void runProgram(int argc, char **args)
    Board *initialBoard;
    if (strlen(config->file) == 0)
    {
+      puts("Teraz bedzie losowo!");
       initialBoard = createRandomBoard(config->sizeX, config->sizeY);
    }
    else
@@ -69,7 +70,7 @@ void runProgram(int argc, char **args)
    switch (config->type)
    {
       case GIF:
-
+         display(history, config);
          path = malloc(strlen(config->output_dest) + strlen(fileName) + 5);
          strcpy(path, config->output_dest);
          strcat(path, fileName);
