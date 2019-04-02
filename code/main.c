@@ -83,6 +83,10 @@ void runProgram(int argc, char **args)
          break;
    }
    disposeConfig(config);
+
+   for (int i=0; i<historySize; i++)
+      disposeBoard(history[i]);
+   free(history);
 }
 
 #ifdef TESTS
