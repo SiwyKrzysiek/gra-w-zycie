@@ -3,7 +3,7 @@
 int countAlive(CellState* area){
 	int counter = 0;
 	for(int i = 0; i < SIZE; i++){
-		if(i != 4 && area[i] == ALIVE) counter++;
+		if(i != MIDDLE_INDEX && area[i] == ALIVE) counter++;
 	}
 	return counter;
 }
