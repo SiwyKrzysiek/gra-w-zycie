@@ -75,6 +75,7 @@ void runProgram(int argc, char **args)
    }
 
    Board **history = simulate(initialBoard, config);
+   //FIXME: Move size calculation to function
    int historySize = (config->number_of_generations % config->step == 0) ? config->number_of_generations / config->step : config->number_of_generations / config->step + 1;
 
    switch (config->type)
