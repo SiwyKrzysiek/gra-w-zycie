@@ -106,14 +106,14 @@ void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile, int 
     if (numberOfBoards < 1)
         return;
 
-    int width;
-    int heigth;
-    getUpscaledImageSize(boards[0]->sizeX, boards[0]->sizeY, &width, &heigth);
+    int gifWidth;
+    int gifHeigth;
+    getUpscaledImageSize(boards[0]->sizeX, boards[0]->sizeY, &gifWidth, &gifHeigth);
 
     //Create gif
     ge_GIF* gif = ge_new_gif(
         outputFile,     //File name
-        width, heigth,  //Gif size
+        gifWidth, gifHeigth,  //Gif size
         (uint8_t []) {  //Color pallet
             0x00, 0x00, 0x00, // 0 -> black
             0xFF, 0xFF, 0xFF, // 1 -> white
@@ -129,6 +129,7 @@ void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile, int 
         Pixel normalImage[currentBoard->sizeX * currentBoard->sizeY];
 
         //Set pixels of normal image
+        //FIXME: Transform this to single function that translates board to Pixel[]
         for (int i = 0; i < currentBoard->sizeY; i++)
         {
             for (int j = 0; j < currentBoard->sizeX; j++)
@@ -139,15 +140,15 @@ void saveHistoryAsGif(Board** boards, int numberOfBoards, char* outputFile, int 
             }
         }
 
-        int x, y;
-        Pixel* scaledImage = upscaleImage(normalImage, currentBoard->sizeX, currentBoard->sizeY, &x, &y);
+        //int x, y;
+        Pixel* scaledImage = upscaleImage(normalImage, currentBoard->sizeX, currentBoard->sizeY);
 
         // Set frame pixels
-        for (int i = 0; i < y; i++)
+        for (int i = 0; i < gifHeigth; i++)
         {
-            for (int j = 0; j < x; j++)
+            for (int j = 0; j < gifWidth; j++)
             {
-                int index = i * width + j;
+                int index = i * gifWidth + j;
                 gif->frame[index] = scaledImage[index];
             }
         }
@@ -173,31 +174,23 @@ void getUpscaledImageSize(int orginalX, int orginalY, int* newX, int* newY)
     *newY = orginalY*multiplier;
 }
 
-Pixel* upscaleImage(const Pixel* original, int imageX, int imageY, int* newX, int* newY)
+Pixel* upscaleImage(const Pixel* original, int imageX, int imageY)
 {
-    int max = (imageX > imageY) ? imageX : imageY;
+    int newX;
+    int newY;
+    getUpscaledImageSize(imageX, imageY, &newX, &newY);
 
-    int multiplier = ceil((double) MIN_IMAGE_SIZE / (double) max);
-    if (max >= MIN_IMAGE_SIZE)
-        multiplier = 1;
-
-    int newXdim = imageX*multiplier;
-    int newYdim = imageY*multiplier;
-
-    Pixel* resizedImage = malloc(newXdim * newYdim * sizeof(*resizedImage));
-    for(int i = 0; i < newYdim; i++)
+    Pixel* resizedImage = malloc(newX * newY * sizeof(*resizedImage));
+    for(int i = 0; i < newY; i++)
     {
-        for(int j = 0; j < newXdim; j++)
+        for(int j = 0; j < newX; j++)
         {
-            int xIndex = j*imageX/newXdim;
-            int yIndex = i*imageY/newYdim;
+            int xIndex = j*imageX/newX;
+            int yIndex = i*imageY/newY;
 
-            resizedImage[i*newXdim + j] = original[yIndex*imageX + xIndex];
+            resizedImage[i*newX + j] = original[yIndex*imageX + xIndex];
         }
     }
-
-    *newX = newXdim;
-    *newY = newYdim;
 
     return resizedImage;
 }
