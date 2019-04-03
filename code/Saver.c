@@ -42,7 +42,7 @@ void saveCommon(Board** history, Config* config, int i, char* extension){
 
 void saveAsGif(Board** history, Config* config, int historySize){
 	setup();
-	path = malloc(strlen(config->output_dest) + strlen(dirName) + 4);
+	path = malloc(strlen(config->output_dest) + strlen(dirName) + 5);
 	strcpy(path, config->output_dest);
 	strcat(path, dirName);
 	strcat(path, ".gif");
