@@ -5,8 +5,15 @@ void savePng(Board *board, char *outputFile)
     //Set up setting
     png_byte color_type = PNG_COLOR_TYPE_GRAY;
     png_byte bit_depth = 8;
-    int width = board->sizeX;
-    int height = board->sizeY;
+
+
+    int width;
+    int height;
+    getUpscaledImageSize(board->sizeX, board->sizeY, &width, &height);
+
+    Pixel* orginalImage = translateBoardToPixels(board, 255, 0);
+    Pixel* scaledImage = upscaleImage(orginalImage, board->sizeX, board->sizeY);
+    free(orginalImage);
 
     png_bytep *row_pointers = (png_bytep *)malloc(sizeof(png_bytep) * height);
     for (int y = 0; y < height; y++)
@@ -17,10 +24,10 @@ void savePng(Board *board, char *outputFile)
         png_byte *row = row_pointers[y];
         for (int x = 0; x < width; x++)
         {
-            CellState cell = board->cells[y * board->sizeX + x];
-            row[x] = (cell == ALIVE) ? 255 : 0;
+            row[x] = scaledImage[y * width + x];
         }
     }
+    free(scaledImage);
 
     //Writing to file
     FILE *fp = fopen(outputFile, "wb");
