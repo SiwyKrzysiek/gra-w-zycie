@@ -44,14 +44,14 @@ int main(int argc, char **args)
 
 void displayHelp(){
    printf("Gra w życie\n\nParametry:\n");
-   printf("%-30s =>             %s\n", "-h / --help", "pomoc");
-   printf("%-30s =>             %s\n", "-n / --number_of_generations", "ilość generowanych pokoleń (liczba całkowita)");
-   printf("%-30s =>             %s\n", "-f / --file", "ścieżkę do pliku wejściowego (łańcuch znaków)");
-   printf("%-30s =>             %s\n", "-t / --type", "typ generowanego wyniku (gif/png/txt/out)");
-   printf("%-30s =>             %s\n", "-p / --step", "co ile pokoleń jest zapisywane do wyjścia (liczba całkowieta)");
-   printf("%-30s =>             %s\n", "-d / --delay", "czas pomiędzy wyświetlaniem koljenych pokoleń lub kolejnych klatek w gif (ms)");
-   printf("%-30s =>             %s\n", "-o / --output_dest", "ścieżka do folderu w którym zapisane mają być wyniki (łańcuch znaków)");
-   printf("%-30s =>             %s\n", "-s / --size", "rozmiar losowej planszy (format AxB - A: szerokość, B: wysokość)");
+   printf("%-30s =>             %s\n", "-h / --help", "help");
+   printf("%-30s =>             %s\n", "-n / --number_of_generations", "number of created generations (integer)");
+   printf("%-30s =>             %s\n", "-f / --file", "path to input file (string)");
+   printf("%-30s =>             %s\n", "-t / --type", "type of generated output (gif/png/txt/out)");
+   printf("%-30s =>             %s\n", "-p / --step", "one in [-p] generations will be saved / displayed (integer)");
+   printf("%-30s =>             %s\n", "-d / --delay", "delay between displayed generations / gif frame (ms)");
+   printf("%-30s =>             %s\n", "-o / --output_dest", "path to the destination in which the output is to be saved (string)");
+   printf("%-30s =>             %s\n", "-s / --size", "size of randomly generated initial board (format AxB - A: width, B: height)");
 }
 
 void runProgram(int argc, char **args)
