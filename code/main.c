@@ -42,14 +42,25 @@ int main(int argc, char **args)
    return EXIT_SUCCESS;
 }
 
+void displayHelp(){
+   printf("Gra w życie\n\nParametry:\n");
+   printf("%-30s =>             %s\n", "-h / --help", "pomoc");
+   printf("%-30s =>             %s\n", "-n / --number_of_generations", "ilość generowanych pokoleń (liczba całkowita)");
+   printf("%-30s =>             %s\n", "-f / --file", "ścieżkę do pliku wejściowego (łańcuch znaków)");
+   printf("%-30s =>             %s\n", "-t / --type", "typ generowanego wyniku (gif/png/txt/out)");
+   printf("%-30s =>             %s\n", "-p / --step", "co ile pokoleń jest zapisywane do wyjścia (liczba całkowieta)");
+   printf("%-30s =>             %s\n", "-d / --delay", "czas pomiędzy wyświetlaniem koljenych pokoleń lub kolejnych klatek w gif (ms)");
+   printf("%-30s =>             %s\n", "-o / --output_dest", "ścieżka do folderu w którym zapisane mają być wyniki (łańcuch znaków)");
+   printf("%-30s =>             %s\n", "-s / --size", "rozmiar losowej planszy (format AxB - A: szerokość, B: wysokość)");
+}
+
 void runProgram(int argc, char **args)
 {
    Config *config = parseArgs(argc, args);
 
    if (config->help)
    {
-      //TODO: Display Help
-      //displayHelp();
+      displayHelp();
       return;
    }
 
