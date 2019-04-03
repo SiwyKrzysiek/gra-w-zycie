@@ -60,6 +60,8 @@ void saveAsTxt(Board** history, Config* config, int i){
 
 void printToStdout(Board** history, Config* config, int i){
 	clear();
-    printf("%s", boardToString(history[i]));
+    char* b = boardToString(history[i]);
+    printf("%s", b);
+    free(b);
     usleep(config->delay * 1000);
 }
