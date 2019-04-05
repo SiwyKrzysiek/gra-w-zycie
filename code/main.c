@@ -101,12 +101,12 @@ void runProgram(int argc, char **args)
          }
          break;
    }
-   disposeConfig(config);
 
 
    for (int i=0; i<config->number_of_generations + 1; i++)
          disposeBoard(history1[i]);
 
+   disposeConfig(config);
 
    free(history1);
    free(history);
