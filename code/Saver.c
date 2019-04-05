@@ -2,9 +2,9 @@
 
 void setup(){
 	myTime = time(NULL);
-    char* tempTime = ctime(&myTime);
-	dirName = malloc (strlen(tempTime) + 1);
-    strcpy(dirName, tempTime);
+    //char* tempTime = ctime(&myTime);
+	dirName = ctime(&myTime);// malloc (strlen(tempTime) + 1);
+    //strcpy(dirName, tempTime);
 	dirName[strlen(dirName) - 1] = '\0';
 	counter = 1;
 	tempString = NULL;
