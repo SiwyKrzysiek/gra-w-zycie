@@ -2,7 +2,9 @@
 
 void setup(){
 	myTime = time(NULL);
-	dirName = ctime(&myTime);
+    char* tempTime = ctime(&myTime);
+	dirName = malloc (strlen(tempTime) + 1);
+    strcpy(dirName, tempTime);
 	dirName[strlen(dirName) - 1] = '\0';
 	counter = 1;
 	tempString = NULL;
@@ -24,6 +26,7 @@ void saveCommon(Board** history, Config* config, int i, char* extension){
     sprintf(tempString, "%d", i);
     strcat(path, extension);
     strcat(path, dirName);
+    free(dirName);
     strcat(path, "/");
     printf("%s\n", path);
     mkdir(path, 0777);
