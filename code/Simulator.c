@@ -1,8 +1,13 @@
 #include "Simulator.h"
 
+
+int calcHistorySize(Config* config){
+	return config->number_of_generations / config->step + 1;
+}
+
 //temporary function for testing
 void display(Board** b, Config* p){
-	int gens = (p->number_of_generations % p->step == 0) ? p->number_of_generations / p->step : p->number_of_generations / p->step + 1;
+	int gens = calcHistorySize(p);
 	for(int i = 0; i < gens; i++){
 		printf("Gen %d:\n", i);
 		for(int j = 0; j < b[i]->sizeY; j++){
@@ -53,15 +58,25 @@ Board* nextGen(Board* b){
 
 Board** simulate(Board* b, Config* p){
 	int iterator = 0;
-	int arraySize = (p->number_of_generations % p->step == 0) ? p->number_of_generations / p->step + 1 : p->number_of_generations / p->step + 2;
+	int arraySize = p->number_of_generations + 1;
 	Board** boardArray = malloc (sizeof(*boardArray) * arraySize);
 	for(int i = 0; i < p->number_of_generations; i++){
-		//if(i % p->step == 0){ TODO
-			boardArray[iterator] = b;
-			iterator++;
-		//}
+		boardArray[iterator] = b;
+		iterator++;
+		
 		b = nextGen(b);
 	}
-	boardArray[arraySize - 1] = b;
+	boardArray[iterator] = b;
 	return boardArray;
+}
+
+Board** stepSimulate(Board** board, Config* config){
+	int size = (config->number_of_generations + 1) / config->step;
+	int iterator = 0;
+	Board** result = malloc(sizeof(*result) * size);
+	for(int i = 0; i < size; i++){
+		result[iterator] = board[i];
+		iterator++;
+	}
+	return result;
 }

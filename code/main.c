@@ -35,7 +35,7 @@ int main(int argc, char **args)
 //    display(bArray, p);
 // #endif
 
-#ifdef TESTS
+#ifdef TESTSX
    runTests();
 #endif
 
@@ -74,9 +74,10 @@ void runProgram(int argc, char **args)
       initialBoard = load(config->file);
    }
 
-   Board **history = simulate(initialBoard, config);
+   Board** history1 = simulate(initialBoard, config);
+   Board **history = stepSimulate(history1, config);
    //FIXME: Move size calculation to function
-   int historySize = (config->number_of_generations % config->step == 0) ? config->number_of_generations / config->step + 1: config->number_of_generations / config->step + 2;
+   int historySize = (config->number_of_generations + 1) / config->step;
 
    switch (config->type)
    {
@@ -102,8 +103,12 @@ void runProgram(int argc, char **args)
    }
    disposeConfig(config);
 
-   for (int i=0; i<historySize; i++)
-      disposeBoard(history[i]);
+
+   for (int i=0; i<config->number_of_generations + 1; i++)
+         disposeBoard(history1[i]);
+
+
+   free(history1);
    free(history);
 }
 
