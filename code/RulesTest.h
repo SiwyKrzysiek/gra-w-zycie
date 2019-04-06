@@ -7,3 +7,4 @@
 #include "Rules.h"
 
 void testNextStateDeadStaysDead();
+void testNextStateDeadComesToLive();
