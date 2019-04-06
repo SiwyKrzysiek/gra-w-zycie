@@ -1,6 +1,6 @@
 #include "Loader.h"
 
-Board* load(const char *path)
+Board *load(const char *path)
 {
     PARSE_INFORMATION = (ParseInformation){
         .lastLineReadNumber = 1,
@@ -10,7 +10,7 @@ Board* load(const char *path)
     if (file == NULL)
     {
         fputs("Unable to open input file", stderr);
-        exit(EXIT_FAILURE); 
+        exit(EXIT_FAILURE);
     }
 
     int x, y;
@@ -19,18 +19,21 @@ Board* load(const char *path)
         if (feof(file))
         {
             fputs("File is empty", stderr);
-            exit(EXIT_FAILURE); 
+            fclose(file);
+            exit(EXIT_FAILURE);
         }
         else
         {
             fputs("Unable to read width of the board", stderr);
-            exit(EXIT_FAILURE); 
+            fclose(file);
+            exit(EXIT_FAILURE);
         }
     }
     if (x <= 0)
     {
         fprintf(stderr, "Width of the board must be greater then 0. Currently: %d", x);
-        exit(EXIT_FAILURE); 
+        fclose(file);
+        exit(EXIT_FAILURE);
     }
 
     if (fscanf(file, "%d", &y) != 1) //Error checking
@@ -38,30 +41,34 @@ Board* load(const char *path)
         if (feof(file))
         {
             fputs("Board height is missing", stderr);
-            exit(EXIT_FAILURE); 
+            fclose(file);
+            exit(EXIT_FAILURE);
         }
         else
         {
             fputs("Unable to read height of the board", stderr);
-            exit(EXIT_FAILURE); 
+            fclose(file);
+            exit(EXIT_FAILURE);
         }
     }
     if (y <= 0)
     {
         fprintf(stderr, "Height of the board must be greater then 0. Currently: %d", y);
-        exit(EXIT_FAILURE); 
+        fclose(file);
+        exit(EXIT_FAILURE);
     }
 
     if (fgetc(file) != '\n')
     {
         fprintf(stderr, "Expected new line after board height.");
-        exit(EXIT_FAILURE); 
+        fclose(file);
+        exit(EXIT_FAILURE);
     }
     PARSE_INFORMATION.lastLineReadNumber++;
 
-    #ifdef DEBUG
-        printf("Board size parsed: %dx%d\n", x, y);
-    #endif
+#ifdef DEBUG
+    printf("Board size parsed: %dx%d\n", x, y);
+#endif
 
     //---- Start reading lines ---- FIXME: This is getting to long
 
@@ -80,7 +87,8 @@ Board* load(const char *path)
                 fprintf(stderr, "Error occurred when trying to read character in line: %d column: %d",
                         PARSE_INFORMATION.lastLineReadNumber,
                         PARSE_INFORMATION.lastCharacterReadNumber + 1);
-                exit(EXIT_FAILURE); 
+                fclose(file);
+                exit(EXIT_FAILURE);
             }
             PARSE_INFORMATION.lastCharacterReadNumber++;
 
@@ -90,16 +98,17 @@ Board* load(const char *path)
                         PARSE_INFORMATION.lastLineReadNumber,
                         PARSE_INFORMATION.lastCharacterReadNumber,
                         input);
-                exit(EXIT_FAILURE); 
+                fclose(file);
+                exit(EXIT_FAILURE);
             }
 
             int index = i * x + j;
             CellState state = (CellState)input - '0';
 
             cells[index] = state; //Save cell
-            #ifdef DEBUG
-                printf("Writing parsed cell to board\ni = %d\nj = %d\nCalculated index: %d\nCell state: %d\n\n", i, j, index, state);
-            #endif
+#ifdef DEBUG
+            printf("Writing parsed cell to board\ni = %d\nj = %d\nCalculated index: %d\nCell state: %d\n\n", i, j, index, state);
+#endif
 
             //Read separator
             if (j != x - 1) //It's not last character
@@ -109,71 +118,73 @@ Board* load(const char *path)
                     fprintf(stderr, "Error occurred when trying to read character in line: %d column: %d",
                             PARSE_INFORMATION.lastLineReadNumber,
                             PARSE_INFORMATION.lastCharacterReadNumber + 1);
-                    exit(EXIT_FAILURE); 
+                    fclose(file);
+                    exit(EXIT_FAILURE);
                 }
                 PARSE_INFORMATION.lastCharacterReadNumber++;
 
                 if (input != CELL_SEPARATOR)
                 {
                     fprintf(stderr, "Unsupported character encountered when trying to read character in line: %d column: %d\nExpected '%c'. Encountered %c",
-                        PARSE_INFORMATION.lastLineReadNumber,
-                        PARSE_INFORMATION.lastCharacterReadNumber,
-                        CELL_SEPARATOR,
-                        input);
-                    exit(EXIT_FAILURE); 
+                            PARSE_INFORMATION.lastLineReadNumber,
+                            PARSE_INFORMATION.lastCharacterReadNumber,
+                            CELL_SEPARATOR,
+                            input);
+                    fclose(file);
+                    exit(EXIT_FAILURE);
                 }
             }
         }
 
         //Read line end
-        if (i != y-1)
+        if (i != y - 1)
         {
             if (fscanf(file, "%c", &input) != 1)
             {
                 fprintf(stderr, "Error occurred when trying to read end line character in line: %d column: %d",
-                    PARSE_INFORMATION.lastLineReadNumber,
-                    PARSE_INFORMATION.lastCharacterReadNumber + 1);
-                exit(EXIT_FAILURE); 
+                        PARSE_INFORMATION.lastLineReadNumber,
+                        PARSE_INFORMATION.lastCharacterReadNumber + 1);
+                exit(EXIT_FAILURE);
             }
             PARSE_INFORMATION.lastCharacterReadNumber++;
 
             if (input != '\n')
             {
                 fprintf(stderr, "Unsupported character encountered when trying to read character in line: %d column: %d\nExpected new line ('\\n'). Encountered %c",
-                    PARSE_INFORMATION.lastLineReadNumber + 1,
-                    PARSE_INFORMATION.lastCharacterReadNumber,
-                    input);
-                exit(EXIT_FAILURE); 
+                        PARSE_INFORMATION.lastLineReadNumber + 1,
+                        PARSE_INFORMATION.lastCharacterReadNumber,
+                        input);
+                exit(EXIT_FAILURE);
             }
         }
 
         PARSE_INFORMATION.lastLineReadNumber++;
     }
 
-    Board* parsedBoard = malloc(sizeof(Board));
+    Board *parsedBoard = malloc(sizeof(Board));
     parsedBoard->sizeX = x;
     parsedBoard->sizeY = y;
     parsedBoard->cells = cells;
 
-    #ifdef DEBUG
-        puts("Board parsed:");
+#ifdef DEBUG
+    puts("Board parsed:");
 
-        char* boardString = boardToString(parsedBoard);
-        printf("%s\n", boardString);
-        free(boardString);
-    #endif
+    char *boardString = boardToString(parsedBoard);
+    printf("%s\n", boardString);
+    free(boardString);
+#endif
 
     return parsedBoard;
 }
 
-int* getSize(char* path)
+int *getSize(char *path)
 {
     FILE *file = fopen(path, "r");
 
     if (file == NULL)
     {
         fputs("Unable to open input file", stderr);
-        exit(EXIT_FAILURE); 
+        exit(EXIT_FAILURE);
     }
 
     int x, y;
@@ -182,18 +193,18 @@ int* getSize(char* path)
         if (feof(file))
         {
             fputs("File is empty", stderr);
-            exit(EXIT_FAILURE); 
+            exit(EXIT_FAILURE);
         }
         else
         {
             fputs("Unable to read width of the board", stderr);
-            exit(EXIT_FAILURE); 
+            exit(EXIT_FAILURE);
         }
     }
     if (x <= 0)
     {
         fprintf(stderr, "Width of the board must be greater then 0. Currently: %d", x);
-        exit(EXIT_FAILURE); 
+        exit(EXIT_FAILURE);
     }
 
     if (fscanf(file, "%d", &y) != 1) //Error checking
@@ -201,27 +212,27 @@ int* getSize(char* path)
         if (feof(file))
         {
             fputs("Board height is missing", stderr);
-            exit(EXIT_FAILURE); 
+            exit(EXIT_FAILURE);
         }
         else
         {
             fputs("Unable to read height of the board", stderr);
-            exit(EXIT_FAILURE); 
+            exit(EXIT_FAILURE);
         }
     }
     if (y <= 0)
     {
         fprintf(stderr, "Height of the board must be greater then 0. Currently: %d", y);
-        exit(EXIT_FAILURE); 
+        exit(EXIT_FAILURE);
     }
 
     if (fgetc(file) != '\n')
     {
         fprintf(stderr, "Expected new line after board height.");
-        exit(EXIT_FAILURE); 
+        exit(EXIT_FAILURE);
     }
 
-    int* sizes = malloc(sizeof(int) * 2);
+    int *sizes = malloc(sizeof(int) * 2);
     sizes[0] = x;
     sizes[1] = y;
 
