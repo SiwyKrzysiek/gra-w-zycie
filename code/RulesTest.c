@@ -63,3 +63,19 @@ void testNextStateAliveDiesFromLoneliness()
     //Then
     CU_ASSERT_EQUAL(futureState, DEAD);
 }
+
+void testNextStateAliveStaysAlive()
+{
+    //Given
+    CellState states[] = {ALIVE, DEAD, DEAD,
+                          DEAD, ALIVE, ALIVE,
+                          ALIVE, DEAD, DEAD};
+    CellState *area = malloc(SIZE * sizeof(*area));
+    memcpy(area, states, SIZE * sizeof(*area));
+
+    //When
+    CellState futureState = nextState(area);
+
+    //Then
+    CU_ASSERT_EQUAL(futureState, ALIVE);
+}
