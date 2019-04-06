@@ -15,6 +15,7 @@
 #include <CUnit/Basic.h>
 #include "boardTest.h"
 #include "LoaderTest.h"
+#include "RulesTest.h"
 
 void runTests();
 #endif
@@ -23,21 +24,12 @@ void runProgram(int argc, char **args);
 
 int main(int argc, char **args)
 {
+   #ifdef TESTS
+      runTests();
+   #endif
+
    //argumenty
    runProgram(argc, args);
-
-// #ifdef DEBUG
-//    Config *p = malloc(sizeof(*p));
-//    p->number_of_generations = 20;
-//    p->step = 2;
-//    Board *b = load("input.txt");
-//    Board **bArray = simulate(b, p);
-//    display(bArray, p);
-// #endif
-
-#ifdef TESTSX
-   runTests();
-#endif
 
    return EXIT_SUCCESS;
 }
@@ -144,6 +136,19 @@ void runTests()
    }
 
    if (CU_add_test(loaderSuite, "Parse small file test", testParseSmallFile) == NULL)
+   {
+      CU_cleanup_registry();
+      exit(CU_get_error());
+   }
+
+   CU_pSuite rulesSuite = CU_add_suite("Rules tests", NULL, NULL);
+   if (rulesSuite == NULL)
+   {
+      CU_cleanup_registry();
+      exit(CU_get_error());
+   }
+
+   if (CU_add_test(rulesSuite, "Dead cell stays dead", testNextStateDeadStaysDead) == NULL)
    {
       CU_cleanup_registry();
       exit(CU_get_error());
