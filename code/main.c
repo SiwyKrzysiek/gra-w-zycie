@@ -153,6 +153,8 @@ void runTests()
 
    if (CU_add_test(rulesSuite, "Dead cell stays dead", testNextStateDeadStaysDead) == NULL 
          || CU_add_test(rulesSuite, "Dead cell comes to live", testNextStateDeadComesToLive) == NULL
+         || CU_add_test(rulesSuite, "Alive cell dies from overpopulation", testNextStateAliveDiesFromOverpopulation) == NULL
+         || CU_add_test(rulesSuite, "Alive cell dies from loneliness", testNextStateAliveDiesFromLoneliness) == NULL
       )
    {
       CU_cleanup_registry();

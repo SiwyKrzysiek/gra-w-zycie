@@ -8,3 +8,5 @@
 
 void testNextStateDeadStaysDead();
 void testNextStateDeadComesToLive();
+void testNextStateAliveDiesFromOverpopulation();
+void testNextStateAliveDiesFromLoneliness();
