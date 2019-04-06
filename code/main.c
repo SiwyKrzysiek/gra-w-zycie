@@ -24,9 +24,9 @@ void runProgram(int argc, char **args);
 
 int main(int argc, char **args)
 {
-   #ifdef TESTS
-      runTests();
-   #endif
+#ifdef TESTS
+   runTests();
+#endif
 
    //argumenty
    runProgram(argc, args);
@@ -34,7 +34,8 @@ int main(int argc, char **args)
    return EXIT_SUCCESS;
 }
 
-void displayHelp(){
+void displayHelp()
+{
    printf("Gra w życie\n\nParametry:\n");
    printf("%-30s =>             %s\n", "-h / --help", "help");
    printf("%-30s =>             %s\n", "-n / --number_of_generations", "number of created generations (integer)");
@@ -66,37 +67,39 @@ void runProgram(int argc, char **args)
       initialBoard = load(config->file);
    }
 
-   Board** history1 = simulate(initialBoard, config);
+   Board **history1 = simulate(initialBoard, config);
    Board **history = stepSimulate(history1, config);
    //FIXME: Move size calculation to function
    int historySize = (config->number_of_generations + 1) / config->step;
 
    switch (config->type)
    {
-      case GIF:
-         saveAsGif(history, config, historySize);
-         break;
-      case PNG:
-         for(int i = 0; i < historySize; i++){
-            saveAsPng(history, config, i);
-         }
-         break;
+   case GIF:
+      saveAsGif(history, config, historySize);
+      break;
+   case PNG:
+      for (int i = 0; i < historySize; i++)
+      {
+         saveAsPng(history, config, i);
+      }
+      break;
 
-      case TXT:
-         for(int i = 0; i < historySize; i++){
-            saveAsTxt(history, config, i);
-         }
-         break;
-      case OUT:
-         for(int i = 0; i < historySize; i++){
-            printToStdout(history, config, i);
-         }
-         break;
+   case TXT:
+      for (int i = 0; i < historySize; i++)
+      {
+         saveAsTxt(history, config, i);
+      }
+      break;
+   case OUT:
+      for (int i = 0; i < historySize; i++)
+      {
+         printToStdout(history, config, i);
+      }
+      break;
    }
 
-
-   for (int i=0; i<config->number_of_generations + 1; i++)
-         disposeBoard(history1[i]);
+   for (int i = 0; i < config->number_of_generations + 1; i++)
+      disposeBoard(history1[i]);
 
    disposeConfig(config);
 
