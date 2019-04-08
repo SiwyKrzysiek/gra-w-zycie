@@ -16,6 +16,7 @@
 #include "boardTest.h"
 #include "LoaderTest.h"
 #include "RulesTest.h"
+#include "SimulatorTest.h"
 
 void runTests();
 #endif
@@ -157,6 +158,19 @@ void runTests()
          || CU_add_test(rulesSuite, "Alive cell dies from loneliness", testNextStateAliveDiesFromLoneliness) == NULL
          || CU_add_test(rulesSuite, "Alive cell stays alive", testNextStateAliveStaysAlive) == NULL
       )
+   {
+      CU_cleanup_registry();
+      exit(CU_get_error());
+   }
+
+   CU_pSuite simulatorSuite = CU_add_suite("Simulator tests", NULL, NULL);
+   if (simulatorSuite == NULL)
+   {
+      CU_cleanup_registry();
+      exit(CU_get_error());
+   }
+
+   if (CU_add_test(simulatorSuite, "Simulate one next generation on small board", testSimulateOneNextGenOnSmallBoard) == NULL)
    {
       CU_cleanup_registry();
       exit(CU_get_error());

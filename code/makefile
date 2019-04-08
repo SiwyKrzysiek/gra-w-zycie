@@ -7,7 +7,7 @@ Libraries=cunit libpng
 # It is assumed that each one has .h and .c file
 Objects=BoardHandler.o Loader.o ArgumentsParser.o GraphicsGenerator.o gifenc.o Rules.o Simulator.o Saver.o
 ## Here add names of test modules
-TestObjects=boardTest.o LoaderTest.o RulesTest.o
+TestObjects=boardTest.o LoaderTest.o RulesTest.o SimulatorTest.o
 
 NAME=main.exe
 
