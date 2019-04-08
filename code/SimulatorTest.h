@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "Board.h"
+#include "BoardHandler.h"
 #include "Simulator.h"
 
 //Test simulator on case from documentation
