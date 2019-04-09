@@ -63,9 +63,39 @@ Do struktury \texttt{Config} zostały dodane nowe pola \texttt{sizeX} i \texttt{
 
 Dodano funkcję \texttt{void disposeConfig(Config *config)}, która zwalnia pamięć zarezerwowaną na tą strukturę.
 
+\subsection{BoardSaver}
+Nazwa modułu została zmieniona na \texttt{Saver}, a jego struktura gruntownie zmodyfikowana.
+
+Aktualna postać modułu:\\
+\texttt{void saveAsPng(Board** history, Config* config, int i)} -- Zapis kolejnych pokoleń do plików png.
+\begin{itemize}[label={}]
+	\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
+	\item\texttt{Config* config} -- wskaźnik na strukturę ustawień generacji kolejnych pokoleń,
+	\item \texttt{int i} -- numer aktualnie generowanego pokolenia. Potrzebny do generowania nazw plików.
+\end{itemize}
+
+\noindent{}\texttt{void saveAsGif(Board** history, Config* config, int historySize)} -- Zapis kolejnych pokoleń do pliku gif.
+\begin{itemize}[label={}]
+	\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
+	\item\texttt{Config* config} -- wskaźnik na strukturę ustawień generacji kolejnych pokoleń,
+	\item \texttt{int historySize} -- Liczba pokoleń w historii
+\end{itemize}
+
+\noindent{}\texttt{void saveAsTxt(Board** history, Config* config, int i)} -- Zapis kolejnych pokoleń do plików txt.
+\begin{itemize}[label={}]
+	\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
+	\item\texttt{Config* config} -- wskaźnik na strukturę ustawień generacji kolejnych pokoleń,
+	\item \texttt{int i} -- numer aktualnie generowanego pokolenia. Potrzebny do generowania nazw plików.
+\end{itemize}
+
+\noindent{}\texttt{void printToStdout(Board** history, Config* config, int i)} -- Wyświetlenie kolejnych pokoleń w terminalu.
+\begin{itemize}[label={}]
+	\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
+	\item\texttt{Config* config} -- wskaźnik na strukturę ustawień generacji kolejnych pokoleń,
+	\item \texttt{int i} -- numer aktualnie generowanego pokolenia. Potrzebny do generowania nazw plików.
+\end{itemize}
+
 \section{Prezentacja działania}
-
-
 Przykłady wywołania programu z różnymi flagami.
 
 \subsection{Generacja obrazów z wczytaniem stanu z pliku}
