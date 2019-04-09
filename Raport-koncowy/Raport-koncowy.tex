@@ -107,7 +107,40 @@ Program wygenerował 6 następnych pokoleń. Przedstawiają ruch stuktóry szybo
 %TODO: Prezentacja działania
 
 \section{Podsumowanie testów modułów}
-Do pisania oraz automatyzacji testów jednosk
+Do pisania oraz automatyzacji wykonania testów jednostkowych został wykorzystany framework \textit{CUnit}. Dzięki temu na dowolnym etapie projektu można było łatwo sprawdzić poprawność już istniejącego kodu.
+
+\subsubsection{Wygenerowany raport}
+Wyniki testów jednostkowych przedstawia poniższy raport.
+
+\begin{verbatim}
+
+  CUnit - A unit testing framework for C - Version 2.1-3
+  http://cunit.sourceforge.net/
+
+
+Suite: Board tests
+Test: To string test ...passed
+Suite: Loader tests
+Test: Parse small file test ...passed
+Suite: Rules tests
+Test: Dead cell stays dead ...passed
+Test: Dead cell comes to live ...passed
+Test: Alive cell dies from overpopulation ...passed
+Test: Alive cell dies from loneliness ...passed
+Test: Alive cell stays alive ...passed
+Suite: Simulator tests
+Test: Simulate one next generation on small board ...passed
+
+Run Summary:    Type  Total    Ran Passed Failed Inactive
+           suites      4      4    n/a      0        0
+            tests      8      8      8      0        0
+          asserts     27     27     27      0      n/a
+
+Elapsed time =    0.001 seconds
+\end{verbatim}
+
+\subsection{Wnioski}
+Z raportu testów jednostkowych wynika, że wszystkie wszystkie sprawdzane funkcjonalności dają prawidłowe wyniki. Wszystkie testy są oznaczone jako \texttt{...passed} oraz liczba zapewnień, których wyniki są poprawne jest równa liczbie wszystkich zapewnień.
 
 \section{Analiza pamięci}
 \noindent Raport programu \texttt{valgrind } zwraca następujące wyniki:\\\\
