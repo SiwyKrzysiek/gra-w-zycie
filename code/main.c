@@ -8,7 +8,6 @@
 #include "Simulator.h"
 #include "Loader.h"
 #include "ArgumentsParser.h"
-#include "GraphicsGenerator.h"
 #include "Saver.h"
 
 #ifdef TESTS

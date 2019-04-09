@@ -8,7 +8,6 @@
 #include <sys/types.h>
 
 #include "GraphicsGenerator.h"
-#include "Board.h"
 #include "ArgumentsParser.h"
 #include "BoardHandler.h"
 
