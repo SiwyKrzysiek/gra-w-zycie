@@ -69,33 +69,45 @@ Argumenty:
 \item \texttt{-n 6} -- Zostanie wygenerowanych 6 następnych pokoleń .png (ze stanem początkowym 7 obrazków).
 \end{itemize}
 
-\subsubsection{Powstałe obrazy}
-Program wygenerował poniższe pliki. Przedstawiają ruch stuktóry szybowca.
+\subsection{Początkowy stan}
+Stan wczytany z pliku został również zamieniony na obraz. Wygląda on następująco:
+\begin{figure}[H]
+  \setlength{\fboxsep}{0pt} %Wielkości ramek
+  \setlength{\fboxrule}{1pt}
+  \centering
 
-\begin{figure}[h]
+  \includegraphics[width = 5cm]{glider0}
+  \caption{Stan wczytany z pliku}
+\end{figure}
+
+\newpage{}
+\subsubsection{Powstałe obrazy}
+Program wygenerował 6 następnych pokoleń. Przedstawiają ruch stuktóry szybowca.
+
+\begin{figure}[H]
   \setlength{\fboxsep}{0pt} %Wielkości ramek
   \setlength{\fboxrule}{1pt}
 
   \centering
-  \subfloat[Pokolenie 0]{\fbox{\includegraphics[width = 5cm]{glider0}}}
+  \subfloat[Pokolenie 1]{\fbox{\includegraphics[width = 5cm]{glider1}}}
   \hspace{0.7cm}
-  \subfloat[Pokolenie 1]{\fbox{\includegraphics[width = 5cm]{glider1}}}\\
-  \subfloat[Pokolenie 2]{\fbox{\includegraphics[width = 5cm]{glider2}}}
+  \subfloat[Pokolenie 2]{\fbox{\includegraphics[width = 5cm]{glider2}}}\\
+  \subfloat[Pokolenie 3]{\fbox{\includegraphics[width = 5cm]{glider3}}}
   \hspace{0.7cm}
-  \subfloat[Pokolenie 3]{\fbox{\includegraphics[width = 5cm]{glider3}}}\\
-  \subfloat[Pokolenie 4]{\fbox{\includegraphics[width = 5cm]{glider4}}}
+  \subfloat[Pokolenie 4]{\fbox{\includegraphics[width = 5cm]{glider4}}}\\
+  \subfloat[Pokolenie 5]{\fbox{\includegraphics[width = 5cm]{glider5}}}
   \hspace{0.7cm}
-  \subfloat[Pokolenie 5]{\fbox{\includegraphics[width = 5cm]{glider5}}} 
+  \subfloat[Pokolenie 6]{\fbox{\includegraphics[width = 5cm]{glider6}}} 
   
   \caption{Wygenerowane pliki}
   \label{fig:GliderExample}
 \end{figure}
 
 
-%TODO: Prezentacja działania}
+%TODO: Prezentacja działania
 
 \section{Podsumowanie testów modułów}
-%TODO: Podsumowanie testów modów}
+Do pisania oraz automatyzacji testów jednosk
 
 \section{Analiza pamięci}
 \noindent Raport programu \texttt{valgrind } zwraca następujące wyniki:\\\\
