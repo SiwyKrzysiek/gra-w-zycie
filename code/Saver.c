@@ -2,9 +2,7 @@
 
 void setup(){
 	myTime = time(NULL);
-    //char* tempTime = ctime(&myTime);
-	dirName = ctime(&myTime);// malloc (strlen(tempTime) + 1);
-    //strcpy(dirName, tempTime);
+	dirName = ctime(&myTime);
 	dirName[strlen(dirName) - 1] = '\0';
 	counter = 1;
 	tempString = NULL;
@@ -20,15 +18,13 @@ void saveCommon(Board** history, Config* config, int i, char* extension){
     }
     if (counter == 0) counter  = 1;
     temp = config->number_of_generations;
-    path = malloc(strlen(config->output_dest) + strlen(dirName) + counter + 8);
+    path = malloc(strlen(config->output_dest) + strlen(dirName) + counter + 9);
     strcpy(path, config->output_dest);
-    tempString = malloc(counter);
+    tempString = malloc(counter+1);
     sprintf(tempString, "%d", i);
     strcat(path, extension);
     strcat(path, dirName);
-    free(dirName);
     strcat(path, "/");
-    printf("%s\n", path);
     mkdir(path, 0777);
     strcat(path, tempString);
     strcat(path, ".");
