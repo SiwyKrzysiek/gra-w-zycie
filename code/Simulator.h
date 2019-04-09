@@ -9,7 +9,6 @@
 
 
 
-void display(Board** b, Config* p);
 
 Board** simulate(Board* b, Config* p);
 
