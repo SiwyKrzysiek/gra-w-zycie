@@ -70,7 +70,7 @@ void runProgram(int argc, char **args)
    Board **history1 = simulate(initialBoard, config);
    Board **history = stepSimulate(history1, config);
    //FIXME: Move size calculation to function
-   int historySize = (config->number_of_generations + 1) / config->step;
+   int historySize = calcHistorySize(config);
 
    switch (config->type)
    {

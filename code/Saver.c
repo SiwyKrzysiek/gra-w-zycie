@@ -9,7 +9,7 @@ void setup(){
 }
 
 void saveCommon(Board** history, Config* config, int i, char* extension){
-	setup();
+	if( i == 0 ) setup();
 	temp = i;
     counter = 0;
     while (temp != 0){

@@ -10,7 +10,8 @@ Config* parseArgs(int argc, char** argv) {
 	int c;
 	char ch;
 	int read;
-	char* defualtOutput = "result/";
+	char* defualtOutput = "result/";	
+	char temp[256];
 
 
 	Config* args = malloc(sizeof(*args));
@@ -121,9 +122,10 @@ Config* parseArgs(int argc, char** argv) {
 
 				break;
 			case 's':
-				read = sscanf(optarg, "%d%c%d", &(args->sizeX), &ch, &(args->sizeY));
-				if (read != 3 || ch != 'x'){
-					printf("Invalid size\nSet to default - 10x10");
+
+				read = sscanf(optarg, "%d%c%d%s", &(args->sizeX), &ch, &(args->sizeY), temp);
+				if (read != 3 || ch != 'x' || args->sizeX == 0 || args->sizeY == 0){
+					printf("Invalid size\nSet to default - 10x10\n");
 					args->sizeX = 10;
 					args->sizeY = 10;
 				}

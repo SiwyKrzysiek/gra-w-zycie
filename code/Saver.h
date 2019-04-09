@@ -19,7 +19,6 @@ char* tempString;
 time_t myTime;
 int temp, counter;
 
-void setup();
 
 void saveAsPng(Board** history, Config* config, int i);
 

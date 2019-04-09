@@ -5,20 +5,6 @@ int calcHistorySize(Config* config){
 	return config->number_of_generations / config->step + 1;
 }
 
-//temporary function for testing
-void display(Board** b, Config* p){
-	int gens = calcHistorySize(p);
-	for(int i = 0; i < gens; i++){
-		printf("Gen %d:\n", i);
-		for(int j = 0; j < b[i]->sizeY; j++){
-			for(int k = 0; k < b[i]->sizeX; k++){
-				printf("%d ", b[i]->cells[j * b[i]->sizeX + k]);
-			}
-			printf("\n");
-		}
-	}
-}
-
 
 CellState* getArea(Board* b, int x, int y){
 
