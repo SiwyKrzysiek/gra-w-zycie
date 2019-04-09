@@ -95,6 +95,29 @@ Aktualna postać modułu:\\
 	\item \texttt{int i} -- numer aktualnie generowanego pokolenia. Potrzebny do generowania nazw plików.
 \end{itemize}
 
+\subsection{GraphicsGenerator}
+W tym module zostały dodane nowe funkcje pomocnicze związane z przeskalowywaniem obrazu. Okazało się, że po stworzeniu obrazu, o rozmiarze w pikselach takich jak plansza, domyślnie jest on wyświetlany w bardzo małej wielkości przez typowe programy. By tego uniknąć dodana została funkcjonalność przeskalowywania obrazów do minimalnej wielkości.
+
+By skalowanie było uniwersalne pracuje ono na wartościach pikseli, z których ma powstać grafika. Dzięki temu jest niezależne od palet barw, które są różne dla generowania png i gif. Do przechowywania wartości pikseli używany jest nowy typ \texttt{Pixel}.
+
+Skalowanie może tylko zwiększyć wymiary obrazu.
+
+\subsubsection*{Nowe funkcje}
+Na potrzeby skalowania zostały napisane następujące funkcje:\\
+\noindent{}\texttt{Pixel *translateBoardToPixels(Board *board, Pixel valueOfAlive, Pixel valueOfDead)} -- Zamiana planszy na tablicę pikseli.
+\begin{itemize}[label={}]
+	\item\texttt{Board *board} -- wskaźnik na planszę, która ma być przedstawiona jako piksele,
+	\item\texttt{Pixel valueOfAlive} -- wartość pikseli dla żywych komórek,
+	\item \texttt{Pixel valueOfDead} -- wartość pikseli dla martwych komórek.
+\end{itemize}
+
+\noindent{}\texttt{Pixel *translateBoardToPixels(Board *board, Pixel valueOfAlive, Pixel valueOfDead)} -- Zamiana planszy na tablicę pikseli.
+\begin{itemize}[label={}]
+	\item\texttt{Board *board} -- wskaźnik na planszę, która ma być przedstawiona jako piksele,
+	\item\texttt{Pixel valueOfAlive} -- wartość pikseli dla żywych komórek,
+	\item \texttt{Pixel valueOfDead} -- wartość pikseli dla martwych komórek.
+\end{itemize}
+
 \section{Prezentacja działania}
 Przykłady wywołania programu z różnymi flagami.
 
