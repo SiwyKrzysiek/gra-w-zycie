@@ -1,15 +1,15 @@
 \documentclass{mwart}
-
+\usepackage{multicol}
 \usepackage{polski} % Pozwala na użycie polskiego. Ustawia między innymi fontenc na T1
 \usepackage[utf8]{inputenc} % Informuje o kodowaniu
 \usepackage{enumitem}
 \usepackage{xcolor}
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
-\usepackage{hyperref}% http://ctan.org/pkg/hyperref
+\usepackage{hyperref}
 \usepackage{listings}
 \usepackage{float} % Ustawianie obrazów
 \usepackage[caption = false]{subfig} % Wiele obrazów w jednej figurze
-
+\definecolor{LinkColor}{HTML}{1d5cc1}
 \renewcommand{\labelitemi}{\textbullet} % Zmiana symbolu wliczeń
 
 \lstset{
@@ -53,6 +53,8 @@
 %TODO: Opis modyfikacji
 
 \section{Prezentacja działania}
+
+
 Przykłady wywołania programu z różnymi flagami.
 
 \subsection{Generacja obrazów z wczytaniem stanu z pliku}
@@ -62,43 +64,32 @@ Argumenty:
 \begin{itemize}
 \item \texttt{-f input.txt} -- Stan początkowy jest wczytany z pliku ,,input.txt'',
 \item \texttt{-t png} -- Zostanie wygenerowana seria plików .png z kolejnymi pokoleniami,
-\item \texttt{-o raport} -- Wygenerowane pliki zostaną zapisane do folderu ,,raport'',
+\item \texttt{-o raport} -- Wygenerowane pliki zostaną zapisane do podfolderu w folderze ,,raport'',
 \item \texttt{-n 6} -- Zostanie wygenerowanych 6 następnych pokoleń .png (ze stanem początkowym 7 obrazków).
 \end{itemize}
 
-\subsection{Początkowy stan}
-Stan wczytany z pliku został również zamieniony na obraz. Wygląda on następująco:
-\begin{figure}[H]
-  \setlength{\fboxsep}{0pt} %Wielkości ramek
-  \setlength{\fboxrule}{1pt}
-  \centering
-
-  \includegraphics[width = 5cm]{glider0}
-  \caption{Stan wczytany z pliku}
-\end{figure}
-
-\newpage{}
-\subsubsection{Powstałe obrazy}
-Program wygenerował 6 następnych pokoleń. Przedstawiają ruch stuktóry szybowca.
+\subsubsection*{Powstałe obrazy}
+Program wygenerował poniższe pliki. Przedstawiają ruch struktury szybowca.
 
 \begin{figure}[H]
   \setlength{\fboxsep}{0pt} %Wielkości ramek
   \setlength{\fboxrule}{1pt}
 
   \centering
-  \subfloat[Pokolenie 1]{\fbox{\includegraphics[width = 5cm]{glider1}}}
+  \subfloat[Pokolenie 0]{\fbox{\includegraphics[width = 5cm]{glider0}}}
   \hspace{0.7cm}
-  \subfloat[Pokolenie 2]{\fbox{\includegraphics[width = 5cm]{glider2}}}\\
-  \subfloat[Pokolenie 3]{\fbox{\includegraphics[width = 5cm]{glider3}}}
+  \subfloat[Pokolenie 1]{\fbox{\includegraphics[width = 5cm]{glider1}}}\\
+  \subfloat[Pokolenie 2]{\fbox{\includegraphics[width = 5cm]{glider2}}}
   \hspace{0.7cm}
-  \subfloat[Pokolenie 4]{\fbox{\includegraphics[width = 5cm]{glider4}}}\\
-  \subfloat[Pokolenie 5]{\fbox{\includegraphics[width = 5cm]{glider5}}}
+  \subfloat[Pokolenie 3]{\fbox{\includegraphics[width = 5cm]{glider3}}}\\
+  \subfloat[Pokolenie 4]{\fbox{\includegraphics[width = 5cm]{glider4}}}
   \hspace{0.7cm}
-  \subfloat[Pokolenie 6]{\fbox{\includegraphics[width = 5cm]{glider6}}} 
+  \subfloat[Pokolenie 5]{\fbox{\includegraphics[width = 5cm]{glider5}}} 
   
   \caption{Wygenerowane pliki}
   \label{fig:GliderExample}
 \end{figure}
+
 
 \section{Podsumowanie testów modułów}
 Do pisania oraz automatyzacji wykonania testów jednostkowych został wykorzystany framework \textit{CUnit}. Dzięki temu na dowolnym etapie projektu można było łatwo sprawdzić poprawność już istniejącego kodu.
@@ -134,7 +125,88 @@ Elapsed time =    0.001 seconds
 \end{verbatim}
 
 \subsection{Wnioski}
-Z raportu testów jednostkowych wynika, że wszystkie wszystkie sprawdzane funkcjonalności dają prawidłowe wyniki. Wszystkie testy są oznaczone jako \texttt{...passed} oraz liczba zapewnień, których wyniki są poprawne jest równa liczbie wszystkich zapewnień.
+Z raportu testów jednostkowych wynika, że wszystkie wszystkie sprawdzane funkcjonalności dają prawidłowe wyniki. Wszystkie testy są oznaczone jako \texttt{...passed} oraz liczba zapewnień, których wyniki są poprawne jest równa liczbie wszystkich zapewnień.
+
+\subsection{Generacja plików tekstowych  z wczytaniem losową planszą początkową}
+\noindent{}Wywołanie programu: \\
+\texttt{./game-of-life -s 5x5 -t txt -o raport -n 10} \\
+Argumenty:
+\begin{itemize}
+\item \texttt{-s 5x5} -- Zostanie wygenerowana losowa plansza początkowa w rozmiarach 5 na 5 komórek,
+\item \texttt{-t txt} -- Zostanie wygenerowana seria plików .txt z kolejnymi pokoleniami,
+\item \texttt{-o raport} -- Wygenerowane pliki zostaną zapisane do podfolderu w folderze ,,raport'',
+\item \texttt{-n 3} -- Zostanie wygenerowanych 3 następnych pokoleń .png (ze stanem początkowym 4 plików tekstowych).
+\vspace{5mm}
+\end{itemize}
+\begin{center}
+\begin{multicols}{2}
+[\textbf{Wygenerował pliki o poniższej zawartości:}]
+\texttt{
+\\\hspace{-13mm}5 5\\
+1 1 1 1 1\\
+0 0 1 1 0\\
+1 0 1 1 1\\
+1 1 0 1 0\\
+1 1 0 0 1\\
+}
+Jako pokolenie początkowe.\\
+\texttt{
+\\\hspace{-13mm}5 5\\
+0 1 0 0 1\\
+1 0 0 0 0\\
+1 0 0 0 1\\
+0 0 0 0 0\\
+1 1 1 0 0\\
+}
+Jako pokolenie pierwsze.\\
+\texttt{
+\\\hspace{-13mm}5 5\\
+0 0 0 0 0\\
+1 1 0 0 0\\
+0 0 0 0 0\\
+1 0 0 0 0\\
+0 1 0 0 0\\
+}
+Jako pokolenie drugie.\\
+\texttt{
+\\\hspace{-13mm}5 5\\
+0 0 0 0 0\\
+0 0 0 0 0\\
+1 1 0 0 0\\
+0 0 0 0 0\\
+0 0 0 0 0\\
+}
+Jako pokolenie trzecie.\\
+\end{multicols}
+\end{center}
+
+\subsection{Generacja plików gif z losową planszą}
+\noindent{}Wywołanie programu: \\
+\texttt{./game-of-life -s 20x20 -o raport -n 50} \\
+Argumenty:
+\begin{itemize}
+\item \texttt{-s 20x20} -- Zostanie wygenerowana losowa plansza początkowa w rozmiarach 20 na 20 komórek,
+\item \texttt{-o raport} -- Wygenerowany plik zostanie zapisany z folderze raport,
+\item \texttt{-n 50} -- Zostanie wygenerowanych 50 następnych pokoleń w formie jednego pliku .gif (ze stanem początkowym 51 klatek).\\
+\end{itemize}
+Nie podanie formatu pliku wynikowego spowoduje wygenerowanie pliku .gif.
+\vspace{5mm}
+Wyniki pracy programu dostępne \href{https://github.com/SiwyKrzysiek/gra-w-zycie/tree/report/code/raport}{\textcolor{LinkColor}{pod linkiem}}.
+
+\subsection{Wyświetlenie kolejnych pokoleń w konsoli z planszą pobieraną z pliku}
+\noindent{}Wywołanie programu: \\
+\texttt{./game-of-life -f input.txt -t out -n 20 -d 500} \\
+Argumenty:
+\begin{itemize}
+\item \texttt{-f input.txt} -- Stan początkowy jest wczytany z pliku ,,input.txt'',
+\item \texttt{-t out} -- kolejne pokolenia zostaną wyświetlone na konsoli,
+\item \texttt{-n 50} -- Zostanie wygenerowanych 50 następnych pokoleń w formie jednego pliku .gif (ze stanem początkowym 51 klatek),
+\item \texttt{-d 500} -- Kolejne pokolenia będą wyświetlane co 500ms.\\
+\end{itemize}
+
+\noindent Takie wywołanie programu wyświetli kolejne pokolenia w terminalu zachowując pół sekundowe odstępy między kolejnymi stanami planszy w formacie podobnym do wyników z plików tekstowych (bez wymiarów planszy).
+
+\section{Podsumowanie testów modułów}
 
 \section{Analiza pamięci}
 \noindent Raport programu \texttt{valgrind } zwraca następujące wyniki:\\\\
