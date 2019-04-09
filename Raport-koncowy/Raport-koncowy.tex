@@ -50,11 +50,52 @@
 \end{figure}
 
 \section{Opis modyfikacji}
-%TODO: Opis modyfikacji
+W trakcie pracy nad projektem okazało się, że niektóre problemy można rozwiązać lepiej niż przewiduje to specyfikacja impleilementacyja. Pojawiły się również nieprzewidziane problemy z wyświetlaniem bardzo małych obrazów przez typowe programy do prezentacji grafik. Z tych powodów wprowadzone zostały pewne zmiany.
+
+\subsection{GameOfLife}
+Specyfikacja nie przewidywał funkcji odpowiedzialnej z główny przebieg sterowania w programie. Dodano więc funkcję \texttt{void runProgram(int argc, char **args)}.
+Koordynuje ona pracę wszystkich pozostałych modułów.
+
+\subsection{ArgumentsParser}
+Do typu wyliczeniowego \texttt{FileType} (dawniej \texttt{Type}) została dodana nowa wartość ,,OUT'' reprezentująca wypisywanie kolejnych stanów na standartowe wyjście.
+
+Do struktury \texttt{Config} zostały dodane nowe pola \texttt{sizeX} i \texttt{sizeY} reprezentujące wymiary planszy. 
+
+Dodano funkcję \texttt{void disposeConfig(Config *config)}, która zwalnia pamięć zarezerwowaną na tą strukturę.
+
+\subsection{BoardSaver}
+Nazwa modułu została zmieniona na \texttt{Saver}, a jego struktura gruntownie zmodyfikowana.
+
+Aktualna postać modułu:\\
+\texttt{void saveAsPng(Board** history, Config* config, int i)} -- Zapis kolejnych pokoleń do plików png.
+\begin{itemize}[label={}]
+	\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
+	\item\texttt{Config* config} -- wskaźnik na strukturę ustawień generacji kolejnych pokoleń,
+	\item \texttt{int i} -- numer aktualnie generowanego pokolenia. Potrzebny do generowania nazw plików.
+\end{itemize}
+
+\noindent{}\texttt{void saveAsGif(Board** history, Config* config, int historySize)} -- Zapis kolejnych pokoleń do pliku gif.
+\begin{itemize}[label={}]
+	\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
+	\item\texttt{Config* config} -- wskaźnik na strukturę ustawień generacji kolejnych pokoleń,
+	\item \texttt{int historySize} -- Liczba pokoleń w historii
+\end{itemize}
+
+\noindent{}\texttt{void saveAsTxt(Board** history, Config* config, int i)} -- Zapis kolejnych pokoleń do plików txt.
+\begin{itemize}[label={}]
+	\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
+	\item\texttt{Config* config} -- wskaźnik na strukturę ustawień generacji kolejnych pokoleń,
+	\item \texttt{int i} -- numer aktualnie generowanego pokolenia. Potrzebny do generowania nazw plików.
+\end{itemize}
+
+\noindent{}\texttt{void printToStdout(Board** history, Config* config, int i)} -- Wyświetlenie kolejnych pokoleń w terminalu.
+\begin{itemize}[label={}]
+	\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
+	\item\texttt{Config* config} -- wskaźnik na strukturę ustawień generacji kolejnych pokoleń,
+	\item \texttt{int i} -- numer aktualnie generowanego pokolenia. Potrzebny do generowania nazw plików.
+\end{itemize}
 
 \section{Prezentacja działania}
-
-
 Przykłady wywołania programu z różnymi flagami.
 
 \subsection{Generacja obrazów z wczytaniem stanu z pliku}
@@ -145,6 +186,7 @@ Jako pokolenie trzecie.\\
 \end{multicols}
 \end{center}
 
+
 \subsection{Generacja plików gif z losową planszą}
 \noindent{}Wywołanie programu: \\
 \texttt{./game-of-life -s 20x20 -o raport -n 50} \\
@@ -174,7 +216,7 @@ Argumenty:
 \section{Podsumowanie testów modułów}
 Do pisania oraz automatyzacji wykonania testów jednostkowych został wykorzystany framework \textit{CUnit}. Dzięki temu na dowolnym etapie projektu można było łatwo sprawdzić poprawność już istniejącego kodu.
 
-\subsubsection{Wygenerowany raport}
+\subsection{Wygenerowany raport}
 Wyniki testów jednostkowych przedstawia poniższy raport.
 
 \begin{verbatim}
