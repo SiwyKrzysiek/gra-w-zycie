@@ -15,6 +15,8 @@
 #include <CUnit/Basic.h>
 #include "boardTest.h"
 #include "LoaderTest.h"
+#include "RulesTest.h"
+#include "SimulatorTest.h"
 
 void runTests();
 #endif
@@ -23,26 +25,18 @@ void runProgram(int argc, char **args);
 
 int main(int argc, char **args)
 {
-   //argumenty
-   runProgram(argc, args);
-
-// #ifdef DEBUG
-//    Config *p = malloc(sizeof(*p));
-//    p->number_of_generations = 20;
-//    p->step = 2;
-//    Board *b = load("input.txt");
-//    Board **bArray = simulate(b, p);
-//    display(bArray, p);
-// #endif
-
-#ifdef TESTSX
+#ifdef TESTS
    runTests();
 #endif
+
+   //argumenty
+   runProgram(argc, args);
 
    return EXIT_SUCCESS;
 }
 
-void displayHelp(){
+void displayHelp()
+{
    printf("Gra w życie\n\nParametry:\n");
    printf("%-30s =>             %s\n", "-h / --help", "help");
    printf("%-30s =>             %s\n", "-n / --number_of_generations", "number of created generations (integer)");
@@ -74,37 +68,39 @@ void runProgram(int argc, char **args)
       initialBoard = load(config->file);
    }
 
-   Board** history1 = simulate(initialBoard, config);
+   Board **history1 = simulate(initialBoard, config);
    Board **history = stepSimulate(history1, config);
    //FIXME: Move size calculation to function
    int historySize = (config->number_of_generations + 1) / config->step;
 
    switch (config->type)
    {
-      case GIF:
-         saveAsGif(history, config, historySize);
-         break;
-      case PNG:
-         for(int i = 0; i < historySize; i++){
-            saveAsPng(history, config, i);
-         }
-         break;
+   case GIF:
+      saveAsGif(history, config, historySize);
+      break;
+   case PNG:
+      for (int i = 0; i < historySize; i++)
+      {
+         saveAsPng(history, config, i);
+      }
+      break;
 
-      case TXT:
-         for(int i = 0; i < historySize; i++){
-            saveAsTxt(history, config, i);
-         }
-         break;
-      case OUT:
-         for(int i = 0; i < historySize; i++){
-            printToStdout(history, config, i);
-         }
-         break;
+   case TXT:
+      for (int i = 0; i < historySize; i++)
+      {
+         saveAsTxt(history, config, i);
+      }
+      break;
+   case OUT:
+      for (int i = 0; i < historySize; i++)
+      {
+         printToStdout(history, config, i);
+      }
+      break;
    }
 
-
-   for (int i=0; i<config->number_of_generations + 1; i++)
-         disposeBoard(history1[i]);
+   for (int i = 0; i < config->number_of_generations + 1; i++)
+      disposeBoard(history1[i]);
 
    disposeConfig(config);
 
@@ -144,6 +140,37 @@ void runTests()
    }
 
    if (CU_add_test(loaderSuite, "Parse small file test", testParseSmallFile) == NULL)
+   {
+      CU_cleanup_registry();
+      exit(CU_get_error());
+   }
+
+   CU_pSuite rulesSuite = CU_add_suite("Rules tests", NULL, NULL);
+   if (rulesSuite == NULL)
+   {
+      CU_cleanup_registry();
+      exit(CU_get_error());
+   }
+
+   if (CU_add_test(rulesSuite, "Dead cell stays dead", testNextStateDeadStaysDead) == NULL 
+         || CU_add_test(rulesSuite, "Dead cell comes to live", testNextStateDeadComesToLive) == NULL
+         || CU_add_test(rulesSuite, "Alive cell dies from overpopulation", testNextStateAliveDiesFromOverpopulation) == NULL
+         || CU_add_test(rulesSuite, "Alive cell dies from loneliness", testNextStateAliveDiesFromLoneliness) == NULL
+         || CU_add_test(rulesSuite, "Alive cell stays alive", testNextStateAliveStaysAlive) == NULL
+      )
+   {
+      CU_cleanup_registry();
+      exit(CU_get_error());
+   }
+
+   CU_pSuite simulatorSuite = CU_add_suite("Simulator tests", NULL, NULL);
+   if (simulatorSuite == NULL)
+   {
+      CU_cleanup_registry();
+      exit(CU_get_error());
+   }
+
+   if (CU_add_test(simulatorSuite, "Simulate one next generation on small board", testSimulateOneNextGenOnSmallBoard) == NULL)
    {
       CU_cleanup_registry();
       exit(CU_get_error());

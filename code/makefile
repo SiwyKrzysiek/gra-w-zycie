@@ -1,5 +1,5 @@
 CC=clang
-DebugFlags=-std=c11 -Wall -g3 -D DEBUG -D TESTS
+DebugFlags=-std=c11 -Wall -g3
 ReleseFlags=-Ofast -std=c11 -g0
 Libraries=cunit libpng
 
@@ -7,19 +7,23 @@ Libraries=cunit libpng
 # It is assumed that each one has .h and .c file
 Objects=BoardHandler.o Loader.o ArgumentsParser.o GraphicsGenerator.o gifenc.o Rules.o Simulator.o Saver.o
 ## Here add names of test modules
-TestObjects=boardTest.o LoaderTest.o
+TestObjects=boardTest.o LoaderTest.o RulesTest.o SimulatorTest.o
 
 NAME=main.exe
 
-development: CompileFlags=$(DebugFlags)
-development: $(Objects) $(TestObjects)
-	$(CC) $(DebugFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) $(TestObjects) main.c
+development: CompileFlags=$(DebugFlags) -D DEBUG
+development: $(Objects)
+	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
 
 release: CompileFlags=$(ReleseFlags)
 release: $(Objects)
-	$(CC) $(ReleseFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
+	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
 
 rebuild: clean release
+
+tests: CompileFlags=$(DebugFlags) -D TESTS
+tests: $(Objects) $(TestObjects)
+	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) $(TestObjects) main.c
 
 clean:
 	rm -rf main.exe.dSYM
