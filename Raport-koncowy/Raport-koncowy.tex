@@ -9,6 +9,8 @@
 \usepackage{listings}
 \usepackage{float}
 
+\renewcommand{\labelitemi}{\textbullet} % Zmiana symbolu wiliczeń
+
 \lstset{
   basicstyle=\ttfamily,
   columns=fullflexible,
@@ -56,9 +58,9 @@
 Przykłady wywołania programu z różnymi flagami.
 
 \subsection{Generacja obrazów z wczytaniem stanu z pliku}
-Program wywołany w następujący sposób: \\
-\texttt{./game-of-life -f input.txt -t png -o raport -n 6}
-Argumenty oznaczają:
+\noindent{}Wywołanie programu: \\
+\texttt{./game-of-life -f input.txt -t png -o raport -n 6} \\
+Argumenty:
 \begin{itemize}
 \item \texttt{-f input.txt} -- Stan początkowy jest wczytany z pliku ,,input.txt'',
 \item \texttt{-t png} -- Zostanie wygenerowana seria plików .png z kolejnymi pokoleniami,
