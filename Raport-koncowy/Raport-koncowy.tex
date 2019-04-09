@@ -63,6 +63,17 @@ Do struktury \texttt{Config} zostały dodane nowe pola \texttt{sizeX} i \texttt{
 
 Dodano funkcję \texttt{void disposeConfig(Config *config)}, która zwalnia pamięć zarezerwowaną na tą strukturę.
 
+\subsection{Simulator}
+Zmieniono funkcję \texttt{Board** simulate(Board* b, Config* p)} tak aby na podstawie planszy początkowej generowała tablicę wskaźników na struktury będące reprezentacjami kolejnych pokoleń - historię stanów.
+
+Dodano funkcję \texttt{int calcHistorySize(Config* c)} zwracającą ilość generowanych stanów.
+
+Dodano funkcję \texttt{Board** stepSimulate(Board** b, Config* p)} przerzedzającą historię stanów tak by zawierała tylko co n-ty stan, gdzie n to wartość flagi ,,step''.
+
+
+
+
+
 \subsection{BoardSaver}
 Nazwa modułu została zmieniona na \texttt{Saver}, a jego struktura gruntownie zmodyfikowana.
 
