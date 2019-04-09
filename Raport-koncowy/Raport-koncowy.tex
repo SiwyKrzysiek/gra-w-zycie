@@ -50,7 +50,18 @@
 \end{figure}
 
 \section{Opis modyfikacji}
-%TODO: Opis modyfikacji
+W trakcie pracy nad projektem okazało się, że niektóre problemy można rozwiązać lepiej niż przewiduje to specyfikacja impleilementacyja. Pojawiły się również nieprzewidziane problemy z wyświetlaniem bardzo małych obrazów przez typowe programy do prezentacji grafik. Z tych powodów wprowadzone zostały pewne zmiany.
+
+\subsection{GameOfLife}
+Specyfikacja nie przewidywał funkcji odpowiedzialnej z główny przebieg sterowania w programie. Dodano więc funkcję \texttt{void runProgram(int argc, char **args)}.
+Koordynuje ona pracę wszystkich pozostałych modułów.
+
+\subsection{ArgumentsParser}
+Do typu wyliczeniowego \texttt{FileType} (dawniej \texttt{Type}) została dodana nowa wartość ,,OUT'' reprezentująca wypisywanie kolejnych stanów na standartowe wyjście.
+
+Do struktury \texttt{Config} zostały dodane nowe pola \texttt{sizeX} i \texttt{sizeY} reprezentujące wymiary planszy. 
+
+Dodano funkcję \texttt{void disposeConfig(Config *config)}, która zwalnia pamięć zarezerwowaną na tą strukturę.
 
 \section{Prezentacja działania}
 
@@ -144,6 +155,7 @@ Jako pokolenie drugie.\\
 Jako pokolenie trzecie.\\
 \end{multicols}
 \end{center}
+
 
 \subsection{Generacja plików gif z losową planszą}
 \noindent{}Wywołanie programu: \\
