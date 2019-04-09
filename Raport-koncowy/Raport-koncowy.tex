@@ -7,6 +7,7 @@
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 \usepackage{hyperref}% http://ctan.org/pkg/hyperref
 \usepackage{listings}
+\usepackage{float}
 
 \lstset{
   basicstyle=\ttfamily,
@@ -38,15 +39,37 @@
 \tableofcontents{}
 
 \section{Ostateczny projekt modułów}
+\paragraph{Zmodyfikowany diagram modułów:}\mbox{}\\
+\begin{figure}[H]
+	\centering
+	\def\svgwidth{\columnwidth}
+	\includegraphics[width=13cm]{diagram_modulow.png}
+\end{figure}
+
+
 %TODO: Ostateczny projekt modułów}
 
 \section{Opis modyfikacji}
 %TODO: Opis modyfikacji}
 
 \section{Prezentacja działania}
+Przykłady wywołania programu z różnymi flagami.
+
+\subsection{Generacja obrazów z wczytaniem stanu z pliku}
+Program wywołany w następujący sposób: \\
+\texttt{./game-of-life -f input.txt -t png -o raport -n 6}
+Argumenty oznaczają:
+\begin{itemize}
+\item \texttt{-f input.txt} -- Stan początkowy jest wczytany z pliku ,,input.txt'',
+\item \texttt{-t png} -- Zostanie wygenerowana seria plików .png z kolejnymi pokoleniami,
+\item \texttt{-o raport} -- Wygenerowane pliki zostaną zapisane do folderu ,,raport'',
+\item \texttt{-n 6} -- Zostanie wygenerowanych 6 następnych pokoleń .png (ze stanem początkowym 7 obrazków).
+\end{itemize}
+
+
 %TODO: Prezentacja działania}
 
-\section{Podsumowanie testów modów}
+\section{Podsumowanie testów modułów}
 %TODO: Podsumowanie testów modów}
 
 \section{Analiza pamięci}
