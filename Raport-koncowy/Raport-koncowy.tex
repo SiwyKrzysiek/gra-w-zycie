@@ -7,9 +7,10 @@
 \usepackage{xcolor}% http://ctan.org/pkg/xcolor
 \usepackage{hyperref}% http://ctan.org/pkg/hyperref
 \usepackage{listings}
-\usepackage{float}
+\usepackage{float} % Ustawianie obrazów
+\usepackage[caption = false]{subfig} % Wiele obrazów w jednej figurze
 
-\renewcommand{\labelitemi}{\textbullet} % Zmiana symbolu wiliczeń
+\renewcommand{\labelitemi}{\textbullet} % Zmiana symbolu wliczeń
 
 \lstset{
   basicstyle=\ttfamily,
@@ -67,6 +68,28 @@ Argumenty:
 \item \texttt{-o raport} -- Wygenerowane pliki zostaną zapisane do folderu ,,raport'',
 \item \texttt{-n 6} -- Zostanie wygenerowanych 6 następnych pokoleń .png (ze stanem początkowym 7 obrazków).
 \end{itemize}
+
+\subsubsection{Powstałe obrazy}
+Program wygenerował poniższe pliki. Przedstawiają ruch stuktóry szybowca.
+
+\begin{figure}[h]
+  \setlength{\fboxsep}{0pt} %Wielkości ramek
+  \setlength{\fboxrule}{1pt}
+
+  \centering
+  \subfloat[Pokolenie 0]{\fbox{\includegraphics[width = 5cm]{glider0}}}
+  \hspace{0.7cm}
+  \subfloat[Pokolenie 1]{\fbox{\includegraphics[width = 5cm]{glider1}}}\\
+  \subfloat[Pokolenie 2]{\fbox{\includegraphics[width = 5cm]{glider2}}}
+  \hspace{0.7cm}
+  \subfloat[Pokolenie 3]{\fbox{\includegraphics[width = 5cm]{glider3}}}\\
+  \subfloat[Pokolenie 4]{\fbox{\includegraphics[width = 5cm]{glider4}}}
+  \hspace{0.7cm}
+  \subfloat[Pokolenie 5]{\fbox{\includegraphics[width = 5cm]{glider5}}} 
+  
+  \caption{Wygenerowane pliki}
+  \label{fig:GliderExample}
+\end{figure}
 
 
 %TODO: Prezentacja działania}
