@@ -102,7 +102,7 @@ By skalowanie było uniwersalne pracuje ono na wartościach pikseli, z których 
 
 Skalowanie może tylko zwiększyć wymiary obrazu.
 
-\subsubsection*{Nowe funkcje}
+\subsubsection{Nowe funkcje}
 Na potrzeby skalowania zostały napisane następujące funkcje:\\
 \noindent{}\texttt{Pixel *translateBoardToPixels(Board *board, Pixel valueOfAlive, Pixel valueOfDead)} -- Zamiana planszy na tablicę pikseli.
 \begin{itemize}[label={}]
@@ -110,13 +110,28 @@ Na potrzeby skalowania zostały napisane następujące funkcje:\\
 	\item\texttt{Pixel valueOfAlive} -- wartość pikseli dla żywych komórek,
 	\item \texttt{Pixel valueOfDead} -- wartość pikseli dla martwych komórek.
 \end{itemize}
+Zwracany jest wskaźnik na dynamicznie przydzieloną tablicę pikseli odpowiadającą otrzymanej planszy.\\
 
-\noindent{}\texttt{Pixel *translateBoardToPixels(Board *board, Pixel valueOfAlive, Pixel valueOfDead)} -- Zamiana planszy na tablicę pikseli.
+\noindent{}\texttt{void getUpscaledImageSize(int orginalX, int orginalY, int *newX, int *newY)} -- Obliczenie wymiarów obrazu po przeskalowaniu.
 \begin{itemize}[label={}]
-	\item\texttt{Board *board} -- wskaźnik na planszę, która ma być przedstawiona jako piksele,
-	\item\texttt{Pixel valueOfAlive} -- wartość pikseli dla żywych komórek,
-	\item \texttt{Pixel valueOfDead} -- wartość pikseli dla martwych komórek.
+	\item\texttt{int orginalX} -- szerokość oryginalnego obrazu,
+	\item\texttt{int orginalY} -- wysykość oryginalnego obrazu,
+	\item \texttt{int *newX} -- wskaźnik na zmienną typu int, gdzie zostanie zapisana nowa szerokość planszy,
+	\item \texttt{int *newY} -- wskaźnik na zmienną typu int, gdzie zostanie zapisana nowa wysokość planszy.
 \end{itemize}
+
+\noindent{}\texttt{Pixel *upscaleImage(const Pixel *original, int imageX, int imageY)} -- Przeskalowanie obrazu.
+\begin{itemize}[label={}]
+	\item\texttt{const Pixel *original} -- wskaźnik na tablicę pikseli reprezentującą oryginalny obraz,
+	\item\texttt{int imageX} -- szerokość oryginalnego obrazu,
+	\item \texttt{int imageY} -- wysokość oryginalnego obrazu,
+\end{itemize}
+Zwracany jest wskaźnik na dynamicznie przydzieloną tablicę pikseli odpowiadającą przeskalowanemu obrazowi.
+
+\subsubsection{Zmiany już istniejących funkcji}
+Funkcja \texttt{savePng} nie przyjmuje ustawień \texttt{Config* c}. Nie są one potrzebne do generowania obrazu. Zamiast tego przyjmuję nazwę pliku jaki ma być generowany. Dodatkowo zamiast tekstu \texttt{char* data} jako pierwszy argument przyjmuje strukturę planszy. Dzięki temu została wyeliminowana zbędna serializacja i parsowanie planszy.
+
+Nazwa funkcji \texttt{saveGif} została zmieniona na \texttt{saveHistoryAsGif} ponieważ w bibliotece do towrzenia gifów istniej już funkcja o takiej nazwie. Funkcja ta również zamiast struktury ustawień otrzymuje nazwę pliku, który ma zostać wygenerowany.
 
 \section{Prezentacja działania}
 Przykłady wywołania programu z różnymi flagami.
