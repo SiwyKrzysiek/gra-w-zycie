@@ -57,11 +57,11 @@ Board** simulate(Board* b, Config* p){
 }
 
 Board** stepSimulate(Board** board, Config* config){
-	int size = (config->number_of_generations + 1) / config->step;
+	int size = calcHistorySize(config);
 	int iterator = 0;
 	Board** result = malloc(sizeof(*result) * size);
 	for(int i = 0; i < size; i++){
-		result[iterator] = board[i];
+		result[iterator] = board[i*config->step];
 		iterator++;
 	}
 	return result;
