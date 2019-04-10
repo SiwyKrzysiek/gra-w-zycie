@@ -2,7 +2,7 @@
 
 
 int calcHistorySize(Config* config){
-	return config->number_of_generations / config->step + 1;
+	return (config->number_of_generations + 1) / config->step;
 }
 
 
