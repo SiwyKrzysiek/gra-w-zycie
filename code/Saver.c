@@ -21,7 +21,7 @@ void saveCommon(Board** history, Config* config, int i, char* extension){
     path = malloc(strlen(config->output_dest) + strlen(dirName) + counter + 9);
     strcpy(path, config->output_dest);
     tempString = malloc(counter+1);
-    sprintf(tempString, "%d", i);
+    sprintf(tempString, "%d", i*config->step);
     strcat(path, extension);
     strcat(path, dirName);
     strcat(path, "/");
