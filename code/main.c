@@ -66,12 +66,9 @@ void runProgram(int argc, char **args)
    {
       initialBoard = load(config->file);
    }
-
    Board **history1 = simulate(initialBoard, config);
    Board **history = stepSimulate(history1, config);
-   //FIXME: Move size calculation to function
-   int historySize = (config->number_of_generations + 1) / config->step;
-
+   int historySize = calcHistorySize(config);
    switch (config->type)
    {
    case GIF:
@@ -169,7 +166,8 @@ void runTests()
       exit(CU_get_error());
    }
 
-   if (CU_add_test(simulatorSuite, "Simulate one next generation on small board", testSimulateOneNextGenOnSmallBoard) == NULL)
+   if (CU_add_test(simulatorSuite, "Simulate one next generation on small board", testSimulateOneNextGenOnSmallBoard) == NULL ||
+      CU_add_test(simulatorSuite, "Simulate ten generations on not so small board, but not a big one too", testSimulateTenNextGenOnNotSoSmallBoard) == NULL)
    {
       CU_cleanup_registry();
       exit(CU_get_error());

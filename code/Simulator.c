@@ -2,21 +2,7 @@
 
 
 int calcHistorySize(Config* config){
-	return config->number_of_generations / config->step + 1;
-}
-
-//temporary function for testing
-void display(Board** b, Config* p){
-	int gens = calcHistorySize(p);
-	for(int i = 0; i < gens; i++){
-		printf("Gen %d:\n", i);
-		for(int j = 0; j < b[i]->sizeY; j++){
-			for(int k = 0; k < b[i]->sizeX; k++){
-				printf("%d ", b[i]->cells[j * b[i]->sizeX + k]);
-			}
-			printf("\n");
-		}
-	}
+	return (config->number_of_generations + 1) / config->step;
 }
 
 
@@ -71,11 +57,11 @@ Board** simulate(Board* b, Config* p){
 }
 
 Board** stepSimulate(Board** board, Config* config){
-	int size = (config->number_of_generations + 1) / config->step;
+	int size = calcHistorySize(config);
 	int iterator = 0;
 	Board** result = malloc(sizeof(*result) * size);
 	for(int i = 0; i < size; i++){
-		result[iterator] = board[i];
+		result[iterator] = board[i*config->step];
 		iterator++;
 	}
 	return result;
