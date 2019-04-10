@@ -66,7 +66,7 @@ Dodano funkcję \texttt{void disposeConfig(Config *config)}, która zwalnia pami
 \subsection{Simulator}
 Zmieniono funkcję \texttt{Board** simulate(Board* b, Config* p)} tak aby na podstawie planszy początkowej generowała tablicę wskaźników na struktury będące reprezentacjami kolejnych pokoleń - historię stanów.
 
-Dodano funkcję \texttt{int calcHistorySize(Config* c)} zwracającą ilość generowanych stanów.
+Dodano funkcję \texttt{int calcHistorySize(Config* c)} zwracającą ilość generowanych stanów -- długość historii stanów. 
 
 Dodano funkcję \texttt{Board** stepSimulate(Board** b, Config* p)} przerzedzającą historię stanów tak by zawierała tylko co n-ty stan, gdzie n to wartość flagi ,,step''.
 
@@ -76,8 +76,10 @@ Dodano funkcję \texttt{Board** stepSimulate(Board** b, Config* p)} przerzedzaj�
 
 \subsection{BoardSaver}
 Nazwa modułu została zmieniona na \texttt{Saver}, a jego struktura gruntownie zmodyfikowana.
+Aktualnie kontroluje wszystkie formy zapisu i wyświetlenia wyniku.
+\vspace{0.2cm}
 
-Aktualna postać modułu:\\
+\textbf{Aktualna postać modułu:}\vspace{0.2cm}\\
 \texttt{void saveAsPng(Board** history, Config* config, int i)} -- Zapis kolejnych pokoleń do plików png.
 \begin{itemize}[label={}]
 	\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
@@ -92,12 +94,15 @@ Aktualna postać modułu:\\
 	\item \texttt{int historySize} -- Liczba pokoleń w historii
 \end{itemize}
 
-\noindent{}\texttt{void saveAsTxt(Board** history, Config* config, int i)} -- Zapis kolejnych pokoleń do plików txt.
-\begin{itemize}[label={}]
-	\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
-	\item\texttt{Config* config} -- wskaźnik na strukturę ustawień generacji kolejnych pokoleń,
-	\item \texttt{int i} -- numer aktualnie generowanego pokolenia. Potrzebny do generowania nazw plików.
-\end{itemize}
+\begin{samepage}
+	\noindent{}\texttt{void saveAsTxt(Board** history, Config* config, int i)} -- Zapis kolejnych pokoleń do plików txt.
+	\begin{itemize}[label={}]
+		\item\texttt{Board** history} -- tablica wskaźników na struktury reprezentujące kolejne pokolenia,
+		\item\texttt{Config* config} -- wskaźnik na strukturę ustawień generacji kolejnych pokoleń,
+		\item \texttt{int i} -- numer aktualnie generowanego pokolenia. Potrzebny do generowania nazw plików.
+	\end{itemize}
+\end{samepage}
+
 
 \noindent{}\texttt{void printToStdout(Board** history, Config* config, int i)} -- Wyświetlenie kolejnych pokoleń w terminalu.
 \begin{itemize}[label={}]
@@ -107,7 +112,7 @@ Aktualna postać modułu:\\
 \end{itemize}
 
 \subsection{GraphicsGenerator}
-W tym module zostały dodane nowe funkcje pomocnicze związane z przeskalowywaniem obrazu. Okazało się, że po stworzeniu obrazu, o rozmiarze w pikselach takich jak plansza, domyślnie jest on wyświetlany w bardzo małej wielkości przez typowe programy. By tego uniknąć dodana została funkcjonalność przeskalowywania obrazów do minimalnej wielkości.
+W tym module zostały dodane nowe funkcje pomocnicze związane z przeskalowywaniem obrazu. Okazało się, że po stworzeniu obrazu o rozmiarze w pikselach takich jak plansza, domyślnie jest on wyświetlany w bardzo małej wielkości przez typowe programy. By tego uniknąć dodana została funkcjonalność przeskalowywania obrazów do minimalnej wielkości.
 
 By skalowanie było uniwersalne pracuje ono na wartościach pikseli, z których ma powstać grafika. Dzięki temu jest niezależne od palet barw, które są różne dla generowania png i gif. Do przechowywania wartości pikseli używany jest nowy typ \texttt{Pixel}.
 
@@ -140,42 +145,43 @@ Zwracany jest wskaźnik na dynamicznie przydzieloną tablicę pikseli odpowiadaj
 Zwracany jest wskaźnik na dynamicznie przydzieloną tablicę pikseli odpowiadającą przeskalowanemu obrazowi.
 
 \subsubsection{Zmiany już istniejących funkcji}
-Funkcja \texttt{savePng} nie przyjmuje ustawień \texttt{Config* c}. Nie są one potrzebne do generowania obrazu. Zamiast tego przyjmuję nazwę pliku jaki ma być generowany. Dodatkowo zamiast tekstu \texttt{char* data} jako pierwszy argument przyjmuje strukturę planszy. Dzięki temu została wyeliminowana zbędna serializacja i parsowanie planszy.
+Funkcja \texttt{savePng} nie przyjmuje ustawień \texttt{Config* c}. Nie są one potrzebne do generowania obrazu. Zamiast tego przyjmuję ścieżkę do miejsca, gdzie będzie wygenerowany. Dodatkowo zamiast tekstu \texttt{char* data} jako pierwszy argument przyjmuje strukturę planszy. Dzięki temu została wyeliminowana zbędna serializacja i parsowanie planszy.
 
-Nazwa funkcji \texttt{saveGif} została zmieniona na \texttt{saveHistoryAsGif} ponieważ w bibliotece do towrzenia gifów istniej już funkcja o takiej nazwie. Funkcja ta również zamiast struktury ustawień otrzymuje nazwę pliku, który ma zostać wygenerowany.
+Nazwa funkcji \texttt{saveGif} została zmieniona na \texttt{saveHistoryAsGif} ponieważ w bibliotece do towrzenia gifów istniej już funkcja o takiej nazwie. Funkcja ta również zamiast struktury ustawień otrzymuje ścieżkę do miejsca, gdzie plik ma zostać wygenerowany.
 
 \section{Prezentacja działania}
 Przykłady wywołania programu z różnymi flagami.
 
 \subsection{Generacja obrazów z wczytaniem stanu z pliku}
 \noindent{}Wywołanie programu: \\
-\texttt{./game-of-life -f input.txt -t png -o raport -n 6} \\
+\texttt{./game-of-life -f input.txt -t png -o raport -n 5} \\
 Argumenty:
 \begin{itemize}
 \item \texttt{-f input.txt} -- Stan początkowy jest wczytany z pliku ,,input.txt'',
 \item \texttt{-t png} -- Zostanie wygenerowana seria plików .png z kolejnymi pokoleniami,
 \item \texttt{-o raport} -- Wygenerowane pliki zostaną zapisane do podfolderu w folderze ,,raport'',
-\item \texttt{-n 6} -- Zostanie wygenerowanych 6 następnych pokoleń .png (ze stanem początkowym 7 obrazków).
+\item \texttt{-n 5} -- Zostanie wygenerowanych 5 następnych pokoleń .png (ze stanem początkowym 6 obrazków).
 \end{itemize}
 
-\newpage{}
 \subsubsection*{Powstałe obrazy}
 Program wygenerował poniższe pliki. Przedstawiają ruch struktury szybowca.
 
 \begin{figure}[H]
   \setlength{\fboxsep}{0pt} %Wielkości ramek
   \setlength{\fboxrule}{1pt}
-
   \centering
-  \subfloat[Pokolenie 0]{\fbox{\includegraphics[width = 5cm]{glider0}}}
-  \hspace{0.7cm}
-  \subfloat[Pokolenie 1]{\fbox{\includegraphics[width = 5cm]{glider1}}}\\
-  \subfloat[Pokolenie 2]{\fbox{\includegraphics[width = 5cm]{glider2}}}
-  \hspace{0.7cm}
-  \subfloat[Pokolenie 3]{\fbox{\includegraphics[width = 5cm]{glider3}}}\\
-  \subfloat[Pokolenie 4]{\fbox{\includegraphics[width = 5cm]{glider4}}}
-  \hspace{0.7cm}
-  \subfloat[Pokolenie 5]{\fbox{\includegraphics[width = 5cm]{glider5}}} 
+  
+  \subfloat[Stan początkowy]{\fbox{\includegraphics[width = 3cm]{glider0}}}
+  \hspace{0.3cm}
+  \subfloat[Pokolenie 1]{\fbox{\includegraphics[width = 3cm]{glider1}}}
+  \hspace{0.3cm}
+  \subfloat[Pokolenie 2]{\fbox{\includegraphics[width = 3cm]{glider2}}}\\
+
+  \subfloat[Pokolenie 3]{\fbox{\includegraphics[width = 3cm]{glider3}}}
+  \hspace{0.3cm}
+  \subfloat[Pokolenie 4]{\fbox{\includegraphics[width = 3cm]{glider4}}}
+  \hspace{0.3cm}
+  \subfloat[Pokolenie 5]{\fbox{\includegraphics[width = 3cm]{glider5}}} 
   
   \caption{Wygenerowane pliki}
   \label{fig:GliderExample}
@@ -198,7 +204,7 @@ Argumenty:
 \begin{multicols}{2}
 [\textbf{Wygenerował pliki o poniższej zawartości:}]
 \texttt{
-\\\hspace{-13mm}5 5\\
+\\\hspace{-11.5mm}5 5\\
 1 1 1 1 1\\
 0 0 1 1 0\\
 1 0 1 1 1\\
@@ -207,7 +213,7 @@ Argumenty:
 }
 Jako pokolenie początkowe.\\
 \texttt{
-\\\hspace{-13mm}5 5\\
+\\\hspace{-11.5mm}5 5\\
 0 1 0 0 1\\
 1 0 0 0 0\\
 1 0 0 0 1\\
@@ -216,7 +222,7 @@ Jako pokolenie początkowe.\\
 }
 Jako pokolenie pierwsze.\\
 \texttt{
-\\\hspace{-13mm}5 5\\
+\\\hspace{-11.5mm}5 5\\
 0 0 0 0 0\\
 1 1 0 0 0\\
 0 0 0 0 0\\
@@ -225,7 +231,7 @@ Jako pokolenie pierwsze.\\
 }
 Jako pokolenie drugie.\\
 \texttt{
-\\\hspace{-13mm}5 5\\
+\\\hspace{-11.5mm}5 5\\
 0 0 0 0 0\\
 0 0 0 0 0\\
 1 1 0 0 0\\
@@ -248,7 +254,7 @@ Argumenty:
 \end{itemize}
 Nie podanie formatu pliku wynikowego spowoduje wygenerowanie pliku .gif.
 \vspace{5mm}
-Wyniki pracy programu dostępne \href{https://github.com/SiwyKrzysiek/gra-w-zycie/tree/report/code/raport}{\textcolor{LinkColor}{pod linkiem}}.
+Wyniki pracy programu dostępne \href{https://github.com/SiwyKrzysiek/gra-w-zycie/blob/report/code/raport/Tue%20Apr%20%209%2017:02:10%202019.gif}{\textcolor{LinkColor}{pod linkiem}}.
 
 \subsection{Wyświetlenie kolejnych pokoleń w konsoli z planszą pobieraną z pliku}
 \noindent{}Wywołanie programu: \\
@@ -299,6 +305,8 @@ Elapsed time =    0.001 seconds
 \subsection{Wnioski}
 Z raportu testów jednostkowych wynika, że wszystkie wszystkie sprawdzane funkcjonalności dają prawidłowe wyniki. Wszystkie testy są oznaczone jako \texttt{...passed} oraz liczba zapewnień, których wyniki są poprawne jest równa liczbie wszystkich zapewnień.
 
+\subsection{Testy generacji wyników}
+Moduły zapisujące i przedstawiające wyniki symulacji zostały przetestowana poprzez ręczne testy integracyjne.
 
 \section{Analiza pamięci}
 \noindent Raport programu \texttt{valgrind } zwraca następujące wyniki:\\\\
