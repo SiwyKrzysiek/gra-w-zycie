@@ -66,12 +66,9 @@ void runProgram(int argc, char **args)
    {
       initialBoard = load(config->file);
    }
-
    Board **history1 = simulate(initialBoard, config);
    Board **history = stepSimulate(history1, config);
-   //FIXME: Move size calculation to function
    int historySize = calcHistorySize(config);
-
    switch (config->type)
    {
    case GIF:
