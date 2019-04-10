@@ -166,7 +166,8 @@ void runTests()
       exit(CU_get_error());
    }
 
-   if (CU_add_test(simulatorSuite, "Simulate one next generation on small board", testSimulateOneNextGenOnSmallBoard) == NULL)
+   if (CU_add_test(simulatorSuite, "Simulate one next generation on small board", testSimulateOneNextGenOnSmallBoard) == NULL ||
+      CU_add_test(simulatorSuite, "Simulate ten generations on not so small board, but not a big one too", testSimulateTenNextGenOnNotSoSmallBoard) == NULL)
    {
       CU_cleanup_registry();
       exit(CU_get_error());

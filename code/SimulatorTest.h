@@ -9,3 +9,4 @@
 
 //Test simulator on case from documentation
 void testSimulateOneNextGenOnSmallBoard();
+void testSimulateTenNextGenOnNotSoSmallBoard();
