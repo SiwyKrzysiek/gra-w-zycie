@@ -1,6 +1,6 @@
 CC=clang
 DebugFlags=-std=c11 -Wall -g3
-ReleseFlags=-Ofast -std=c11 -g0
+ReleseFlags=-Ofast -std=c11 -g0 -Wno-everything
 Libraries=libpng
 
 ## Here add names of modules (.h, .c) files that should be compiled (with .o extension)
