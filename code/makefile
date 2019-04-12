@@ -9,7 +9,7 @@ Objects=BoardHandler.o Loader.o ArgumentsParser.o GraphicsGenerator.o gifenc.o R
 ## Here add names of test modules
 TestObjects=boardTest.o LoaderTest.o RulesTest.o SimulatorTest.o
 
-NAME=main.exe
+NAME=game-of-life
 
 development: CompileFlags=$(DebugFlags) -D DEBUG
 development: $(Objects)
@@ -26,7 +26,7 @@ tests: $(Objects) $(TestObjects)
 	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) $(TestObjects) main.c
 
 clean:
-	rm -rf main.exe.dSYM
+	rm -rf game-of-life.dSYM
 	rm -f *.o
 
 GraphicsGenerator.o: GraphicsGenerator.c GraphicsGenerator.h
