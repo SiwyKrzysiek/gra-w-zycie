@@ -11,15 +11,15 @@ TestObjects=boardTest.o LoaderTest.o RulesTest.o SimulatorTest.o
 
 NAME=game-of-life
 
-development: CompileFlags=$(DebugFlags) -D DEBUG
-development: $(Objects)
-	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
-
 release: CompileFlags=$(ReleseFlags)
 release: $(Objects)
 	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
 
 rebuild: clean release
+
+development: CompileFlags=$(DebugFlags) -D DEBUG
+development: $(Objects)
+	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
 
 tests: CompileFlags=$(DebugFlags) -D TESTS
 tests: TestLibraries=$(Libraries) cunit
