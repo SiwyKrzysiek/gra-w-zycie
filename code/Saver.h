@@ -6,7 +6,7 @@
 #include <time.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-
+#define _XOPEN_SOURCE 500
 #include "GraphicsGenerator.h"
 #include "ArgumentsParser.h"
 #include "BoardHandler.h"

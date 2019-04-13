@@ -277,27 +277,29 @@ Wyniki testów jednostkowych przedstawia poniższy raport.
 
 \begin{verbatim}
 
-  CUnit - A unit testing framework for C - Version 2.1-3
-  http://cunit.sourceforge.net/
+
+     CUnit - A unit testing framework for C - Version 2.1-3
+     http://cunit.sourceforge.net/
 
 
 Suite: Board tests
-Test: To string test ...passed
+  Test: To string test ...passed
 Suite: Loader tests
-Test: Parse small file test ...passed
+  Test: Parse small file test ...passed
 Suite: Rules tests
-Test: Dead cell stays dead ...passed
-Test: Dead cell comes to live ...passed
-Test: Alive cell dies from overpopulation ...passed
-Test: Alive cell dies from loneliness ...passed
-Test: Alive cell stays alive ...passed
+  Test: Dead cell stays dead ...passed
+  Test: Dead cell comes to live ...passed
+  Test: Alive cell dies from overpopulation ...passed
+  Test: Alive cell dies from loneliness ...passed
+  Test: Alive cell stays alive ...passed
 Suite: Simulator tests
-Test: Simulate one next generation on small board ...passed
+  Test: Simulate one next generation on small board ...passed
+  Test: Simulate ten generations on not so small board, but not a big one too ...passed
 
 Run Summary:    Type  Total    Ran Passed Failed Inactive
-           suites      4      4    n/a      0        0
-            tests      8      8      8      0        0
-          asserts     27     27     27      0      n/a
+              suites      4      4    n/a      0        0
+               tests      9      9      9      0        0
+             asserts     41     41     41      0      n/a
 
 Elapsed time =    0.001 seconds
 \end{verbatim}

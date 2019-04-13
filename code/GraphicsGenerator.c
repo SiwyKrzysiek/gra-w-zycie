@@ -1,18 +1,30 @@
 #include "GraphicsGenerator.h"
 
+static double myCeil(double number)
+{
+    double increased = number + 0.5;
+
+    int a = (int)number;
+    int b = (int)increased;
+
+    if (b - a == 0) //Number should be rounded down
+        return number;
+    else
+        return increased;
+}
+
 void savePng(Board *board, char *outputFile)
 {
     //Set up setting
     png_byte color_type = PNG_COLOR_TYPE_GRAY;
     png_byte bit_depth = 8;
 
-
     int width;
     int height;
     getUpscaledImageSize(board->sizeX, board->sizeY, &width, &height);
 
-    Pixel* orginalImage = translateBoardToPixels(board, 255, 0);
-    Pixel* scaledImage = upscaleImage(orginalImage, board->sizeX, board->sizeY);
+    Pixel *orginalImage = translateBoardToPixels(board, 255, 0);
+    Pixel *scaledImage = upscaleImage(orginalImage, board->sizeX, board->sizeY);
     free(orginalImage);
 
     png_bytep *row_pointers = (png_bytep *)malloc(sizeof(png_bytep) * height);
@@ -178,7 +190,7 @@ void getUpscaledImageSize(int orginalX, int orginalY, int *newX, int *newY)
 {
     int max = (orginalX > orginalY) ? orginalX : orginalY;
 
-    int multiplier = ceil((double)MIN_IMAGE_SIZE / (double)max);
+    int multiplier = myCeil((double)MIN_IMAGE_SIZE / (double)max);
     if (max >= MIN_IMAGE_SIZE)
         multiplier = 1;
 

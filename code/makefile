@@ -1,7 +1,7 @@
 CC=clang
 DebugFlags=-std=c11 -Wall -g3
-ReleseFlags=-Ofast -std=c11 -g0
-Libraries=cunit libpng
+ReleseFlags=-Ofast -std=c11 -g0 -Wno-everything
+Libraries=libpng
 
 ## Here add names of modules (.h, .c) files that should be compiled (with .o extension)
 # It is assumed that each one has .h and .c file
@@ -11,19 +11,20 @@ TestObjects=boardTest.o LoaderTest.o RulesTest.o SimulatorTest.o
 
 NAME=game-of-life
 
-development: CompileFlags=$(DebugFlags) -D DEBUG
-development: $(Objects)
-	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
-
 release: CompileFlags=$(ReleseFlags)
 release: $(Objects)
 	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
 
 rebuild: clean release
 
+development: CompileFlags=$(DebugFlags) -D DEBUG
+development: $(Objects)
+	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) main.c
+
 tests: CompileFlags=$(DebugFlags) -D TESTS
+tests: TestLibraries=$(Libraries) cunit
 tests: $(Objects) $(TestObjects)
-	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(Libraries)` -o $(NAME) $(Objects) $(TestObjects) main.c
+	$(CC) $(CompileFlags) `pkg-config --cflags --libs $(TestLibraries)` -o $(NAME) $(Objects) $(TestObjects) main.c
 
 clean:
 	rm -rf game-of-life.dSYM
